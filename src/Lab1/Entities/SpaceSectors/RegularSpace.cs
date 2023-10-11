@@ -18,19 +18,18 @@ public class RegularSpace : ISpaceSector
 
     public SectorTripResult TraverseSector(ISpaceShip spaceShip)
     {
-        DamageEventResult collisionResultFirst = spaceShip.DamageShip(SpaceObjects.Asteroid, NumberOfAsteroids);
-        if (collisionResultFirst.Result == CollisionResult.Destroyed)
+        bool collisionResultFirst = spaceShip.DamageShip(SpaceObjects.Asteroid, NumberOfAsteroids);
+        if (!collisionResultFirst)
         {
             return new SectorTripResult(false, 0, 0);
         }
 
-        DamageEventResult collisionResultSecond = spaceShip.DamageShip(SpaceObjects.Meteorite, NumberOfMeteorites);
-        if (collisionResultSecond.Result == CollisionResult.Destroyed)
+        bool collisionResultSecond = spaceShip.DamageShip(SpaceObjects.Meteorite, NumberOfMeteorites);
+        if (!collisionResultSecond)
         {
             return new SectorTripResult(false, 0, 0);
         }
 
-        JourneyEngineInfo tripResult = spaceShip.TraverseRegularEnvironment(Distance);
-        return new SectorTripResult(true, tripResult);
+        return new SectorTripResult(true, spaceShip.TraverseRegularEnvironment(Distance));
     }
 }

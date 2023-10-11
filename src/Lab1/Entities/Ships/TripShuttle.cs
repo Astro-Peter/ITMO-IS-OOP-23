@@ -19,9 +19,9 @@ public class TripShuttle : ISpaceShip
         return new JumpResult(false, 0);
     }
 
-    public DamageEventResult DamageShip(int damage, int numberOfHits)
+    public bool DamageShip(int damage, int numberOfHits)
     {
-        return ShipHull.GetDamaged(damage);
+        return ShipHull.GetDamaged(damage).Result != CollisionResult.Destroyed;
     }
 
     public bool AntiMatterFlash(int power)

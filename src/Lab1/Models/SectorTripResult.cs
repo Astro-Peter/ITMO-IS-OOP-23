@@ -16,6 +16,13 @@ public class SectorTripResult
         TimeSpent = journeyEngineInfo.TimeSpent;
     }
 
+    public SectorTripResult(JumpResult jumpResult)
+    {
+        TripSuccessful = jumpResult.Completed;
+        FuelSpent = jumpResult.FuelSpent;
+        TimeSpent = jumpResult.FuelSpent / 10;
+    }
+
     public bool TripSuccessful { get; }
     public double FuelSpent { get; }
     public double TimeSpent { get; }

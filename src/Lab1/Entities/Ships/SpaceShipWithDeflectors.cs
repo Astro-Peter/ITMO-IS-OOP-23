@@ -7,7 +7,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Ships;
 
 public class SpaceShipWithDeflectors : ISpaceShip
 {
-    public SpaceShipWithDeflectors(
+    protected SpaceShipWithDeflectors(
         int hullType,
         int deflectorType,
         IImpulseEngine engine,
@@ -42,7 +42,7 @@ public class SpaceShipWithDeflectors : ISpaceShip
         return JumpDrive is null ? new JumpResult(false, 0) : JumpDrive.Traverse(distance);
     }
 
-    public DamageEventResult DamageShip(int damage, int numberOfHits)
+    public bool DamageShip(int damage, int numberOfHits)
     {
         int cnt = 0;
         var damageEventResult = new DamageEventResult(CollisionResult.Operational, 0);
@@ -61,7 +61,7 @@ public class SpaceShipWithDeflectors : ISpaceShip
             damageEventResult = Hull.GetDamaged(damage);
         }
 
-        return damageEventResult;
+        return damageEventResult.Result != CollisionResult.Destroyed;
     }
 
     public bool AntiMatterFlash(int power)
