@@ -33,4 +33,9 @@ public class TripShuttle : ISpaceShip
     {
         return false;
     }
+
+    public ISpaceShip Copy()
+    {
+        return new TripShuttle();
+    }
 }

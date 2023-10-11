@@ -9,4 +9,5 @@ public interface ISpaceShip
     public bool DamageShip(int damage, int numberOfHits);
     public bool AntiMatterFlash(int power);
     public bool WhaleCollision(int numberOfHits);
+    public ISpaceShip Copy();
 }

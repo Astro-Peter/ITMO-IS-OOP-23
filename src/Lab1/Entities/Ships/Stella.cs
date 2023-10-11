@@ -6,13 +6,22 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Ships;
 
 public class Stella : SpaceShipWithDeflectors
 {
-    public Stella()
+    public Stella(bool hasPhotonDeflectors)
         : base(
             HullType.TypeOne,
             DeflectorTypes.TypeOne,
+            hasPhotonDeflectors,
             new ImpulseEngineE(),
             WeightCategories.WeightClassLight,
             new OmegaJumpDrive())
     {
+        HasPhotonDeflectors = hasPhotonDeflectors;
+    }
+
+    private bool HasPhotonDeflectors { get; }
+
+    public override ISpaceShip Copy()
+    {
+        return new Stella(HasPhotonDeflectors);
     }
 }

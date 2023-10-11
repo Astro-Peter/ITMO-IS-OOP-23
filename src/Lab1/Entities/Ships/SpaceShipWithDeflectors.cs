@@ -1,4 +1,5 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities;
+﻿using System;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.ImpulseEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.JumpEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Models;
@@ -10,6 +11,7 @@ public class SpaceShipWithDeflectors : ISpaceShip
     protected SpaceShipWithDeflectors(
         int hullType,
         int deflectorType,
+        bool hasPhotonDeflectors,
         IImpulseEngine engine,
         int weightClass,
         IJumpDrive? jumpDrive = null,
@@ -18,7 +20,7 @@ public class SpaceShipWithDeflectors : ISpaceShip
         WeightClass = weightClass;
         Engine = engine;
         Hull = new SpaceShipHull(hullType);
-        Deflectors = new Deflectors(deflectorType, antiNeutrino);
+        Deflectors = new Deflectors(deflectorType, hasPhotonDeflectors);
         DeflectorsOnline = true;
         AntiNeutrino = antiNeutrino;
         JumpDrive = jumpDrive;
@@ -72,5 +74,10 @@ public class SpaceShipWithDeflectors : ISpaceShip
     public bool WhaleCollision(int numberOfHits)
     {
         return AntiNeutrino || DamageShip(SpaceObjects.CosmoWhale, numberOfHits);
+    }
+
+    public virtual ISpaceShip Copy()
+    {
+        throw new NotImplementedException();
     }
 }
