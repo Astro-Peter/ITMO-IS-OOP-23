@@ -1,6 +1,12 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.SpaceSectors;
+﻿using Itmo.ObjectOrientedProgramming.Lab1.Entities.Ships;
+using Itmo.ObjectOrientedProgramming.Lab1.Models;
 
-public class HighDensityNebula
+namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.SpaceSectors;
+
+public class HighDensityNebula : ISpaceSector
 {
-    
+    public SectorTripResult TraverseSector(ISpaceShip spaceShip)
+    {
+        throw new System.NotImplementedException();
+    }
 }

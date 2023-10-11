@@ -1,3 +1,10 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab1.Models;
+﻿using System;
 
-public enum CollisionResult {  }
+namespace Itmo.ObjectOrientedProgramming.Lab1.Models;
+
+public enum CollisionResult
+{
+    Operational,
+    Disabled,
+    Destroyed,
+}

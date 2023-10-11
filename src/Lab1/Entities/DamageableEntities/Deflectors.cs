@@ -1,25 +1,26 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab1.Models;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Entities;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities;
 
 public class Deflectors : DamageableComponent
 {
-    public Deflectors(DeflectorTypes type, bool hasPhotonDeflectors)
-        : base((int)type)
+    public Deflectors(int health, bool hasPhotonDeflectors)
+        : base(health)
     {
         PhotonDeflectors = hasPhotonDeflectors ? 3 : 0;
     }
 
     private int PhotonDeflectors { get; set; }
 
-    public CollisionResult AntiMatterFlashed()
+    public bool AntiMatterFlashCrewAlive(int damage)
     {
-        if (PhotonDeflectors > 0)
+        if (PhotonDeflectors >= damage)
         {
-            PhotonDeflectors--;
-            return CollisionResult.Operational;
+            PhotonDeflectors -= damage;
+            return true;
         }
 
-        return CollisionResult.Destroyed;
+        PhotonDeflectors = 0;
+        return false;
     }
 }

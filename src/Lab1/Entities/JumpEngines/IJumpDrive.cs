@@ -2,7 +2,7 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.JumpEngines;
 
-public interface IJumpEngine
+public interface IJumpDrive
 {
-    public JourneyEngineInfo Traverse(double unitsOfSpace);
+    public JumpResult Traverse(double unitsOfSpace);
 }

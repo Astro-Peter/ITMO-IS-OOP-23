@@ -1,8 +1,8 @@
 ﻿namespace Itmo.ObjectOrientedProgramming.Lab1.Models;
 
-public class JourneyInfo
+public class JourneyEngineInfo
 {
-    public JourneyInfo(double timeSpent, double fuelSpent)
+    public JourneyEngineInfo(double timeSpent, double fuelSpent)
     {
         TimeSpent = timeSpent;
         FuelSpent = fuelSpent;

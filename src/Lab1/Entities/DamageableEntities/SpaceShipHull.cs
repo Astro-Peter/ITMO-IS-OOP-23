@@ -1,9 +1,11 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab1.Models;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Entities;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities;
 
 public class SpaceShipHull : DamageableComponent
 {
-    public SpaceShipHull(HullType type)
-        : base((int)type) { }
+    public SpaceShipHull(int health)
+        : base(health)
+    {
+    }
 }
