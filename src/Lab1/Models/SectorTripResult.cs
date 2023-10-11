@@ -2,14 +2,14 @@
 
 public class SectorTripResult
 {
-    public SectorTripResult(bool tripSuccessful, double fuelSpent, double timeSpent)
+    public SectorTripResult(RouteCompletionResult tripSuccessful, double fuelSpent, double timeSpent)
     {
         TripSuccessful = tripSuccessful;
         FuelSpent = fuelSpent;
         TimeSpent = timeSpent;
     }
 
-    public SectorTripResult(bool tripSuccessful, JourneyEngineInfo journeyEngineInfo)
+    public SectorTripResult(RouteCompletionResult tripSuccessful, JourneyEngineInfo journeyEngineInfo)
     {
         TripSuccessful = tripSuccessful;
         FuelSpent = journeyEngineInfo.FuelSpent;
@@ -23,7 +23,7 @@ public class SectorTripResult
         TimeSpent = jumpResult.FuelSpent / 10;
     }
 
-    public bool TripSuccessful { get; }
+    public RouteCompletionResult TripSuccessful { get; }
     public double FuelSpent { get; }
     public double TimeSpent { get; }
 }

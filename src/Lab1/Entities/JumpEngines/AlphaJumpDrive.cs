@@ -6,6 +6,6 @@ public class AlphaJumpDrive : IJumpDrive
 {
     public JumpResult Traverse(double unitsOfSpace)
     {
-        return unitsOfSpace > JumpDrivesLimits.AlphaLimit ? new JumpResult(false, 0) : new JumpResult(true, unitsOfSpace);
+        return unitsOfSpace > JumpDrivesLimits.AlphaLimit ? new JumpResult(RouteCompletionResult.CrewLost, 0) : new JumpResult(RouteCompletionResult.Success, unitsOfSpace);
     }
 }

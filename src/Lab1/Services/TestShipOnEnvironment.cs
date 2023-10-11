@@ -30,13 +30,22 @@ public class TestShipOnEnvironment
         foreach (ISpaceShip spaceShip in SpaceShips)
         {
             ISpaceShip copySpaceShip = spaceShip.Copy();
-            SectorTripResult 
+            var spaceShipTripSummary = new SpaceShipTripSummary();
             foreach (ISpaceSector spaceSector in SpaceSectors)
             {
                 SectorTripResult tripResult = spaceSector.TraverseSector(copySpaceShip);
                 if (!tripResult.TripSuccessful)
                 {
                     break;
+                }
+
+                if (spaceSector is HighDensityNebula)
+                {
+                    spaceShipTripSummary.AddJumpFuelSpent(tripResult);
+                }
+                else
+                {
+                    spaceShipTripSummary.AddRegularFuelSpent(tripResult);
                 }
             }
         }

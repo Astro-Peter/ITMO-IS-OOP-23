@@ -17,6 +17,6 @@ public class HighDensityNebula : ISpaceSector
     public SectorTripResult TraverseSector(ISpaceShip spaceShip)
     {
         bool crewAlive = spaceShip.AntiMatterFlash(AntimatterFlashesNumber);
-        return !crewAlive ? new SectorTripResult(false, 0, 0) : new SectorTripResult(spaceShip.UseJumpDrive(Distance));
+        return !crewAlive ? new SectorTripResult(RouteCompletionResult.CrewLost, 0, 0) : new SectorTripResult(spaceShip.UseJumpDrive(Distance));
     }
 }

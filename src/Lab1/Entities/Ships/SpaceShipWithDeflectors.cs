@@ -41,7 +41,7 @@ public class SpaceShipWithDeflectors : ISpaceShip
 
     public JumpResult UseJumpDrive(double distance)
     {
-        return JumpDrive is null ? new JumpResult(false, 0) : JumpDrive.Traverse(distance);
+        return JumpDrive is null ? new JumpResult(RouteCompletionResult.CrewLost, 0) : JumpDrive.Traverse(distance);
     }
 
     public bool DamageShip(int damage, int numberOfHits)

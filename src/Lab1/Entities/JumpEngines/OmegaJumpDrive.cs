@@ -7,6 +7,6 @@ public class OmegaJumpDrive : IJumpDrive
 {
     public JumpResult Traverse(double unitsOfSpace)
     {
-        return unitsOfSpace > JumpDrivesLimits.OmegaLimit ? new JumpResult(false, 0) : new JumpResult(true, unitsOfSpace * Math.Log(unitsOfSpace));
+        return unitsOfSpace > JumpDrivesLimits.OmegaLimit ? new JumpResult(RouteCompletionResult.CrewLost, 0) : new JumpResult(RouteCompletionResult.Success, unitsOfSpace * Math.Log(unitsOfSpace));
     }
 }

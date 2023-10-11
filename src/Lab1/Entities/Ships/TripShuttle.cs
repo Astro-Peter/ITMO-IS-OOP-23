@@ -16,7 +16,7 @@ public class TripShuttle : ISpaceShip
 
     public JumpResult UseJumpDrive(double distance)
     {
-        return new JumpResult(false, 0);
+        return new JumpResult(RouteCompletionResult.ShipLost, 0);
     }
 
     public bool DamageShip(int damage, int numberOfHits)

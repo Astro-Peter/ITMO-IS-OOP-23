@@ -21,15 +21,15 @@ public class RegularSpace : ISpaceSector
         bool collisionResultFirst = spaceShip.DamageShip(SpaceObjects.Asteroid, NumberOfAsteroids);
         if (!collisionResultFirst)
         {
-            return new SectorTripResult(false, 0, 0);
+            return new SectorTripResult(RouteCompletionResult.ShipDestroyed, 0, 0);
         }
 
         bool collisionResultSecond = spaceShip.DamageShip(SpaceObjects.Meteorite, NumberOfMeteorites);
         if (!collisionResultSecond)
         {
-            return new SectorTripResult(false, 0, 0);
+            return new SectorTripResult(RouteCompletionResult.ShipDestroyed, 0, 0);
         }
 
-        return new SectorTripResult(true, spaceShip.TraverseRegularEnvironment(Distance));
+        return new SectorTripResult(RouteCompletionResult.Success, spaceShip.TraverseRegularEnvironment(Distance));
     }
 }
