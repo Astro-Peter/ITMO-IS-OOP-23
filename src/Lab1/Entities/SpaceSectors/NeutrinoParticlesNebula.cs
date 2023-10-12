@@ -19,7 +19,7 @@ public class NeutrinoParticlesNebula : ISpaceSector
         bool whaleCollisionResult = spaceShip.WhaleCollision(NumberOfWhales);
         if (!whaleCollisionResult)
         {
-            return new SpaceShipTripSummary(RouteCompletionResult.ShipDestroyed);
+            return new SpaceShipTripSummary();
         }
 
         return spaceShip.TraverseRegularEnvironment(Distance, true);

@@ -26,12 +26,12 @@ public class TripShuttle : ISpaceShip
 
     public bool AntiMatterFlash(int power)
     {
-        return false;
+        return power == 0;
     }
 
     public bool WhaleCollision(int numberOfHits)
     {
-        return false;
+        return numberOfHits == 0;
     }
 
     public ISpaceShip Copy()

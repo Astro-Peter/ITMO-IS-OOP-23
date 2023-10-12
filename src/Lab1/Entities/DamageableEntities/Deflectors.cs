@@ -1,6 +1,4 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Models;
-
-namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities;
+﻿namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities;
 
 public class Deflectors : DamageableComponent
 {
