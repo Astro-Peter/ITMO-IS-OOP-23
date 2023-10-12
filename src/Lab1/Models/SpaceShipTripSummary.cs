@@ -5,7 +5,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Models;
 public class SpaceShipTripSummary
 {
     public SpaceShipTripSummary(
-        RouteCompletionResult result,
+        RouteCompletionResult result = RouteCompletionResult.ShipDestroyed,
         double regularFuelSpent = 0,
         double jumpFuelSpent = 0,
         double timeSpent = 0)
@@ -26,5 +26,16 @@ public class SpaceShipTripSummary
         RegularFuelSpent += summary.RegularFuelSpent;
         JumpFuelSpent += summary.JumpFuelSpent;
         TimeSpent += summary.TimeSpent;
+    }
+
+    public bool ChooseBest(SpaceShipTripSummary summary)
+    {
+        if (summary.Result != RouteCompletionResult.Success ||
+            (Result == RouteCompletionResult.Success && summary.RegularFuelSpent >= RegularFuelSpent)) return false;
+        Result = summary.Result;
+        JumpFuelSpent = summary.JumpFuelSpent;
+        RegularFuelSpent = summary.RegularFuelSpent;
+        TimeSpent = summary.TimeSpent;
+        return true;
     }
 }
