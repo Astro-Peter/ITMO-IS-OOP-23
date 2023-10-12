@@ -34,14 +34,14 @@ public class SpaceShipWithDeflectors : ISpaceShip
     private bool AntiNeutrino { get; }
     private IJumpDrive? JumpDrive { get; }
 
-    public JourneyEngineInfo TraverseRegularEnvironment(double distance, bool hindered = false)
+    public SpaceShipTripSummary TraverseRegularEnvironment(double distance, bool hindered = false)
     {
         return Engine.TraverseChannel(distance, WeightClass, hindered);
     }
 
-    public JumpResult UseJumpDrive(double distance)
+    public SpaceShipTripSummary UseJumpDrive(double distance)
     {
-        return JumpDrive is null ? new JumpResult(RouteCompletionResult.CrewLost, 0) : JumpDrive.Traverse(distance);
+        return JumpDrive is null ? new SpaceShipTripSummary(RouteCompletionResult.CrewLost) : JumpDrive.Traverse(distance);
     }
 
     public bool DamageShip(int damage, int numberOfHits)

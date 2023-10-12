@@ -14,14 +14,14 @@ public class NeutrinoParticlesNebula : ISpaceSector
     private double Distance { get; }
     private int NumberOfWhales { get; }
 
-    public SectorTripResult TraverseSector(ISpaceShip spaceShip)
+    public SpaceShipTripSummary TraverseSector(ISpaceShip spaceShip)
     {
         bool whaleCollisionResult = spaceShip.WhaleCollision(NumberOfWhales);
         if (!whaleCollisionResult)
         {
-            return new SectorTripResult(RouteCompletionResult.ShipDestroyed, 0, 0);
+            return new SpaceShipTripSummary(RouteCompletionResult.ShipDestroyed);
         }
 
-        return new SectorTripResult(RouteCompletionResult.Success, spaceShip.TraverseRegularEnvironment(Distance, true));
+        return spaceShip.TraverseRegularEnvironment(Distance, true);
     }
 }

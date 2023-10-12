@@ -5,5 +5,5 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.SpaceSectors;
 
 public interface ISpaceSector
 {
-    public SectorTripResult TraverseSector(ISpaceShip spaceShip);
+    public SpaceShipTripSummary TraverseSector(ISpaceShip spaceShip);
 }

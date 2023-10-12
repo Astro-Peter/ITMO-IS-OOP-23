@@ -16,20 +16,20 @@ public class RegularSpace : ISpaceSector
     private int NumberOfMeteorites { get; }
     private double Distance { get; }
 
-    public SectorTripResult TraverseSector(ISpaceShip spaceShip)
+    public SpaceShipTripSummary TraverseSector(ISpaceShip spaceShip)
     {
         bool collisionResultFirst = spaceShip.DamageShip(SpaceObjects.Asteroid, NumberOfAsteroids);
         if (!collisionResultFirst)
         {
-            return new SectorTripResult(RouteCompletionResult.ShipDestroyed, 0, 0);
+            return new SpaceShipTripSummary(RouteCompletionResult.ShipDestroyed);
         }
 
         bool collisionResultSecond = spaceShip.DamageShip(SpaceObjects.Meteorite, NumberOfMeteorites);
         if (!collisionResultSecond)
         {
-            return new SectorTripResult(RouteCompletionResult.ShipDestroyed, 0, 0);
+            return new SpaceShipTripSummary(RouteCompletionResult.ShipDestroyed);
         }
 
-        return new SectorTripResult(RouteCompletionResult.Success, spaceShip.TraverseRegularEnvironment(Distance));
+        return spaceShip.TraverseRegularEnvironment(Distance);
     }
 }

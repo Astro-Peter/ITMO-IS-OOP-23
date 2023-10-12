@@ -5,8 +5,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.JumpEngines;
 
 public class OmegaJumpDrive : IJumpDrive
 {
-    public JumpResult Traverse(double unitsOfSpace)
+    public SpaceShipTripSummary Traverse(double unitsOfSpace)
     {
-        return unitsOfSpace > JumpDrivesLimits.OmegaLimit ? new JumpResult(RouteCompletionResult.CrewLost, 0) : new JumpResult(RouteCompletionResult.Success, unitsOfSpace * Math.Log(unitsOfSpace));
+        return unitsOfSpace > JumpDrivesConstants.OmegaLimit ? new SpaceShipTripSummary(RouteCompletionResult.CrewLost) : new SpaceShipTripSummary(RouteCompletionResult.Success, 0, unitsOfSpace * Math.Log(unitsOfSpace), unitsOfSpace / JumpDrivesConstants.TimeAdjustment);
     }
 }

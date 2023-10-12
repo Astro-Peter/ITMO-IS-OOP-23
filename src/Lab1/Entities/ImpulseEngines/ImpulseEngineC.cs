@@ -6,7 +6,7 @@ public class ImpulseEngineC : IImpulseEngine
 {
     private static double FlightSpeed => 1;
 
-    public JourneyEngineInfo TraverseChannel(double distance, int weight, bool hindered = false)
+    public SpaceShipTripSummary TraverseChannel(double distance, int weight, bool hindered = false)
     {
         double timeSpent = distance / FlightSpeed;
         if (hindered)
@@ -14,7 +14,6 @@ public class ImpulseEngineC : IImpulseEngine
             timeSpent *= 100;
         }
 
-        double fuelSpent = timeSpent * weight;
-        return new JourneyEngineInfo(timeSpent, fuelSpent);
+        return new SpaceShipTripSummary(RouteCompletionResult.Success, timeSpent * weight, 0, timeSpent);
     }
 }
