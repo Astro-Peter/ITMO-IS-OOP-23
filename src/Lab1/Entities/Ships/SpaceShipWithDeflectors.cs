@@ -53,7 +53,6 @@ public class SpaceShipWithDeflectors : ISpaceShip
     {
         DamageEventResult damageEventResult = Deflectors.GetDamaged(spaceObject, numberOfHits);
         Hull.AbsorbDamageOverflow(damageEventResult.DamagePointsLeft);
-        damageEventResult = Hull.GetDamaged(spaceObject, numberOfHits);
         return damageEventResult.Operational;
     }
 
