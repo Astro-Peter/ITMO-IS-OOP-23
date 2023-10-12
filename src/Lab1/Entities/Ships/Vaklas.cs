@@ -1,4 +1,5 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Entities.ImpulseEngines;
+﻿using Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.ImpulseEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.JumpEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Models;
 
@@ -8,9 +9,9 @@ public class Vaklas : SpaceShipWithDeflectors
 {
     public Vaklas(bool hasPhotonDeflectors)
         : base(
-            HullType.TypeTwo,
-            DeflectorTypes.TypeThree,
-            hasPhotonDeflectors,
+            "Vaklas",
+            new ShipHullTypeTwo(),
+            new DeflectorsTypeOne(hasPhotonDeflectors),
             new ImpulseEngineE(),
             WeightCategories.WeightClassMedium,
             new GammaJumpDrive())

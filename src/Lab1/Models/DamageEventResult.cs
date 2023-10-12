@@ -2,12 +2,12 @@
 
 public class DamageEventResult
 {
-    public DamageEventResult(CollisionResult result, int damagePointsLeft)
+    public DamageEventResult(bool operational = true, int damagePointsLeft = 0)
     {
-        Result = result;
+        Operational = operational;
         DamagePointsLeft = damagePointsLeft;
     }
 
-    public CollisionResult Result { get; }
+    public bool Operational { get; }
     public int DamagePointsLeft { get; }
 }

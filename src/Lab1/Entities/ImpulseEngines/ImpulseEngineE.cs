@@ -11,6 +11,6 @@ public class ImpulseEngineE : IImpulseEngine
     public SpaceShipTripSummary TraverseChannel(double distance, int weight, bool hindered = false)
     {
         double timeSpent = Math.Log(Math.Log(FlightSpeed) * distance, FlightSpeed);
-        return new SpaceShipTripSummary(RouteCompletionResult.Success, timeSpent * weight * FuelConsumptionRate, 0, timeSpent);
+        return new SpaceShipTripSummary(RouteCompletionResult.Success, distance * weight * FuelConsumptionRate, 0, timeSpent);
     }
 }

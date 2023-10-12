@@ -1,4 +1,5 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Entities.ImpulseEngines;
+﻿using Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.ImpulseEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.JumpEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Models;
 
@@ -8,9 +9,9 @@ public class Stella : SpaceShipWithDeflectors
 {
     public Stella(bool hasPhotonDeflectors)
         : base(
-            HullType.TypeOne,
-            DeflectorTypes.TypeOne,
-            hasPhotonDeflectors,
+            "Stella",
+            new ShipHullTypeOne(),
+            new DeflectorsTypeOne(hasPhotonDeflectors),
             new ImpulseEngineE(),
             WeightCategories.WeightClassLight,
             new OmegaJumpDrive())

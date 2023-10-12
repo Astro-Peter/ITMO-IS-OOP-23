@@ -1,12 +1,13 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.ImpulseEngines;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.SpaceObjects;
 using Itmo.ObjectOrientedProgramming.Lab1.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Ships;
 
 public class TripShuttle : ISpaceShip
 {
-    private SpaceShipHull ShipHull { get; } = new(HullType.TypeOne);
+    private IShipHull ShipHull { get; } = new ShipHullTypeOne();
     private ImpulseEngineC Engine { get; } = new();
 
     public SpaceShipTripSummary TraverseRegularEnvironment(double distance, bool hindered = false)
@@ -19,9 +20,9 @@ public class TripShuttle : ISpaceShip
         return new SpaceShipTripSummary(RouteCompletionResult.ShipLost);
     }
 
-    public bool DamageShip(int damage, int numberOfHits)
+    public bool DamageShip(ISpaceObject spaceObject, int numberOfHits)
     {
-        return ShipHull.GetDamaged(damage).Result != CollisionResult.Destroyed;
+        return ShipHull.GetDamaged(spaceObject, numberOfHits).Operational;
     }
 
     public bool AntiMatterFlash(int power)
@@ -31,11 +32,16 @@ public class TripShuttle : ISpaceShip
 
     public bool WhaleCollision(int numberOfHits)
     {
-        return numberOfHits == 0;
+        return ShipHull.GetDamaged(new SpaceWhale(), numberOfHits).Operational;
     }
 
     public ISpaceShip Copy()
     {
         return new TripShuttle();
+    }
+
+    public string GetName()
+    {
+        return "TripShuttle";
     }
 }
