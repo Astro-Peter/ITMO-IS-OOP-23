@@ -11,9 +11,9 @@ public class ImpulseEngineC : IImpulseEngine
         double timeSpent = distance / FlightSpeed;
         if (hindered)
         {
-            timeSpent *= 100;
+            timeSpent *= ImpulseEngineConstants.HinderedEffect;
         }
 
-        return new SpaceShipTripSummary(RouteCompletionResult.Success, timeSpent * weight, 0, timeSpent);
+        return new SpaceShipTripSummary(RouteCompletionResult.Success, (timeSpent * weight) + ImpulseEngineConstants.FuelStartupCost, 0, timeSpent);
     }
 }
