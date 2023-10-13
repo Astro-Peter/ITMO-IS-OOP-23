@@ -29,7 +29,7 @@ public class SpaceShipTripSummary
     public bool ChooseBest(SpaceShipTripSummary summary)
     {
         if (summary.Result != RouteCompletionResult.Success ||
-            (Result == RouteCompletionResult.Success && summary.RegularFuelSpent >= RegularFuelSpent)) return false;
+            (Result == RouteCompletionResult.Success && FuelMarket.GetCost(summary) >= FuelMarket.GetCost(this))) return false;
         Result = summary.Result;
         JumpFuelSpent = summary.JumpFuelSpent;
         RegularFuelSpent = summary.RegularFuelSpent;
