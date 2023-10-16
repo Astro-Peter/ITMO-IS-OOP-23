@@ -3,76 +3,49 @@ using Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.ImpulseEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.JumpEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.SpaceObjects;
-using Itmo.ObjectOrientedProgramming.Lab1.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Ships;
 
 public class SpaceShipWithDeflectors : ISpaceShip
 {
     protected SpaceShipWithDeflectors(
-        string name,
-        IShipHull hull,
-        IShipDeflectors deflectorType,
+        IDamageable hull,
+        IShipDeflectors? deflectorType,
         IImpulseEngine engine,
         int weightClass,
-        IJumpDrive? jumpDrive = null,
-        bool antiNeutrino = false)
+        IJumpDrive? jumpDrive = null)
     {
-        Name = name;
         WeightClass = weightClass;
         Engine = engine;
         Hull = hull;
         Deflectors = deflectorType;
-        DeflectorsOnline = true;
-        AntiNeutrino = antiNeutrino;
         JumpDrive = jumpDrive;
     }
 
     private int WeightClass { get; }
-    private IShipHull Hull { get; }
-    private IShipDeflectors Deflectors { get; }
+    private IDamageable Hull { get; }
+    private IShipDeflectors? Deflectors { get; }
     private IImpulseEngine Engine { get; }
-    private bool DeflectorsOnline { get; set; }
-    private bool AntiNeutrino { get; }
     private IJumpDrive? JumpDrive { get; }
-    private string Name { get; }
 
-    public SpaceShipTripSummary TraverseRegularEnvironment(double distance, bool hindered = false)
+    public IImpulseEngine TraverseRegularEnvironment(double distance)
     {
-        return Engine.TraverseChannel(distance, WeightClass, hindered);
+        return Engine;
     }
 
-    public SpaceShipTripSummary UseJumpDrive(double distance)
+    public IJumpDrive? UseJumpDrive(double distance)
     {
-        return JumpDrive is null
-            ? new SpaceShipTripSummary(RouteCompletionResult.CrewLost)
-            : JumpDrive.Traverse(distance);
+        return JumpDrive;
     }
 
-    public bool DamageShip(ISpaceObject spaceObject, int numberOfHits)
+    public void DamageShip(ISpaceObject spaceObject)
     {
-        DamageEventResult damageEventResult = Deflectors.GetDamaged(spaceObject, numberOfHits);
-        damageEventResult = Hull.AbsorbDamageOverflow(damageEventResult.DamagePointsLeft);
-        return damageEventResult.Operational;
-    }
-
-    public bool AntiMatterFlash(int power)
-    {
-        return Deflectors.AntiMatterFlashCrewAlive(power);
-    }
-
-    public bool WhaleCollision(int numberOfHits)
-    {
-        return AntiNeutrino || DamageShip(new SpaceWhale(), numberOfHits);
+        Deflectors?.GetDamaged(spaceObject);
+        Hull.GetDamaged(spaceObject);
     }
 
     public virtual ISpaceShip Copy()
     {
         throw new NotImplementedException();
-    }
-
-    public string GetName()
-    {
-        return Name;
     }
 }

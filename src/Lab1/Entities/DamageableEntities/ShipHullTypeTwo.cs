@@ -1,32 +1,13 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Entities.SpaceObjects;
-using Itmo.ObjectOrientedProgramming.Lab1.Models;
+﻿namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities;
-
-public class ShipHullTypeTwo : IShipHull
+public class ShipHullTypeTwo : Damageable
 {
+    private const int Health = 10;
+
     public ShipHullTypeTwo()
+        : base(Health, Id)
     {
-        Health = 10;
     }
 
-    private int Health { get; set; }
-
-    public DamageEventResult GetDamaged(ISpaceObject spaceObject, int collisionNumber)
-    {
-        Health -= spaceObject.ClassTwoHullDamage * collisionNumber;
-        if (Health >= 0) return new DamageEventResult();
-        int healthOverflow = -Health;
-        Health = 0;
-        return new DamageEventResult(false, healthOverflow);
-    }
-
-    public DamageEventResult AbsorbDamageOverflow(int damage)
-    {
-        Health -= damage;
-        if (Health >= 0) return new DamageEventResult();
-        int healthOverflow = -Health;
-        Health = 0;
-        return new DamageEventResult(false, healthOverflow);
-    }
+    public static int Id => 4;
 }

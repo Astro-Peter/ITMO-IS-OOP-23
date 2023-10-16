@@ -7,22 +7,20 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Ships;
 
 public class Augur : SpaceShipWithDeflectors
 {
-    public Augur(bool hasPhotonDeflectors)
+    public Augur(IPhotonDeflectors? photonDeflectors)
         : base(
-            "Augur",
             new ShipHullTypeThree(),
-            new DeflectorsTypeThree(hasPhotonDeflectors),
+            new DeflectorsTypeThree(photonDeflectors),
             new ImpulseEngineE(),
             WeightCategories.WeightClassHeavy,
             new AlphaJumpDrive())
     {
-        HasPhotonDeflectors = hasPhotonDeflectors;
+        HasPhotonDeflectors = photonDeflectors;
     }
 
-    private bool HasPhotonDeflectors { get; }
-
+    private IPhotonDeflectors? HasPhotonDeflectors { get; }
     public override ISpaceShip Copy()
     {
-        return new Augur(HasPhotonDeflectors);
+        return new Augur(HasPhotonDeflectors?.Copy());
     }
 }

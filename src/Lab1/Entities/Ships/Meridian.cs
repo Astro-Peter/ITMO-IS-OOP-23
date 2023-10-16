@@ -6,23 +6,20 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Ships;
 
 public class Meridian : SpaceShipWithDeflectors
 {
-    public Meridian(bool hasPhotonDeflectors)
+    public Meridian(IPhotonDeflectors? photonDeflectors)
         : base(
-            "Meridian",
             new ShipHullTypeTwo(),
-            new DeflectorsTypeTwo(hasPhotonDeflectors),
+            new DeflectorsTypeTwo(photonDeflectors),
             new ImpulseEngineE(),
-            WeightCategories.WeightClassMedium,
-            null,
-            true)
+            WeightCategories.WeightClassMedium)
     {
-        HasPhotonDeflectors = hasPhotonDeflectors;
+        HasPhotonDeflectors = photonDeflectors;
     }
 
-    private bool HasPhotonDeflectors { get; }
+    private IPhotonDeflectors? HasPhotonDeflectors { get; }
 
     public override ISpaceShip Copy()
     {
-        return new Meridian(HasPhotonDeflectors);
+        return new Meridian(HasPhotonDeflectors?.Copy());
     }
 }

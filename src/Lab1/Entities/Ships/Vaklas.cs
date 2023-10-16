@@ -7,22 +7,21 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Ships;
 
 public class Vaklas : SpaceShipWithDeflectors
 {
-    public Vaklas(bool hasPhotonDeflectors)
+    public Vaklas(IPhotonDeflectors? photonDeflectors)
         : base(
-            "Vaklas",
             new ShipHullTypeTwo(),
-            new DeflectorsTypeOne(hasPhotonDeflectors),
+            new DeflectorsTypeOne(photonDeflectors),
             new ImpulseEngineE(),
             WeightCategories.WeightClassMedium,
             new GammaJumpDrive())
     {
-        HasPhotonDeflectors = hasPhotonDeflectors;
+        HasPhotonDeflectors = photonDeflectors;
     }
 
-    private bool HasPhotonDeflectors { get; }
+    private IPhotonDeflectors? HasPhotonDeflectors { get; }
 
     public override ISpaceShip Copy()
     {
-        return new Vaklas(HasPhotonDeflectors);
+        return new Vaklas(HasPhotonDeflectors?.Copy());
     }
 }

@@ -4,22 +4,22 @@ using Itmo.ObjectOrientedProgramming.Lab1.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.SpaceObjects;
 
-public class Asteroid : IRegularSpaceObject
+public class AntiMatterFlash : IObjectInHighDensityNebula
 {
-    public Asteroid(Dictionary<int, DamageAdjustment>? damageMappings = null)
+    public AntiMatterFlash(Dictionary<int, DamageAdjustment>? damageMappings = null)
     {
         if (damageMappings is null)
         {
             DamageMappings = new Dictionary<int, DamageAdjustment>
             {
-                { DeflectorsTypeOne.Id, new DamageAdjustment(true, 1) },
-                { DeflectorsTypeTwo.Id, new DamageAdjustment(true, 3) },
-                { DeflectorsTypeThree.Id, new DamageAdjustment(true, 1) },
-                { ShipHullTypeOne.Id, new DamageAdjustment(true, 1) },
-                { ShipHullTypeTwo.Id, new DamageAdjustment(true, 1) },
-                { ShipHullTypeThree.Id, new DamageAdjustment(true, 1) },
-                { PhotonDeflectors.Id, new DamageAdjustment(false, 0) },
-                { AntiNeutrinoEmitter.Id, new DamageAdjustment(false, 0) },
+                { DeflectorsTypeOne.Id, new DamageAdjustment(false) },
+                { DeflectorsTypeTwo.Id, new DamageAdjustment(false) },
+                { DeflectorsTypeThree.Id, new DamageAdjustment(false) },
+                { ShipHullTypeOne.Id, new DamageAdjustment(false) },
+                { ShipHullTypeTwo.Id, new DamageAdjustment(false) },
+                { ShipHullTypeThree.Id, new DamageAdjustment(false) },
+                { PhotonDeflectors.Id, new DamageAdjustment(true, 1) },
+                { AntiNeutrinoEmitter.Id, new DamageAdjustment(false) },
             };
         }
         else
@@ -29,7 +29,8 @@ public class Asteroid : IRegularSpaceObject
     }
 
     public RouteCompletionResult CollisionResult => DamagePointsLeft <= 0 ?
-        RouteCompletionResult.Success : RouteCompletionResult.ShipDestroyed;
+        RouteCompletionResult.Success : RouteCompletionResult.CrewLost;
+
     private double DamagePointsLeft { get; set; }
     private Dictionary<int, DamageAdjustment> DamageMappings { get; }
 

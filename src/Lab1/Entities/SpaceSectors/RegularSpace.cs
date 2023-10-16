@@ -1,5 +1,6 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab1.Entities.Ships;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.SpaceObjects;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.TripInfo;
 using Itmo.ObjectOrientedProgramming.Lab1.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.SpaceSectors;
@@ -19,13 +20,13 @@ public class RegularSpace : ISpaceSector
 
     public SpaceShipTripSummary TraverseSector(ISpaceShip spaceShip)
     {
-        bool collisionResultFirst = spaceShip.DamageShip(new Asteroid(), NumberOfAsteroids);
+        bool collisionResultFirst = spaceShip.DamageShip(new Asteroid());
         if (!collisionResultFirst)
         {
             return new SpaceShipTripSummary(RouteCompletionResult.ShipDestroyed);
         }
 
-        bool collisionResultSecond = spaceShip.DamageShip(new Meteorite(), NumberOfMeteorites);
+        bool collisionResultSecond = spaceShip.DamageShip(new Meteorite());
         if (!collisionResultSecond)
         {
             return new SpaceShipTripSummary(RouteCompletionResult.ShipDestroyed);
