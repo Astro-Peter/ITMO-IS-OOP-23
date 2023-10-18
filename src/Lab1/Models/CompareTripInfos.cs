@@ -17,6 +17,7 @@ public static class CompareTripInfos
             return false;
         }
 
-        return market.GetTotalCost(a.GetFuelSpent()) < market.GetTotalCost(b.GetFuelSpent());
+        return market.GetTotalCost(a.GetFuelSpent())
+               < market.GetTotalCost(b.GetFuelSpent());
     }
 }

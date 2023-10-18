@@ -91,7 +91,7 @@ public class TestShipOnEnvironmentTests
             new RegularSpace(100),
         };
         var route = new Route(environments);
-        var test = new TestShipOnEnvironment(route, new FuelMarket(), ships);
+        var test = new TestShipOnEnvironment(route, new FuelMarket(), CompareTripInfos.Better, ships);
 
         ISpaceShip? ship = test.SelectOptimalShip();
         Assert.NotNull(ship);
@@ -110,7 +110,7 @@ public class TestShipOnEnvironmentTests
             new HighDensityNebula(1500),
         };
         var route = new Route(environments);
-        var test = new TestShipOnEnvironment(route, new FuelMarket(), ships);
+        var test = new TestShipOnEnvironment(route, new FuelMarket(), CompareTripInfos.Better, ships);
 
         ISpaceShip? ship = test.SelectOptimalShip();
         Assert.NotNull(ship);
@@ -129,7 +129,7 @@ public class TestShipOnEnvironmentTests
             new NeutrinoParticlesNebula(100),
         };
         var route = new Route(environments);
-        var test = new TestShipOnEnvironment(route, new FuelMarket(), ships);
+        var test = new TestShipOnEnvironment(route, new FuelMarket(), CompareTripInfos.Better, ships);
 
         ISpaceShip? ship = test.SelectOptimalShip();
         Assert.NotNull(ship);
