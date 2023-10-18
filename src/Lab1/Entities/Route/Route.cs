@@ -13,18 +13,18 @@ public class Route : IRoute
         Sectors = sectors;
     }
 
-    public IList<ISpaceSector> Sectors { get; }
+    private IList<ISpaceSector> Sectors { get; }
 
     public ITripInfo Travel(ISpaceShip ship)
     {
-        var tripSummary = new SpaceShipTripSummary();
+        ITripInfo? tripSummary = null;
         foreach (ISpaceSector sector in Sectors)
         {
-            SpaceShipTripSummary sectorTravelResult = sector.TraverseSector(ship);
+            ITripInfo sectorTravelResult = sector.TraverseSector(ship);
 
             if (sectorTravelResult.Result == RouteCompletionResult.Success)
             {
-                tripSummary = tripSummary.Add(sectorTravelResult);
+                tripSummary = tripSummary?.Add(sectorTravelResult) ?? sectorTravelResult;
             }
             else
             {
@@ -32,6 +32,6 @@ public class Route : IRoute
             }
         }
 
-        return tripSummary;
+        return tripSummary ?? new SpaceShipTripSummary(RouteCompletionResult.ShipLost);
     }
 }
