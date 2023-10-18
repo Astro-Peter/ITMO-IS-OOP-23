@@ -1,25 +1,28 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab1.Entities.SpaceObjects;
-using Itmo.ObjectOrientedProgramming.Lab1.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities;
 
 public class Damageable : IDamageable
 {
-    public Damageable(double health, int id)
+    public Damageable(double health)
     {
         Health = health;
-        Id = id;
     }
 
     private double Health { get; set; }
-    private int Id { get; }
 
     public void GetDamaged(ISpaceObject spaceObject)
     {
-        DamageEventResult result = spaceObject.GetDamage(Id, Health);
-        if (result.WasDamaged)
+        double startHealth = Health;
+        Health -= spaceObject.DamageLeft;
+        if (Health >= 0)
         {
-            Health -= result.DamagePointsLeft;
+            spaceObject.GetDamaged(spaceObject.DamageLeft);
+            return;
         }
+
+        double result = startHealth;
+        Health = 0;
+        spaceObject.GetDamaged(result);
     }
 }

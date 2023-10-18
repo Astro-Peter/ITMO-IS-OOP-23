@@ -5,15 +5,14 @@ using Itmo.ObjectOrientedProgramming.Lab1.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Ships;
 
-public class Vaklas : SpaceShipWithDeflectors
+public class Vaklas : SpaceShip
 {
-    public Vaklas(IPhotonDeflectors? photonDeflectors)
+    public Vaklas(IPhotonDeflectors? photonDeflectors = null)
         : base(
             new ShipHullTypeTwo(),
             new DeflectorsTypeOne(photonDeflectors),
-            new ImpulseEngineE(),
-            WeightCategories.WeightClassMedium,
-            new GammaJumpDrive())
+            new ImpulseEngineE(WeightCategories.WeightClassMedium),
+            new GammaJumpDrive(WeightCategories.WeightClassMedium))
     {
         HasPhotonDeflectors = photonDeflectors;
     }

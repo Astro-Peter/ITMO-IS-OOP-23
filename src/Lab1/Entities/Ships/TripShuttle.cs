@@ -4,14 +4,13 @@ using Itmo.ObjectOrientedProgramming.Lab1.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Ships;
 
-public class TripShuttle : SpaceShipWithDeflectors
+public class TripShuttle : SpaceShip
 {
     public TripShuttle()
     : base(
         new ShipHullTypeOne(),
         null,
-        new ImpulseEngineC(),
-        WeightCategories.WeightClassLight)
+        new ImpulseEngineC(WeightCategories.WeightClassLight))
     {
     }
 

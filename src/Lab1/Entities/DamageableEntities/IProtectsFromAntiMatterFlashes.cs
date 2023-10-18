@@ -1,5 +1,5 @@
 ﻿namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities;
 
-public interface IShipDeflectors : IProtectsFromRegularObjects
+public interface IProtectsFromAntiMatterFlashes : IDamageable
 {
 }

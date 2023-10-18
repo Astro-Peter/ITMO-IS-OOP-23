@@ -2,17 +2,20 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities;
 
-public class AntiNeutrinoEmitter : IProtectsFromWhales
+public class ShipHull : IShipHull
 {
-    public AntiNeutrinoEmitter()
+    public ShipHull(double health)
     {
+        Damageable = new Damageable(health);
     }
+
+    private Damageable Damageable { get; }
 
     public void GetDamaged(ISpaceObject spaceObject)
     {
         if (spaceObject.CheckIfDamageable(this))
         {
-            spaceObject.GetDamaged(spaceObject.DamageLeft);
+            Damageable.GetDamaged(spaceObject);
         }
     }
 }

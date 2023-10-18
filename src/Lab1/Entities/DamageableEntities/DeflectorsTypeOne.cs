@@ -7,10 +7,7 @@ public class DeflectorsTypeOne : BaseDeflectors
     public DeflectorsTypeOne(IPhotonDeflectors? photonDeflectors = null)
         : base(
             BaseHealth,
-            Id,
             photonDeflectors)
     {
     }
-
-    public static int Id => 0;
 }

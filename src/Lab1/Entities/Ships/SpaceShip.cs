@@ -1,41 +1,41 @@
 ﻿using System;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.EnvironmentAdjustmentFormulas;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.ImpulseEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.JumpEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.SpaceObjects;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.TripInfo;
+using Itmo.ObjectOrientedProgramming.Lab1.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Ships;
 
-public class SpaceShipWithDeflectors : ISpaceShip
+public class SpaceShip : ISpaceShip
 {
-    protected SpaceShipWithDeflectors(
+    protected SpaceShip(
         IDamageable hull,
         IShipDeflectors? deflectorType,
         IImpulseEngine engine,
-        int weightClass,
         IJumpDrive? jumpDrive = null)
     {
-        WeightClass = weightClass;
         Engine = engine;
         Hull = hull;
         Deflectors = deflectorType;
         JumpDrive = jumpDrive;
     }
 
-    private int WeightClass { get; }
     private IDamageable Hull { get; }
     private IShipDeflectors? Deflectors { get; }
     private IImpulseEngine Engine { get; }
     private IJumpDrive? JumpDrive { get; }
 
-    public IImpulseEngine TraverseRegularEnvironment(double distance)
+    public ITripInfo TraverseRegularEnvironment(IAdjustSpeed speedAdjustment)
     {
-        return Engine;
+        return Engine.Travel(speedAdjustment);
     }
 
-    public IJumpDrive? UseJumpDrive(double distance)
+    public ITripInfo UseJumpDrive(IAdjustSpeed speedAdjustment)
     {
-        return JumpDrive;
+        return JumpDrive?.Travel(speedAdjustment) ?? new SpaceShipTripSummary(RouteCompletionResult.ShipLost);
     }
 
     public void DamageShip(ISpaceObject spaceObject)

@@ -5,15 +5,14 @@ using Itmo.ObjectOrientedProgramming.Lab1.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Ships;
 
-public class Augur : SpaceShipWithDeflectors
+public class Augur : SpaceShip
 {
-    public Augur(IPhotonDeflectors? photonDeflectors)
+    public Augur(IPhotonDeflectors? photonDeflectors = null)
         : base(
             new ShipHullTypeThree(),
             new DeflectorsTypeThree(photonDeflectors),
-            new ImpulseEngineE(),
-            WeightCategories.WeightClassHeavy,
-            new AlphaJumpDrive())
+            new ImpulseEngineE(WeightCategories.WeightClassHeavy),
+            new AlphaJumpDrive(WeightCategories.WeightClassHeavy))
     {
         HasPhotonDeflectors = photonDeflectors;
     }

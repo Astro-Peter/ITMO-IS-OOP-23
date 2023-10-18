@@ -4,10 +4,10 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities;
 
 public class BaseDeflectors : IShipDeflectors
 {
-    protected BaseDeflectors(int health, int id, IPhotonDeflectors? photonDeflectors = null)
+    protected BaseDeflectors(int health, IPhotonDeflectors? photonDeflectors = null)
     {
         PhotonDeflectors = photonDeflectors;
-        Protection = new Damageable(health, id);
+        Protection = new Damageable(health);
     }
 
     private IPhotonDeflectors? PhotonDeflectors { get; }
@@ -16,6 +16,9 @@ public class BaseDeflectors : IShipDeflectors
     public void GetDamaged(ISpaceObject spaceObject)
     {
         PhotonDeflectors?.GetDamaged(spaceObject);
-        Protection.GetDamaged(spaceObject);
+        if (spaceObject.CheckIfDamageable(this))
+        {
+            Protection.GetDamaged(spaceObject);
+        }
     }
 }

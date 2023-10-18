@@ -1,56 +1,33 @@
-﻿using System.Collections.Generic;
-using Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities;
+﻿using Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities;
 using Itmo.ObjectOrientedProgramming.Lab1.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.SpaceObjects;
 
 public class SpaceWhale : IObjectInNeutrinoParticlesNebula
 {
-    public SpaceWhale(Dictionary<int, DamageAdjustment>? damageMappings = null)
+    private const double DamageCoefficient = 40;
+    public SpaceWhale(int collisionNumber)
     {
-        if (damageMappings is null)
-        {
-            DamageMappings = new Dictionary<int, DamageAdjustment>
-            {
-                { DeflectorsTypeOne.Id, new DamageAdjustment(true, 1) },
-                { DeflectorsTypeTwo.Id, new DamageAdjustment(true, 1) },
-                { DeflectorsTypeThree.Id, new DamageAdjustment(true, 1) },
-                { ShipHullTypeOne.Id, new DamageAdjustment(true, 1) },
-                { ShipHullTypeTwo.Id, new DamageAdjustment(true, 1) },
-                { ShipHullTypeThree.Id, new DamageAdjustment(true, 1) },
-                { PhotonDeflectors.Id, new DamageAdjustment(false, 0) },
-                { AntiNeutrinoEmitter.Id, new DamageAdjustment(true, 0) },
-            };
-        }
-        else
-        {
-            DamageMappings = damageMappings;
-        }
+        DamageLeft = collisionNumber * DamageCoefficient;
     }
 
-    public RouteCompletionResult CollisionResult => DamagePointsLeft <= 0 ?
+    public RouteCompletionResult CollisionResult => DamageLeft <= 0 ?
         RouteCompletionResult.Success : RouteCompletionResult.ShipDestroyed;
-    private double DamagePointsLeft { get; set; }
-    private Dictionary<int, DamageAdjustment> DamageMappings { get; }
 
-    public DamageEventResult GetDamage(int damageableId, double healthPoints)
+    public double DamageLeft { get; private set; }
+
+    public bool CheckIfDamageable(IDamageable damageable)
     {
-        if (DamagePointsLeft <= 0)
-        {
-            return new DamageEventResult();
-        }
+        return damageable is IProtectsFromRegularObjects or IProtectsFromWhales;
+    }
 
-        if (!DamageMappings[damageableId].CanBeDamaged)
-        {
-            return new DamageEventResult(DamageMappings[damageableId].CanBeDamaged);
-        }
+    public void GetDamaged(double damage)
+    {
+        DamageLeft -= damage;
+    }
 
-        double startHealth = DamagePointsLeft;
-        DamagePointsLeft -= healthPoints / DamageMappings[damageableId].DamageCoefficient;
-        return new DamageEventResult(
-            true,
-            double.Min(
-                DamageMappings[damageableId].DamageCoefficient * (startHealth - DamagePointsLeft),
-                DamageMappings[damageableId].DamageCoefficient * startHealth));
+    public ISpaceObject Copy()
+    {
+        return new SpaceWhale((int)(DamageLeft / DamageCoefficient));
     }
 }

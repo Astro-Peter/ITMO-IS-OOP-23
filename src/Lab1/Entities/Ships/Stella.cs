@@ -5,15 +5,14 @@ using Itmo.ObjectOrientedProgramming.Lab1.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Ships;
 
-public class Stella : SpaceShipWithDeflectors
+public class Stella : SpaceShip
 {
-    public Stella(IPhotonDeflectors? photonDeflectors)
+    public Stella(IPhotonDeflectors? photonDeflectors = null)
         : base(
             new ShipHullTypeOne(),
             new DeflectorsTypeOne(photonDeflectors),
-            new ImpulseEngineE(),
-            WeightCategories.WeightClassLight,
-            new OmegaJumpDrive())
+            new ImpulseEngineE(WeightCategories.WeightClassLight),
+            new OmegaJumpDrive(WeightCategories.WeightClassLight))
     {
         HasPhotonDeflectors = photonDeflectors;
     }

@@ -1,13 +1,11 @@
 ﻿namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities;
 
-public class ShipHullTypeOne : Damageable
+public class ShipHullTypeOne : ShipHull
 {
     private const int Health = 1;
 
     public ShipHullTypeOne()
-        : base(Health, Id)
+        : base(Health)
     {
     }
-
-    public static int Id => 3;
 }

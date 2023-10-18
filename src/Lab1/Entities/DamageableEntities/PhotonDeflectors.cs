@@ -8,11 +8,11 @@ public class PhotonDeflectors : IPhotonDeflectors
 
     public PhotonDeflectors()
     {
-        Damageable = new Damageable(Health, Id);
+        Damageable = new Damageable(Health);
     }
 
-    public static int Id => 6;
     private Damageable Damageable { get; }
+
     public void GetDamaged(ISpaceObject spaceObject)
     {
         Damageable.GetDamaged(spaceObject);

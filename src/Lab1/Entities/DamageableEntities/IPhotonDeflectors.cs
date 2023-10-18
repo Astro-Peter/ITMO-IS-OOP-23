@@ -1,6 +1,6 @@
 ﻿namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities;
 
-public interface IPhotonDeflectors : IDamageable
+public interface IPhotonDeflectors : IProtectsFromAntiMatterFlashes
 {
     public IPhotonDeflectors Copy();
 }
