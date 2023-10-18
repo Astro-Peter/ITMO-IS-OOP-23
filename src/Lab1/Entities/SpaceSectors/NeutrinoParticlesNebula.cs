@@ -1,4 +1,7 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Entities.Ships;
+﻿using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.EnvironmentAdjustmentFormulas;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.Ships;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.SpaceObjects;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.TripInfo;
 using Itmo.ObjectOrientedProgramming.Lab1.Models;
 
@@ -6,23 +9,30 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.SpaceSectors;
 
 public class NeutrinoParticlesNebula : ISpaceSector
 {
-    public NeutrinoParticlesNebula(double distance, int numberOfWhales)
+    public NeutrinoParticlesNebula(
+        double distance,
+        IList<IObjectInNeutrinoParticlesNebula>? objects = null)
     {
+        Objects = objects ?? new List<IObjectInNeutrinoParticlesNebula>();
         Distance = distance;
-        NumberOfWhales = numberOfWhales;
     }
 
+    private IList<IObjectInNeutrinoParticlesNebula> Objects { get; }
     private double Distance { get; }
-    private int NumberOfWhales { get; }
 
-    public SpaceShipTripSummary TraverseSector(ISpaceShip spaceShip)
+    public ITripInfo TraverseSector(ISpaceShip spaceShip)
     {
-        bool whaleCollisionResult = spaceShip.WhaleCollision(NumberOfWhales);
-        if (!whaleCollisionResult)
+        foreach (IObjectInNeutrinoParticlesNebula spaceObject in Objects)
         {
-            return new SpaceShipTripSummary();
+            ISpaceObject copySpaceObject = spaceObject.Copy();
+            spaceShip.DamageShip(copySpaceObject);
+            if (copySpaceObject.CollisionResult != RouteCompletionResult.Success)
+            {
+                return new SpaceShipTripSummary(copySpaceObject.CollisionResult);
+            }
         }
 
-        return spaceShip.TraverseRegularEnvironment(Distance);
+        ITripInfo tripInfo = spaceShip.TraverseRegularEnvironment(new NeutrinoParticlesAdjustment(Distance));
+        return tripInfo;
     }
 }

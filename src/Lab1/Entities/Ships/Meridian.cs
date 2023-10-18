@@ -4,14 +4,13 @@ using Itmo.ObjectOrientedProgramming.Lab1.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Ships;
 
-public class Meridian : SpaceShipWithDeflectors
+public class Meridian : SpaceShip
 {
-    public Meridian(IPhotonDeflectors? photonDeflectors)
+    public Meridian(IPhotonDeflectors? photonDeflectors = null)
         : base(
             new ShipHullTypeTwo(),
             new DeflectorsTypeTwo(photonDeflectors),
-            new ImpulseEngineE(),
-            WeightCategories.WeightClassMedium)
+            new ImpulseEngineE(WeightCategories.WeightClassMedium))
     {
         HasPhotonDeflectors = photonDeflectors;
     }

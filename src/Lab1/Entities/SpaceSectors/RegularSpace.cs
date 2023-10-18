@@ -1,4 +1,6 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab1.Entities.Ships;
+﻿using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.EnvironmentAdjustmentFormulas;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.Ships;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.SpaceObjects;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.TripInfo;
 using Itmo.ObjectOrientedProgramming.Lab1.Models;
@@ -7,31 +9,30 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.SpaceSectors;
 
 public class RegularSpace : ISpaceSector
 {
-    public RegularSpace(double distance, int numberOfAsteroids = 0, int numberOfMeteorites = 0)
+    public RegularSpace(
+        double distance,
+        IList<IRegularSpaceObject>? objects = null)
     {
-        NumberOfAsteroids = numberOfAsteroids;
-        NumberOfMeteorites = numberOfMeteorites;
+        Objects = objects ?? new List<IRegularSpaceObject>();
         Distance = distance;
     }
 
-    private int NumberOfAsteroids { get; }
-    private int NumberOfMeteorites { get; }
+    private IList<IRegularSpaceObject> Objects { get; }
     private double Distance { get; }
 
-    public SpaceShipTripSummary TraverseSector(ISpaceShip spaceShip)
+    public ITripInfo TraverseSector(ISpaceShip spaceShip)
     {
-        bool collisionResultFirst = spaceShip.DamageShip(new Asteroid());
-        if (!collisionResultFirst)
+        foreach (IRegularSpaceObject spaceObject in Objects)
         {
-            return new SpaceShipTripSummary(RouteCompletionResult.ShipDestroyed);
+            ISpaceObject copySpaceObject = spaceObject.Copy();
+            spaceShip.DamageShip(copySpaceObject);
+            if (copySpaceObject.CollisionResult != RouteCompletionResult.Success)
+            {
+                return new SpaceShipTripSummary(copySpaceObject.CollisionResult);
+            }
         }
 
-        bool collisionResultSecond = spaceShip.DamageShip(new Meteorite());
-        if (!collisionResultSecond)
-        {
-            return new SpaceShipTripSummary(RouteCompletionResult.ShipDestroyed);
-        }
-
-        return spaceShip.TraverseRegularEnvironment(Distance);
+        ITripInfo tripInfo = spaceShip.TraverseRegularEnvironment(new RegularSpaceAdjustment(Distance));
+        return tripInfo;
     }
 }

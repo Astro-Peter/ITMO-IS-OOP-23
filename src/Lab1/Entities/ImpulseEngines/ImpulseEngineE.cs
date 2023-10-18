@@ -1,16 +1,36 @@
 ﻿using System;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.EnvironmentAdjustmentFormulas;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.TripInfo;
 using Itmo.ObjectOrientedProgramming.Lab1.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.ImpulseEngines;
 
 public class ImpulseEngineE : IImpulseEngine
 {
-    private static double FlightSpeed => 2;
-    private static double FuelConsumptionRate => 10;
+    private const double BaseFuelConsumptionRate = 10;
 
-    public SpaceShipTripSummary TraverseChannel(double distance, int weight, bool hindered = false)
+    public ImpulseEngineE(double weight)
     {
-        double timeSpent = Math.Log(Math.Log(FlightSpeed) * distance, FlightSpeed);
-        return new SpaceShipTripSummary(RouteCompletionResult.Success, ImpulseEngineConstants.FuelStartupCost + (distance * weight * FuelConsumptionRate), 0, timeSpent);
+        FuelConsumptionRate = BaseFuelConsumptionRate * weight;
+    }
+
+    private static double FlightSpeed => 2;
+    private double FuelConsumptionRate { get; }
+
+    public ITripInfo Travel(IAdjustSpeed speedAdjustment)
+    {
+        for (int i = 0; i < EngineSharedConstants.NumberOfUpdates && speedAdjustment.Distance > 0; i++)
+        {
+            speedAdjustment.GetSpeed(Math.Pow(FlightSpeed, speedAdjustment.Time));
+        }
+
+        if (speedAdjustment.Distance > 0)
+            return new SpaceShipTripSummary(RouteCompletionResult.ShipLost);
+
+        return new SpaceShipTripSummary(
+            RouteCompletionResult.Success,
+            FuelId.ImpulseFuelId,
+            speedAdjustment.Time * FuelConsumptionRate,
+            speedAdjustment.Time);
     }
 }
