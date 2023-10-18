@@ -1,5 +1,6 @@
 ﻿using System;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities.Deflectors;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.EnvironmentAdjustmentFormulas;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.ImpulseEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.JumpEngines;

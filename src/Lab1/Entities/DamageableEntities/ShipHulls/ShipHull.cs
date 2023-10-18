@@ -1,6 +1,6 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab1.Entities.SpaceObjects;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities.ShipHulls;
 
 public class ShipHull : IShipHull
 {

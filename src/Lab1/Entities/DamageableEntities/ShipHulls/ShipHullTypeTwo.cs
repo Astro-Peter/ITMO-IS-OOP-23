@@ -1,4 +1,4 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities;
+﻿namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities.ShipHulls;
 
 public class ShipHullTypeTwo : ShipHull
 {

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.DamageableEntities.Deflectors;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.FuelMarket;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Route;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Ships;
