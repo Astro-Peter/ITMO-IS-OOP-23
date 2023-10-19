@@ -1,7 +1,7 @@
 ﻿using System;
-using Itmo.ObjectOrientedProgramming.Lab1.Entities.FuelMarket;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Route;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Ships;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.TripComparison;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.TripInfo;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Services;
@@ -10,20 +10,17 @@ public class TestShipOnEnvironment
 {
     public TestShipOnEnvironment(
         IRoute route,
-        IFuelMarket market,
-        Func<ITripInfo, ITripInfo, IFuelMarket, bool> comparisonFunction,
+        ITripCompare compareTrips,
         ISpaceShip[]? spaceShips = null)
     {
-        ComparisonFunction = comparisonFunction;
+        ComparisonFunction = compareTrips;
         Route = route;
-        FuelMarket = market;
         SpaceShips = spaceShips;
     }
 
     private IRoute Route { get; }
-    private IFuelMarket FuelMarket { get; }
     private ISpaceShip[]? SpaceShips { get; }
-    private Func<ITripInfo, ITripInfo, IFuelMarket, bool> ComparisonFunction { get; }
+    private ITripCompare ComparisonFunction { get; }
 
     public ISpaceShip? SelectOptimalShip()
     {
@@ -38,7 +35,7 @@ public class TestShipOnEnvironment
         {
             ISpaceShip copySpaceShip = spaceShip.Copy();
             ITripInfo result = Route.Travel(copySpaceShip);
-            if (ComparisonFunction(result, bestRun, FuelMarket))
+            if (ComparisonFunction.Compare(result, bestRun))
             {
                 bestPossibleShip = spaceShip;
                 bestRun = result;

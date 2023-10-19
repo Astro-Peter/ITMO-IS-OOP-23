@@ -5,6 +5,7 @@ using Itmo.ObjectOrientedProgramming.Lab1.Entities.Route;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Ships;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.SpaceObjects;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.SpaceSectors;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.TripComparison;
 using Itmo.ObjectOrientedProgramming.Lab1.Models;
 using Itmo.ObjectOrientedProgramming.Lab1.Services;
 using Xunit;
@@ -91,7 +92,7 @@ public class TestShipOnEnvironmentTests
             new RegularSpace(100),
         };
         var route = new Route(environments);
-        var test = new TestShipOnEnvironment(route, new FuelMarket(), CompareTripInfos.Better, ships);
+        var test = new TestShipOnEnvironment(route, new TripCompare(new FuelMarket()), ships);
 
         ISpaceShip? ship = test.SelectOptimalShip();
         Assert.NotNull(ship);
@@ -110,7 +111,7 @@ public class TestShipOnEnvironmentTests
             new HighDensityNebula(1500),
         };
         var route = new Route(environments);
-        var test = new TestShipOnEnvironment(route, new FuelMarket(), CompareTripInfos.Better, ships);
+        var test = new TestShipOnEnvironment(route, new TripCompare(new FuelMarket()), ships);
 
         ISpaceShip? ship = test.SelectOptimalShip();
         Assert.NotNull(ship);
@@ -129,7 +130,7 @@ public class TestShipOnEnvironmentTests
             new NeutrinoParticlesNebula(100),
         };
         var route = new Route(environments);
-        var test = new TestShipOnEnvironment(route, new FuelMarket(), CompareTripInfos.Better, ships);
+        var test = new TestShipOnEnvironment(route, new TripCompare(new FuelMarket()), ships);
 
         ISpaceShip? ship = test.SelectOptimalShip();
         Assert.NotNull(ship);
