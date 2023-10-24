@@ -1,3 +1,11 @@
-﻿namespace Itmo.ObjectOrientedProgramming.Lab2.Entities;
+﻿using Itmo.ObjectOrientedProgramming.Lab2.Models;
 
-public record Gpu(string Name, int VideoMemory, int PciEGen, double Frequency, int PowerUsage);
+namespace Itmo.ObjectOrientedProgramming.Lab2.Entities;
+
+public record Gpu(
+    string Name,
+    Dimensions Dimensions,
+    int MemoryCapacity,
+    string PciEVersion,
+    double Frequency,
+    int PowerUsage);

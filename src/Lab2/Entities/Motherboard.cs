@@ -2,9 +2,12 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Entities;
 
-public record Motherboard(string Socket,
+public record Motherboard(
+    string Name,
+    string Socket,
     int PciELines,
     int SataPorts,
+    Chipset Chipset,
     string DdrStandard,
     int RamSlots,
     MotherBoardFormFactor FormFactor,
