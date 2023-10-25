@@ -4,5 +4,5 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.BuilderInterfaces;
 
 public interface ISetBuiltInGpu<out T>
 {
-    public T SetBuiltInGpu(Gpu? gpu);
+    public T SetBuiltInGpu(BuiltInGpu gpu);
 }

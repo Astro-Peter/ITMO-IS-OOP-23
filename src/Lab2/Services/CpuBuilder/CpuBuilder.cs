@@ -9,7 +9,7 @@ public class CpuBuilder : ICpuBuilder
     private double? Frequency { get; set; }
     private int? CoreNumber { get; set; }
     private string? Socket { get; set; }
-    private Gpu? Gpu { get; set; }
+    private BuiltInGpu? Gpu { get; set; }
     private double? MaxRamFrequency { get; set; }
     private int? Tdp { get; set; }
     private int? Power { get; set; }
@@ -50,7 +50,7 @@ public class CpuBuilder : ICpuBuilder
         return this;
     }
 
-    public ICpuBuilder SetBuiltInGpu(Gpu? gpu)
+    public ICpuBuilder SetBuiltInGpu(BuiltInGpu gpu)
     {
         Gpu = gpu;
         return this;

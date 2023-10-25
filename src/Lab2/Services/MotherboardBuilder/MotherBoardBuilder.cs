@@ -1,6 +1,5 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab2.Entities;
 using Itmo.ObjectOrientedProgramming.Lab2.Models;
-using Itmo.ObjectOrientedProgramming.Lab2.Services.MotherBoardBuilder;
 using Itmo.ObjectOrientedProgramming.Lab2.Tools;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.MotherBoardBuilder;
@@ -11,7 +10,9 @@ public class MotherBoardBuilder : IMotherboardBuilder
     private int? SataPortsNumber { get; set; }
     private string? DdrVersion { get; set; }
     private int? RamSlots { get; set; }
-    private int? PciELinesNumber { get; set; }
+    private int? PciEx16LanesNumber { get; set; }
+    private int? PciEx4LanesNumber { get; set; }
+    private int? PciEx1LanesNumber { get; set; }
     private Bios? Bios { get; set; }
     private string? Name { get; set; }
     private Chipset? Chipset { get; set; }
@@ -22,7 +23,9 @@ public class MotherBoardBuilder : IMotherboardBuilder
         return new Motherboard(
             Name ?? throw new UndefinedParameterException(nameof(Name)),
             Socket ?? throw new UndefinedParameterException(nameof(Socket)),
-            PciELinesNumber ?? throw new UndefinedParameterException(nameof(PciELinesNumber)),
+            PciEx16LanesNumber ?? throw new UndefinedParameterException(nameof(PciEx16LanesNumber)),
+            PciEx4LanesNumber ?? throw new UndefinedParameterException(nameof(PciEx4LanesNumber)),
+            PciEx1LanesNumber ?? throw new UndefinedParameterException(nameof(PciEx1LanesNumber)),
             SataPortsNumber ?? throw new UndefinedParameterException(nameof(SataPortsNumber)),
             Chipset ?? throw new UndefinedParameterException(nameof(Chipset)),
             DdrVersion ?? throw new UndefinedParameterException(nameof(DdrVersion)),
@@ -79,9 +82,21 @@ public class MotherBoardBuilder : IMotherboardBuilder
         return this;
     }
 
-    public IMotherboardBuilder SetPciELinesNumber(int linesNumber)
+    public IMotherboardBuilder SetPciEx16LanesNumber(int lanesNumber)
     {
-        PciELinesNumber = linesNumber;
+        PciEx16LanesNumber = lanesNumber;
+        return this;
+    }
+
+    public IMotherboardBuilder SetPciEx4LanesNumber(int lanesNumber)
+    {
+        PciEx4LanesNumber = lanesNumber;
+        return this;
+    }
+
+    public IMotherboardBuilder SetPciEx1LanesNumber(int lanesNumber)
+    {
+        PciEx1LanesNumber = lanesNumber;
         return this;
     }
 }

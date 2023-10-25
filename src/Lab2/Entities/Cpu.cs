@@ -5,7 +5,7 @@ public record Cpu(
     double Frequency,
     int CoreNumber,
     string Socket,
-    Gpu? BuiltInGpu,
+    BuiltInGpu? BuiltInGpu,
     double MaxRamFrequency,
     int Tdp,
     int PowerConsumption);
