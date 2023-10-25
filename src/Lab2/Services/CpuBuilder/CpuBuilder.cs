@@ -20,7 +20,7 @@ public class CpuBuilder : ICpuBuilder
             Frequency ?? throw new UndefinedParameterException(nameof(Frequency)),
             CoreNumber ?? throw new UndefinedParameterException(nameof(CoreNumber)),
             Socket ?? throw new UndefinedParameterException(nameof(Socket)),
-            Gpu ?? throw new UndefinedParameterException(nameof(Gpu)),
+            Gpu,
             MaxRamFrequency ?? throw new UndefinedParameterException(nameof(MaxRamFrequency)),
             Tdp ?? throw new UndefinedParameterException(nameof(Tdp)),
             Power ?? throw new UndefinedParameterException(nameof(Power)));
