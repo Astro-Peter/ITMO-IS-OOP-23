@@ -50,7 +50,7 @@ public class CpuBuilder : ICpuBuilder
         return this;
     }
 
-    public ICpuBuilder SetBuiltInGpu(BuiltInGpu gpu)
+    public ICpuBuilder SetBuiltInGpu(BuiltInGpu? gpu)
     {
         Gpu = gpu;
         return this;
