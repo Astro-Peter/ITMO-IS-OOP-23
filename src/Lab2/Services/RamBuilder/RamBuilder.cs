@@ -63,6 +63,7 @@ public class RamBuilder : IRamBuilder
 
     public IRamBuilder SetXmpProfiles(IList<XmpProfile> xmpProfiles)
     {
-        throw new System.NotImplementedException();
+        XmpProfiles = xmpProfiles;
+        return this;
     }
 }

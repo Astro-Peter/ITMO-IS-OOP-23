@@ -2,6 +2,7 @@
 using Itmo.ObjectOrientedProgramming.Lab2.Models;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.PartsCompatabilityValidator;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.PcBuilder;
+using Itmo.ObjectOrientedProgramming.Lab2.Tools;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
@@ -37,6 +38,17 @@ public class PcDirector : IPcDirector
 
     public PersonalComputerParts GetComponent()
     {
+        ComputerStatus attempt = AttemptBuild();
+        if (attempt.Status == PowerConsumptionStatus.NotEnoughPower)
+        {
+            throw new IncorrectPcBuildException("Power consumption too high");
+        }
+
+        if (attempt.Message.Count > 0)
+        {
+            throw new IncorrectPcBuildException("some parts are incompatible");
+        }
+
         return Builder.Build();
     }
 

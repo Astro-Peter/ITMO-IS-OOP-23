@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab2.Entities;
 using Itmo.ObjectOrientedProgramming.Lab2.Models;
@@ -11,21 +10,23 @@ public class ComputerValidator : IComputerValidator
 {
     public ComputerStatus Validate(PersonalComputerParts parts)
     {
-        var issues = new List<string?>();
-        issues.Add(ValidateBiosCompatibility(parts.Cpu, parts.Motherboard.Bios));
-        issues.Add(ValidateGpuFits(parts.Gpu, parts.PcCase));
-        issues.Add(ValidateHasStorage(parts.Ssds, parts.Hdds));
-        issues.Add(ValidateMotherboardCompatible(parts.Motherboard, parts.PcCase));
-        issues.Add(ValidateRamCompatibleWithCpu(parts.Ram, parts.Cpu));
-        issues.Add(ValidateRamCompatibleWithMotherBoard(parts.Ram, parts.Motherboard));
-        issues.Add(ValidateEnoughRamSlots(parts.Ram, parts.Motherboard));
-        issues.Add(ValidateSocketCompatibleWithCpu(parts.Cpu, parts.Motherboard));
-        issues.Add(ValidateSocketCompatibleWithCoolingSystem(parts.Motherboard, parts.CoolingSystem));
-        issues.Add(ValidateCpuGpuCompatability(parts.Cpu, parts.Gpu));
-        issues.Add(ValidateEnoughSataPorts(parts.Motherboard, parts.Hdds, parts.Ssds));
-        issues.Add(ValidateEnoughPciEx1Lanes(parts.Motherboard, parts.WifiAdapter));
-        issues.Add(ValidateEnoughPciEx16Lanes(parts.Motherboard, parts.Gpu));
-        issues.Add(ValidateEnoughPciEx4Lanes(parts.Motherboard, parts.Ssds));
+        var issues = new List<string?>
+        {
+            ValidateBiosCompatibility(parts.Cpu, parts.Motherboard.Bios),
+            ValidateGpuFits(parts.Gpu, parts.PcCase),
+            ValidateHasStorage(parts.Ssds, parts.Hdds),
+            ValidateMotherboardCompatible(parts.Motherboard, parts.PcCase),
+            ValidateRamCompatibleWithCpu(parts.Ram, parts.Cpu),
+            ValidateRamCompatibleWithMotherBoard(parts.Ram, parts.Motherboard),
+            ValidateEnoughRamSlots(parts.Ram, parts.Motherboard),
+            ValidateSocketCompatibleWithCpu(parts.Cpu, parts.Motherboard),
+            ValidateSocketCompatibleWithCoolingSystem(parts.Motherboard, parts.CoolingSystem),
+            ValidateCpuGpuCompatability(parts.Cpu, parts.Gpu),
+            ValidateEnoughSataPorts(parts.Motherboard, parts.Hdds, parts.Ssds),
+            ValidateEnoughPciEx1Lanes(parts.Motherboard, parts.WifiAdapter),
+            ValidateEnoughPciEx16Lanes(parts.Motherboard, parts.Gpu),
+            ValidateEnoughPciEx4Lanes(parts.Motherboard, parts.Ssds),
+        };
 
         bool guarantee = CheckGuaranteeVoided(parts.Cpu, parts.CoolingSystem);
 
@@ -177,7 +178,7 @@ public class ComputerValidator : IComputerValidator
 
     private static string? ValidateGpuFits(Gpu? gpu, PcCase pcCase)
     {
-        if (gpu is not null && !CompareDimensions.Compare(pcCase.GpuDimensions, gpu.Dimensions))
+        if (gpu is not null && !CompareDimensions.Compare(gpu.Dimensions, pcCase.GpuDimensions))
         {
             return (string)(nameof(pcCase) + "incompatible with " + nameof(gpu));
         }
@@ -208,7 +209,7 @@ public class ComputerValidator : IComputerValidator
             portsNeeded += ssds.Sum(x => x.ConnectionType == "sata" ? 1 : 0);
         }
 
-        if (portsNeeded < motherboard.SataPorts)
+        if (portsNeeded > motherboard.SataPorts)
         {
             return "not enough sata ports";
         }

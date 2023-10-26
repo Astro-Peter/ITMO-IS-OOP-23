@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Repositories;
 
@@ -20,5 +21,15 @@ public class Repository<T> : IRepository<T>
     public void Add(T component)
     {
         Components.Add(component);
+    }
+
+    public IEnumerator<T> GetEnumerator()
+    {
+        return Values.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }
