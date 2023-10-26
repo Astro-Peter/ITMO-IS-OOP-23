@@ -1,7 +1,7 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab2.Entities;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.BuiltInGpuBuilder;
 
-namespace Itmo.ObjectOrientedProgramming.Lab2.Services.DirectorInterfaces;
+namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
 public class BuiltInGpuDirector : IBaseDirector<BuiltInGpu, IBuiltInGpuBuilder>
 {

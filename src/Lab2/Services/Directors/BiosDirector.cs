@@ -1,7 +1,7 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab2.Entities;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.BiosBuilder;
 
-namespace Itmo.ObjectOrientedProgramming.Lab2.Services.DirectorInterfaces;
+namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
 public class BiosDirector : IBaseDirector<Bios, IBiosBuilder>
 {
