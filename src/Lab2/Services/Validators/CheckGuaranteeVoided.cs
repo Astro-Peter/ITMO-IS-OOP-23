@@ -4,7 +4,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Validators;
 
 public class CheckGuaranteeVoided : ICheckGuaranteeVoided
 {
-    public bool CheckCpuAndCooler(PersonalComputerParts parts)
+    public bool CheсkGuarantee(PersonalComputerParts parts)
     {
         return parts.Cpu.Tdp <= parts.CoolingSystem.Tdp;
     }

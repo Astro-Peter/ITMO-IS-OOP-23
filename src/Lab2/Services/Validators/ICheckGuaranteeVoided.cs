@@ -4,5 +4,5 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Validators;
 
 public interface ICheckGuaranteeVoided
 {
-    public bool CheckCpuAndCooler(PersonalComputerParts parts);
+    public bool CheсkGuarantee(PersonalComputerParts parts);
 }

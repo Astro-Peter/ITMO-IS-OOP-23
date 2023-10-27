@@ -64,7 +64,7 @@ public class PcDirector : IPcDirector
     {
         PersonalComputerParts parts = Builder.Build();
         return new ComputerStatus(
-            Check.CheckCpuAndCooler(parts),
+            Check.CheсkGuarantee(parts),
             PowerValidator.CheckEnoughPower(parts),
             PartsCompatibilityValidator.Validate(parts));
     }
