@@ -7,10 +7,10 @@ using Itmo.ObjectOrientedProgramming.Lab2.Services.BiosBuilder;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.ChipsetBuilder;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.MotherBoardBuilder;
-using Itmo.ObjectOrientedProgramming.Lab2.Services.PartsCompatabilityValidator;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.PcBuilder;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.RamBuilder;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.Repositories;
+using Itmo.ObjectOrientedProgramming.Lab2.Services.Validators;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.XmpBuilder;
 using Xunit;
 
@@ -113,7 +113,11 @@ public class TestPcBuilding
     [Fact]
     public void CorrectPcConfiguration()
     {
-        var pcDirector = new PcDirector(new PcBuilder(), new ComputerValidator());
+        var pcDirector = new PcDirector(
+            new PcBuilder(),
+            new PartsCompatibilityValidator(),
+            new CheckGuaranteeVoided(),
+            new PowerSupplyValidator());
         pcDirector.Builder.AddSsd(_repos.Ssds.First())
             .AddRamStick(_repos.RamSticks.First())
             .SetCpu(_repos.Cpus.First())
@@ -130,7 +134,11 @@ public class TestPcBuilding
     [Fact]
     public void PowerConsumptionMoreThanRecommended()
     {
-        var pcDirector = new PcDirector(new PcBuilder(), new ComputerValidator());
+        var pcDirector = new PcDirector(
+            new PcBuilder(),
+            new PartsCompatibilityValidator(),
+            new CheckGuaranteeVoided(),
+            new PowerSupplyValidator());
         pcDirector.Builder.AddSsd(_repos.Ssds.First())
             .AddRamStick(_repos.RamSticks.First())
             .SetCpu(_repos.Cpus.First())
@@ -147,7 +155,11 @@ public class TestPcBuilding
     [Fact]
     public void GuaranteeVoidedBecauseOfBadCooler()
     {
-        var pcDirector = new PcDirector(new PcBuilder(), new ComputerValidator());
+        var pcDirector = new PcDirector(
+            new PcBuilder(),
+            new PartsCompatibilityValidator(),
+            new CheckGuaranteeVoided(),
+            new PowerSupplyValidator());
         pcDirector.Builder.AddSsd(_repos.Ssds.First())
             .AddRamStick(_repos.RamSticks.First())
             .SetCpu(_repos.Cpus.First())
@@ -164,7 +176,11 @@ public class TestPcBuilding
     [Fact]
     public void FailureToBuild()
     {
-        var pcDirector = new PcDirector(new PcBuilder(), new ComputerValidator());
+        var pcDirector = new PcDirector(
+            new PcBuilder(),
+            new PartsCompatibilityValidator(),
+            new CheckGuaranteeVoided(),
+            new PowerSupplyValidator());
         pcDirector.Builder.AddSsd(_repos.Ssds.First())
             .AddSsd(_repos.Ssds.First())
             .AddSsd(_repos.Ssds.First())

@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab2.Entities;
-using Itmo.ObjectOrientedProgramming.Lab2.Models;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.Comparators;
 
-namespace Itmo.ObjectOrientedProgramming.Lab2.Services.PartsCompatabilityValidator;
+namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Validators;
 
-public class ComputerValidator : IComputerValidator
+public class PartsCompatibilityValidator : IPartsCompatibilityValidator
 {
-    public ComputerStatus Validate(PersonalComputerParts parts)
+    public IList<string> Validate(PersonalComputerParts parts)
     {
         var issues = new List<string?>
         {
@@ -28,17 +27,6 @@ public class ComputerValidator : IComputerValidator
             ValidateEnoughPciEx4Lanes(parts.Motherboard, parts.Ssds),
         };
 
-        bool guarantee = CheckGuaranteeVoided(parts.Cpu, parts.CoolingSystem);
-
-        PowerConsumptionStatus powerConsumptionStatus = CheckPower(
-            parts.PowerSupply,
-            parts.Cpu,
-            parts.Ram,
-            parts.Gpu,
-            parts.Ssds,
-            parts.Hdds,
-            parts.WifiAdapter);
-
         var realIssues = new List<string>();
         foreach (string? issue in issues)
         {
@@ -48,59 +36,7 @@ public class ComputerValidator : IComputerValidator
             }
         }
 
-        return new ComputerStatus(
-            guarantee,
-            powerConsumptionStatus,
-            realIssues);
-    }
-
-    private static PowerConsumptionStatus CheckPower(
-        PowerSupply powerSupply,
-        Cpu cpu,
-        IList<RandomAccessMemory> ramSticks,
-        Gpu? gpu,
-        IList<Ssd>? ssds,
-        IList<Hdd>? hdds,
-        WifiAdapter? wifiAdapter)
-    {
-        int totalPowerConsumption = cpu.PowerConsumption +
-                                    ramSticks.Sum(ramStick => ramStick.PowerUsage);
-        if (gpu is not null)
-        {
-            totalPowerConsumption += gpu.PowerUsage;
-        }
-
-        if (ssds is not null)
-        {
-            totalPowerConsumption += ssds.Sum(ssd => ssd.PowerUsage);
-        }
-
-        if (hdds is not null)
-        {
-            totalPowerConsumption += hdds.Sum(hdd => hdd.PowerUsage);
-        }
-
-        if (wifiAdapter is not null)
-        {
-            totalPowerConsumption += wifiAdapter.PowerUsage;
-        }
-
-        if (totalPowerConsumption <= powerSupply.Power)
-        {
-            return PowerConsumptionStatus.EnoughPower;
-        }
-
-        if (totalPowerConsumption <= powerSupply.Power + 50)
-        {
-            return PowerConsumptionStatus.RiskZone;
-        }
-
-        return PowerConsumptionStatus.NotEnoughPower;
-    }
-
-    private static bool CheckGuaranteeVoided(Cpu cpu, CoolingSystem coolingSystem)
-    {
-        return cpu.Tdp <= coolingSystem.Tdp;
+        return realIssues;
     }
 
     private static string? ValidateBiosCompatibility(Cpu cpu, Bios bios)

@@ -1,21 +1,29 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab2.Entities;
 using Itmo.ObjectOrientedProgramming.Lab2.Models;
-using Itmo.ObjectOrientedProgramming.Lab2.Services.PartsCompatabilityValidator;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.PcBuilder;
+using Itmo.ObjectOrientedProgramming.Lab2.Services.Validators;
 using Itmo.ObjectOrientedProgramming.Lab2.Tools;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
 public class PcDirector : IPcDirector
 {
-    public PcDirector(IPcBuilder builder, IComputerValidator validator)
+    public PcDirector(
+        IPcBuilder builder,
+        IPartsCompatibilityValidator partsCompatibilityValidator,
+        ICheckGuaranteeVoided check,
+        IPowerSupplyValidator powerValidator)
     {
         Builder = builder;
-        Validator = validator;
+        PartsCompatibilityValidator = partsCompatibilityValidator;
+        PowerValidator = powerValidator;
+        Check = check;
     }
 
     public IPcBuilder Builder { get; private set; }
-    private IComputerValidator Validator { get; set; }
+    private IPartsCompatibilityValidator PartsCompatibilityValidator { get; set; }
+    private IPowerSupplyValidator PowerValidator { get; set; }
+    private ICheckGuaranteeVoided Check { get; set; }
 
     public void BuildWith(IPcBuilder baseBuilder)
     {
@@ -54,11 +62,25 @@ public class PcDirector : IPcDirector
 
     public ComputerStatus AttemptBuild()
     {
-        return Validator.Validate(Builder.Build());
+        PersonalComputerParts parts = Builder.Build();
+        return new ComputerStatus(
+            Check.CheckCpuAndCooler(parts),
+            PowerValidator.CheckEnoughPower(parts),
+            PartsCompatibilityValidator.Validate(parts));
     }
 
-    public void WithValidator(IComputerValidator validator)
+    public void WithValidator(IPartsCompatibilityValidator validator)
     {
-        Validator = validator;
+        PartsCompatibilityValidator = validator;
+    }
+
+    public void WithPowerValidator(IPowerSupplyValidator validator)
+    {
+        PowerValidator = validator;
+    }
+
+    public void WithGuaranteeCheck(ICheckGuaranteeVoided guarantee)
+    {
+        Check = guarantee;
     }
 }
