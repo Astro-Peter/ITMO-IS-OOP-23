@@ -5,7 +5,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
 public class RamDirector : IBaseDirector<IRamBuilder>
 {
-    private RandomAccessMemory _ram;
+    private readonly RandomAccessMemory _ram;
+
     public RamDirector(RandomAccessMemory ram)
     {
         _ram = ram;

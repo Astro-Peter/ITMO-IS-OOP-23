@@ -5,7 +5,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
 public class PowerSupplyDirector : IBaseDirector<IPowerSupplyBuilder>
 {
-    private PowerSupply _powerSupply;
+    private readonly PowerSupply _powerSupply;
 
     public PowerSupplyDirector(PowerSupply powerSupply)
     {

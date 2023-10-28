@@ -5,7 +5,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
 public class SsdDirector : IBaseDirector<ISsdBuilder>
 {
-    private Ssd _ssd;
+    private readonly Ssd _ssd;
 
     public SsdDirector(Ssd ssd)
     {

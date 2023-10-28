@@ -1,18 +1,18 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab2.Entities;
-using Itmo.ObjectOrientedProgramming.Lab2.Tools;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.CpuBuilder;
 
 public class CpuBuilder : ICpuBuilder
 {
-    private string _name = "empty";
-    private double _frequency;
     private int _coreNumber;
-    private string _socket = "none";
+    private double _frequency;
     private BuiltInGpu? _gpu;
     private double _maxRamFrequency;
-    private int _tdp;
+    private string _name = "empty";
     private int _power;
+    private string _socket = "none";
+    private int _tdp;
+
     public Cpu Build()
     {
         return new Cpu(

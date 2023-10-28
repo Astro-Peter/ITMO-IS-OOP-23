@@ -1,17 +1,17 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab2.Entities;
 using Itmo.ObjectOrientedProgramming.Lab2.Models;
-using Itmo.ObjectOrientedProgramming.Lab2.Tools;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.GpuBuilder;
 
 public class GpuBuilder : IGpuBuilder
 {
-    private string _name = "none";
-    private int _memoryCapacity;
-    private string _pciEVersion = "none";
+    private Dimensions _dimensions = new(0, 0, 0);
     private double _frequency;
+    private int _memoryCapacity;
+    private string _name = "none";
+    private string _pciEVersion = "none";
     private int _power;
-    private Dimensions _dimensions = new Dimensions(0, 0, 0);
+
     public Gpu Build()
     {
         return new Gpu(

@@ -1,14 +1,14 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab2.Entities;
-using Itmo.ObjectOrientedProgramming.Lab2.Tools;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.XmpBuilder;
 
 public class XmpBuilder : IXmpBuilder
 {
-    private string _name = "none";
     private double _frequency;
-    private double _voltage;
+    private string _name = "none";
     private string _timings = "none";
+    private double _voltage;
+
     public XmpProfile Build()
     {
         return new XmpProfile(

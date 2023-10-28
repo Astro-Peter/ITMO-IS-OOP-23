@@ -5,7 +5,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
 public class CaseDirector : IBaseDirector<ICaseBuilder>
 {
-    private PcCase _pcCase;
+    private readonly PcCase _pcCase;
+
     public CaseDirector(PcCase pcCase)
     {
         _pcCase = pcCase;

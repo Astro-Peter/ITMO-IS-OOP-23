@@ -5,7 +5,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
 public class ChipsetDirector : IBaseDirector<IChipsetBuilder>
 {
-    private Chipset _chipset;
+    private readonly Chipset _chipset;
+
     public ChipsetDirector(Chipset chipset)
     {
         _chipset = chipset;

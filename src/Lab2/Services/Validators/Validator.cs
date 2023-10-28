@@ -5,9 +5,9 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Validators;
 
 public class Validator : IValidator
 {
-    private readonly PowerSupplyValidator _powerSupplyValidator = new();
     private readonly CheckGuaranteeVoided _guaranteeVoided = new();
     private readonly PartsCompatibilityValidator _partsCompatibilityValidator = new();
+    private readonly PowerSupplyValidator _powerSupplyValidator = new();
 
     public ComputerStatus ValidateBuild(PersonalComputerParts parts)
     {

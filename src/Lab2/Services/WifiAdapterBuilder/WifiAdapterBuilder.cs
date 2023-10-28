@@ -5,10 +5,11 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.WifiAdapterBuilder;
 public class WifiAdapterBuilder : IWifiAdapterBuilder
 {
     private bool _bluetooth;
+    private string _name = "none";
     private string _pciEVersion = "none";
     private int _power;
-    private string _name = "none";
     private string _wifiStandard = "none";
+
     public WifiAdapter Build()
     {
         return new WifiAdapter(

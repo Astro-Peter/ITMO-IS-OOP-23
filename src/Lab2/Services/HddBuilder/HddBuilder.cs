@@ -5,8 +5,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.HddBuilder;
 public class HddBuilder : IHddBuilder
 {
     private int _memoryCapacity;
-    private int _power;
     private string _name = "none";
+    private int _power;
     private int _rpm;
 
     public Hdd Build()

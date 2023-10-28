@@ -8,17 +8,18 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.PcBuilder;
 
 public class PcBuilder : IPcBuilder
 {
-    private WifiAdapter? _wifiAdapter;
+    private CoolingSystem _coolingSystem = new CoolerBuilder.CoolerBuilder().Build();
+    private Cpu _cpu = new CpuBuilder.CpuBuilder().Build();
+    private Gpu? _gpu;
+    private IList<Hdd>? _hdds;
+    private Motherboard _motherboard = new MotherBoardBuilder().Build();
+    private PcCase _pcCase = new CaseBuilder.CaseBuilder().Build();
     private PowerSupply _powerSupply = new PowerSupplyBuilder.PowerSupplyBuilder().Build();
     private IList<RandomAccessMemory> _ram = new List<RandomAccessMemory>();
-    private PcCase _pcCase = new CaseBuilder.CaseBuilder().Build();
-    private CoolingSystem _coolingSystem = new CoolerBuilder.CoolerBuilder().Build();
     private IList<Ssd>? _ssds;
-    private IList<Hdd>? _hdds;
-    private Gpu? _gpu;
-    private Cpu _cpu = new CpuBuilder.CpuBuilder().Build();
-    private Motherboard _motherboard = new MotherBoardBuilder().Build();
     private IValidator _validator = new Validator();
+    private WifiAdapter? _wifiAdapter;
+
     public IPcBuilder WithValidator(IValidator validator)
     {
         _validator = validator;

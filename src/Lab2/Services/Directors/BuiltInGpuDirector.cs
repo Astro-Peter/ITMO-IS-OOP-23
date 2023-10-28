@@ -5,7 +5,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
 public class BuiltInGpuDirector : IBaseDirector<IBuiltInGpuBuilder>
 {
-    private BuiltInGpu _gpu;
+    private readonly BuiltInGpu _gpu;
+
     public BuiltInGpuDirector(BuiltInGpu gpu)
     {
         _gpu = gpu;

@@ -5,12 +5,10 @@ using Itmo.ObjectOrientedProgramming.Lab2.Entities;
 using Itmo.ObjectOrientedProgramming.Lab2.Models;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.BiosBuilder;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.ChipsetBuilder;
-using Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.MotherboardBuilder;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.PcBuilder;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.RamBuilder;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.Repositories;
-using Itmo.ObjectOrientedProgramming.Lab2.Services.Validators;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.XmpBuilder;
 using Xunit;
 

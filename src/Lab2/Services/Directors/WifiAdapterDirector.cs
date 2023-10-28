@@ -5,7 +5,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
 public class WifiAdapterDirector : IBaseDirector<IWifiAdapterBuilder>
 {
-    private WifiAdapter _wifiAdapter;
+    private readonly WifiAdapter _wifiAdapter;
 
     public WifiAdapterDirector(WifiAdapter wifiAdapter)
     {

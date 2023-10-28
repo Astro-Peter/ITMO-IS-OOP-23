@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab2.Entities;
 using Itmo.ObjectOrientedProgramming.Lab2.Models;
-using Itmo.ObjectOrientedProgramming.Lab2.Tools;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.CoolerBuilder;
 
 public class CoolerBuilder : ICoolerBuilder
 {
+    private Dimensions _dimensions = new(0, 0, 0);
     private string _name = "empty";
-    private Dimensions _dimensions = new Dimensions(0, 0, 0);
     private IList<string> _sockets = new List<string>();
     private int _tdp;
 

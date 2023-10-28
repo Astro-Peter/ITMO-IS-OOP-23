@@ -1,13 +1,12 @@
-﻿using System;
-using Itmo.ObjectOrientedProgramming.Lab2.Entities;
-using Itmo.ObjectOrientedProgramming.Lab2.Tools;
+﻿using Itmo.ObjectOrientedProgramming.Lab2.Entities;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.BuiltInGpuBuilder;
 
 public class BuiltInGpuBuilder : IBuiltInGpuBuilder
 {
-    private string _name = "empty";
     private double _frequency;
+    private string _name = "empty";
+
     public BuiltInGpu Build()
     {
         return new BuiltInGpu(

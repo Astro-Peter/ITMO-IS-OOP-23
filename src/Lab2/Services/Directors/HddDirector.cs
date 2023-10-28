@@ -5,7 +5,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
 public class HddDirector : IBaseDirector<IHddBuilder>
 {
-    private Hdd _baseHdd;
+    private readonly Hdd _baseHdd;
 
     public HddDirector(Hdd hdd)
     {

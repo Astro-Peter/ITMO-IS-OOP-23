@@ -5,7 +5,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
 public class MotherboardDirector : IBaseDirector<IMotherboardBuilder>
 {
-    private Motherboard _motherboard;
+    private readonly Motherboard _motherboard;
 
     public MotherboardDirector(Motherboard motherboard)
     {

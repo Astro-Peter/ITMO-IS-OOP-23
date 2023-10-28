@@ -6,13 +6,14 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.RamBuilder;
 
 public class RamBuilder : IRamBuilder
 {
-    private string _name = "none";
-    private int _memoryCapacity;
-    private string _ramFormFactor = "none";
     private string _ddrVersion = "none";
-    private int _power;
     private string _jedec = "none";
+    private int _memoryCapacity;
+    private string _name = "none";
+    private int _power;
+    private string _ramFormFactor = "none";
     private IList<XmpProfile> _xmpProfiles = new Collection<XmpProfile>();
+
     public RandomAccessMemory Build()
     {
         return new RandomAccessMemory(

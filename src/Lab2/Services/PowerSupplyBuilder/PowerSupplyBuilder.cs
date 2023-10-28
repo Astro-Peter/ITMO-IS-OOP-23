@@ -1,12 +1,11 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab2.Entities;
-using Itmo.ObjectOrientedProgramming.Lab2.Tools;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.PowerSupplyBuilder;
 
 public class PowerSupplyBuilder : IPowerSupplyBuilder
 {
-    private int _power = -100;
     private string _name = "none";
+    private int _power = -100;
 
     public PowerSupply Build()
     {

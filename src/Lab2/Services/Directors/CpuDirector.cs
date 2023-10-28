@@ -5,7 +5,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
 public class CpuDirector : IBaseDirector<ICpuBuilder>
 {
-    private Cpu _cpu;
+    private readonly Cpu _cpu;
+
     public CpuDirector(Cpu cpu)
     {
         _cpu = cpu;

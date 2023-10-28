@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab2.Entities;
-using Itmo.ObjectOrientedProgramming.Lab2.Tools;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.ChipsetBuilder;
 
 public class ChipsetBuilder : IChipsetBuilder
 {
-    private string _name = "empty";
     private IList<double> _memoryFrequencies = new List<double>();
+    private string _name = "empty";
     private bool _xmpSupport;
+
     public Chipset Build()
     {
         return new Chipset(

@@ -16,6 +16,7 @@ public class Repository<T> : IRepository<T>
     }
 
     public IEnumerable<T> Values => Components;
+
     private IList<T> Components { get; }
 
     public void Add(T component)

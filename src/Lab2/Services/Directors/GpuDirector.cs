@@ -5,7 +5,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
 public class GpuDirector : IBaseDirector<IGpuBuilder>
 {
-    private Gpu _gpu;
+    private readonly Gpu _gpu;
+
     public GpuDirector(Gpu gpu)
     {
         _gpu = gpu;
@@ -13,12 +14,12 @@ public class GpuDirector : IBaseDirector<IGpuBuilder>
 
     public IGpuBuilder Direct(IGpuBuilder baseBuilder)
     {
-        baseBuilder.SetFrequency(this._gpu.Frequency)
-            .SetName(this._gpu.Name)
-            .SetPower(this._gpu.PowerUsage)
-            .SetDimensions(this._gpu.Dimensions)
-            .SetMemoryCapacity(this._gpu.MemoryCapacity)
-            .SetPciEVersion(this._gpu.PciEVersion);
+        baseBuilder.SetFrequency(_gpu.Frequency)
+            .SetName(_gpu.Name)
+            .SetPower(_gpu.PowerUsage)
+            .SetDimensions(_gpu.Dimensions)
+            .SetMemoryCapacity(_gpu.MemoryCapacity)
+            .SetPciEVersion(_gpu.PciEVersion);
         return baseBuilder;
     }
 }

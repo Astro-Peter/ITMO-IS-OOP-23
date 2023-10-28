@@ -5,7 +5,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
 public class XmpDirector : IBaseDirector<IXmpBuilder>
 {
-    private XmpProfile _xmp;
+    private readonly XmpProfile _xmp;
+
     public XmpDirector(XmpProfile xmp)
     {
         _xmp = xmp;

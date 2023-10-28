@@ -5,17 +5,17 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.MotherboardBuilder;
 
 public class MotherBoardBuilder : IMotherboardBuilder
 {
-    private string _socket = "none";
-    private int _sataPortsNumber;
-    private string _ddrVersion = "none";
-    private int _ramSlots;
-    private int _pciEx16LanesNumber;
-    private int _pciEx4LanesNumber;
-    private int _pciEx1LanesNumber;
     private Bios _bios = new BiosBuilder.BiosBuilder().Build();
-    private string _name = "none";
     private Chipset _chipset = new ChipsetBuilder.ChipsetBuilder().Build();
+    private string _ddrVersion = "none";
     private MotherBoardFormFactor _motherBoardFormFactor = MotherBoardFormFactor.None;
+    private string _name = "none";
+    private int _pciEx16LanesNumber;
+    private int _pciEx1LanesNumber;
+    private int _pciEx4LanesNumber;
+    private int _ramSlots;
+    private int _sataPortsNumber;
+    private string _socket = "none";
 
     public Motherboard Build()
     {

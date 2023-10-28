@@ -1,15 +1,14 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab2.Entities;
 using Itmo.ObjectOrientedProgramming.Lab2.Models;
-using Itmo.ObjectOrientedProgramming.Lab2.Tools;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.CaseBuilder;
 
 public class CaseBuilder : ICaseBuilder
 {
-    private string _name = "empty";
-    private Dimensions _dimensions = new Dimensions(0, 0, 0);
-    private Dimensions _maximumGpuDimensions = new Dimensions(0, 0, 0);
+    private Dimensions _dimensions = new(0, 0, 0);
+    private Dimensions _maximumGpuDimensions = new(0, 0, 0);
     private MotherBoardFormFactor _motherBoardFormFactor = MotherBoardFormFactor.None;
+    private string _name = "empty";
 
     public PcCase Build()
     {

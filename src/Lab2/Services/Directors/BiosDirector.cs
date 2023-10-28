@@ -5,7 +5,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
 public class BiosDirector : IBaseDirector<IBiosBuilder>
 {
-    private Bios _bios;
+    private readonly Bios _bios;
 
     public BiosDirector(Bios bios)
     {

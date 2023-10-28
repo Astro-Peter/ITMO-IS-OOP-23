@@ -1,6 +1,4 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab2.Services.BuilderInterfaces;
-
-namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
+﻿namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
 public interface IBaseDirector<TB>
 {

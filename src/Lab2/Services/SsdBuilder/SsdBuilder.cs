@@ -4,11 +4,12 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.SsdBuilder;
 
 public class SsdBuilder : ISsdBuilder
 {
-    private string _name = "none";
     private string _connectionType = "none";
     private int _memoryCapacity;
-    private int _speed;
+    private string _name = "none";
     private int _power;
+    private int _speed;
+
     public Ssd Build()
     {
         return new Ssd(

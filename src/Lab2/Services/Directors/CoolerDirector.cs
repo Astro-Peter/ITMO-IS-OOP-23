@@ -5,7 +5,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
 public class CoolerDirector : IBaseDirector<ICoolerBuilder>
 {
-    private CoolingSystem _cooler;
+    private readonly CoolingSystem _cooler;
+
     public CoolerDirector(CoolingSystem cooler)
     {
         _cooler = cooler;
