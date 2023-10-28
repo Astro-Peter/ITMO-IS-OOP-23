@@ -1,118 +1,126 @@
 ﻿using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab2.Entities;
-using Itmo.ObjectOrientedProgramming.Lab2.Tools;
+using Itmo.ObjectOrientedProgramming.Lab2.Models;
+using Itmo.ObjectOrientedProgramming.Lab2.Services.MotherboardBuilder;
+using Itmo.ObjectOrientedProgramming.Lab2.Services.Validators;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.PcBuilder;
 
 public class PcBuilder : IPcBuilder
 {
-    private WifiAdapter? WifiAdapter { get; set; }
-    private PowerSupply? PowerSupply { get; set; }
-    private IList<RandomAccessMemory>? Ram { get; set; }
-    private PcCase? PcCase { get; set; }
-    private CoolingSystem? CoolingSystem { get; set; }
-    private IList<Ssd>? Ssds { get; set; }
-    private IList<Hdd>? Hdds { get; set; }
-    private Gpu? Gpu { get; set; }
-    private Cpu? Cpu { get; set; }
-    private Motherboard? Motherboard { get; set; }
+    private WifiAdapter? _wifiAdapter;
+    private PowerSupply _powerSupply = new PowerSupplyBuilder.PowerSupplyBuilder().Build();
+    private IList<RandomAccessMemory> _ram = new List<RandomAccessMemory>();
+    private PcCase _pcCase = new CaseBuilder.CaseBuilder().Build();
+    private CoolingSystem _coolingSystem = new CoolerBuilder.CoolerBuilder().Build();
+    private IList<Ssd>? _ssds;
+    private IList<Hdd>? _hdds;
+    private Gpu? _gpu;
+    private Cpu _cpu = new CpuBuilder.CpuBuilder().Build();
+    private Motherboard _motherboard = new MotherBoardBuilder().Build();
+    private IValidator _validator = new Validator();
+    public IPcBuilder WithValidator(IValidator validator)
+    {
+        _validator = validator;
+        return this;
+    }
 
     public IPcBuilder SetMotherBoard(Motherboard motherboard)
     {
-        Motherboard = motherboard;
+        _motherboard = motherboard;
         return this;
     }
 
     public IPcBuilder SetCpu(Cpu cpu)
     {
-        Cpu = cpu;
+        _cpu = cpu;
         return this;
     }
 
     public IPcBuilder SetGpu(Gpu? gpu)
     {
-        Gpu = gpu;
+        _gpu = gpu;
         return this;
     }
 
     public IPcBuilder SetHdds(IList<Hdd>? hdds)
     {
-        Hdds = hdds;
+        _hdds = hdds;
         return this;
     }
 
     public IPcBuilder SetSsds(IList<Ssd>? ssds)
     {
-        Ssds = ssds;
+        _ssds = ssds;
         return this;
     }
 
     public IPcBuilder SetCoolingSystem(CoolingSystem coolingSystem)
     {
-        CoolingSystem = coolingSystem;
+        _coolingSystem = coolingSystem;
         return this;
     }
 
     public IPcBuilder SetPcCase(PcCase pcCase)
     {
-        PcCase = pcCase;
+        _pcCase = pcCase;
         return this;
     }
 
     public IPcBuilder SetRam(IList<RandomAccessMemory> ram)
     {
-        Ram = ram;
+        _ram = ram;
         return this;
     }
 
     public IPcBuilder SetPowerSupply(PowerSupply powerSupply)
     {
-        PowerSupply = powerSupply;
+        _powerSupply = powerSupply;
         return this;
     }
 
     public IPcBuilder SetWifiAdapter(WifiAdapter? wifiAdapter)
     {
-        WifiAdapter = wifiAdapter;
+        _wifiAdapter = wifiAdapter;
         return this;
     }
 
     public IPcBuilder AddHdd(Hdd hdd)
     {
-        Hdds ??= new List<Hdd>();
+        _hdds ??= new List<Hdd>();
 
-        Hdds.Add(hdd);
+        _hdds.Add(hdd);
         return this;
     }
 
     public IPcBuilder AddSsd(Ssd ssd)
     {
-        Ssds ??= new List<Ssd>();
+        _ssds ??= new List<Ssd>();
 
-        Ssds.Add(ssd);
+        _ssds.Add(ssd);
         return this;
     }
 
     public IPcBuilder AddRamStick(RandomAccessMemory ram)
     {
-        Ram ??= new List<RandomAccessMemory>();
-
-        Ram.Add(ram);
+        _ram.Add(ram);
         return this;
     }
 
-    public PersonalComputerParts Build()
+    public PcBuildResult Build()
     {
-        return new PersonalComputerParts(
-            Motherboard ?? throw new UndefinedParameterException(nameof(Motherboard)),
-            Cpu ?? throw new UndefinedParameterException(nameof(Cpu)),
-            Gpu,
-            Hdds,
-            Ssds,
-            CoolingSystem ?? throw new UndefinedParameterException(nameof(CoolingSystem)),
-            PcCase ?? throw new UndefinedParameterException(nameof(PcCase)),
-            Ram ?? throw new UndefinedParameterException(nameof(Ram)),
-            PowerSupply ?? throw new UndefinedParameterException(nameof(PowerSupply)),
-            WifiAdapter);
+        var parts = new PersonalComputerParts(
+            _motherboard,
+            _cpu,
+            _gpu,
+            _hdds,
+            _ssds,
+            _coolingSystem,
+            _pcCase,
+            _ram,
+            _powerSupply,
+            _wifiAdapter);
+        ComputerStatus result = _validator.ValidateBuild(parts);
+        return new PcBuildResult(parts, result);
     }
 }

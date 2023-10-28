@@ -1,21 +1,22 @@
 ﻿using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab2.Entities;
+using Itmo.ObjectOrientedProgramming.Lab2.Models;
 using Itmo.ObjectOrientedProgramming.Lab2.Tools;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.BiosBuilder;
 
 public class BiosBuilder : IBiosBuilder
 {
-    private string? BiosType { get; set; }
-    private string? BiosVersion { get; set; }
-    private IList<string>? CompatibleCpus { get; set; }
+    private string biosType = "none";
+    private string biosVersion = "none";
+    private IList<string> compatibleCpus = new List<string>();
 
     public Bios Build()
     {
-        return new Bios(
-            BiosType ?? throw new UndefinedParameterException(nameof(BiosType)),
-            BiosVersion ?? throw new UndefinedParameterException(nameof(BiosVersion)),
-            CompatibleCpus ?? throw new UndefinedParameterException(nameof(CompatibleCpus)));
+         return new Bios(
+            biosType,
+            biosVersion,
+            compatibleCpus);
     }
 
     public IBiosBuilder SetBiosType(string biosType)

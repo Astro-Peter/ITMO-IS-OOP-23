@@ -3,30 +3,20 @@ using Itmo.ObjectOrientedProgramming.Lab2.Services.XmpBuilder;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
-public class XmpDirector : IBaseDirector<XmpProfile, IXmpBuilder>
+public class XmpDirector : IBaseDirector<IXmpBuilder>
 {
-    public XmpDirector(IXmpBuilder builder)
+    private XmpProfile _xmp;
+    public XmpDirector(XmpProfile xmp)
     {
-        Builder = builder;
+        _xmp = xmp;
     }
 
-    public IXmpBuilder Builder { get; private set; }
-
-    public void BuildWith(IXmpBuilder baseBuilder)
+    public IXmpBuilder Direct(IXmpBuilder baseBuilder)
     {
-        Builder = baseBuilder;
-    }
-
-    public void BuildFrom(XmpProfile baseComponent)
-    {
-        Builder.SetFrequency(baseComponent.Frequency)
-            .SetName(baseComponent.Name)
-            .SetTimings(baseComponent.Timings)
-            .SetVoltage(baseComponent.Voltage);
-    }
-
-    public XmpProfile GetComponent()
-    {
-        return Builder.Build();
+        baseBuilder.SetFrequency(_xmp.Frequency)
+            .SetName(_xmp.Name)
+            .SetTimings(_xmp.Timings)
+            .SetVoltage(_xmp.Voltage);
+        return baseBuilder;
     }
 }

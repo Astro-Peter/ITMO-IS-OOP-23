@@ -6,81 +6,26 @@ using Itmo.ObjectOrientedProgramming.Lab2.Tools;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
-public class PcDirector : IPcDirector
+public class PcDirector : IBaseDirector<IPcBuilder>
 {
-    public PcDirector(
-        IPcBuilder builder,
-        IPartsCompatibilityValidator partsCompatibilityValidator,
-        ICheckGuaranteeVoided check,
-        IPowerSupplyValidator powerValidator)
+    private PersonalComputerParts _pc;
+    public PcDirector(PersonalComputerParts pc)
     {
-        Builder = builder;
-        PartsCompatibilityValidator = partsCompatibilityValidator;
-        PowerValidator = powerValidator;
-        Check = check;
+        _pc = pc;
     }
 
-    public IPcBuilder Builder { get; private set; }
-    private IPartsCompatibilityValidator PartsCompatibilityValidator { get; set; }
-    private IPowerSupplyValidator PowerValidator { get; set; }
-    private ICheckGuaranteeVoided Check { get; set; }
-
-    public void BuildWith(IPcBuilder baseBuilder)
+    public IPcBuilder Direct(IPcBuilder baseBuilder)
     {
-        Builder = baseBuilder;
-    }
-
-    public void BuildFrom(PersonalComputerParts baseComponent)
-    {
-        Builder.SetHdds(baseComponent.Hdds)
-            .SetCpu(baseComponent.Cpu)
-            .SetGpu(baseComponent.Gpu)
-            .SetRam(baseComponent.Ram)
-            .SetSsds(baseComponent.Ssds)
-            .SetCoolingSystem(baseComponent.CoolingSystem)
-            .SetMotherBoard(baseComponent.Motherboard)
-            .SetPcCase(baseComponent.PcCase)
-            .SetPowerSupply(baseComponent.PowerSupply)
-            .SetWifiAdapter(baseComponent.WifiAdapter);
-    }
-
-    public PersonalComputerParts GetComponent()
-    {
-        ComputerStatus attempt = AttemptBuild();
-        if (attempt.Status == PowerConsumptionStatus.NotEnoughPower)
-        {
-            throw new IncorrectPcBuildException("Power consumption too high");
-        }
-
-        if (attempt.Message.Count > 0)
-        {
-            throw new IncorrectPcBuildException("some parts are incompatible");
-        }
-
-        return Builder.Build();
-    }
-
-    public ComputerStatus AttemptBuild()
-    {
-        PersonalComputerParts parts = Builder.Build();
-        return new ComputerStatus(
-            Check.CheсkGuarantee(parts),
-            PowerValidator.CheckEnoughPower(parts),
-            PartsCompatibilityValidator.Validate(parts));
-    }
-
-    public void WithValidator(IPartsCompatibilityValidator validator)
-    {
-        PartsCompatibilityValidator = validator;
-    }
-
-    public void WithPowerValidator(IPowerSupplyValidator validator)
-    {
-        PowerValidator = validator;
-    }
-
-    public void WithGuaranteeCheck(ICheckGuaranteeVoided guarantee)
-    {
-        Check = guarantee;
+        baseBuilder.SetHdds(_pc.Hdds)
+            .SetCpu(_pc.Cpu)
+            .SetGpu(_pc.Gpu)
+            .SetRam(_pc.Ram)
+            .SetSsds(_pc.Ssds)
+            .SetCoolingSystem(_pc.CoolingSystem)
+            .SetMotherBoard(_pc.Motherboard)
+            .SetPcCase(_pc.PcCase)
+            .SetPowerSupply(_pc.PowerSupply)
+            .SetWifiAdapter(_pc.WifiAdapter);
+        return baseBuilder;
     }
 }

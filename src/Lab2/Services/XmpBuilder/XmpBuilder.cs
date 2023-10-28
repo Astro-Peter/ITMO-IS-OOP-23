@@ -5,40 +5,40 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.XmpBuilder;
 
 public class XmpBuilder : IXmpBuilder
 {
-    private string? Name { get; set; }
-    private double? Frequency { get; set; }
-    private double? Voltage { get; set; }
-    private string? Timings { get; set; }
+    private string _name = "none";
+    private double _frequency;
+    private double _voltage;
+    private string _timings = "none";
     public XmpProfile Build()
     {
         return new XmpProfile(
-            Voltage ?? throw new UndefinedParameterException(nameof(Voltage)),
-            Frequency ?? throw new UndefinedParameterException(nameof(Frequency)),
-            Name ?? throw new UndefinedParameterException(nameof(Name)),
-            Timings ?? throw new UndefinedParameterException(nameof(Timings)));
+            _voltage,
+            _frequency,
+            _name,
+            _timings);
     }
 
     public IXmpBuilder SetName(string name)
     {
-        Name = name;
+        _name = name;
         return this;
     }
 
     public IXmpBuilder SetFrequency(double frequency)
     {
-        Frequency = frequency;
+        _frequency = frequency;
         return this;
     }
 
     public IXmpBuilder SetVoltage(double voltage)
     {
-        Voltage = voltage;
+        _voltage = voltage;
         return this;
     }
 
     public IXmpBuilder SetTimings(string timings)
     {
-        Timings = timings;
+        _timings = timings;
         return this;
     }
 }

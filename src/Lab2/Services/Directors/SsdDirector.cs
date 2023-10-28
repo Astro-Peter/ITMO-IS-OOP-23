@@ -3,31 +3,22 @@ using Itmo.ObjectOrientedProgramming.Lab2.Services.SsdBuilder;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
-public class SsdDirector : IBaseDirector<Ssd, ISsdBuilder>
+public class SsdDirector : IBaseDirector<ISsdBuilder>
 {
-    public SsdDirector(ISsdBuilder builder)
+    private Ssd _ssd;
+
+    public SsdDirector(Ssd ssd)
     {
-        Builder = builder;
+        _ssd = ssd;
     }
 
-    public ISsdBuilder Builder { get; private set; }
-
-    public void BuildWith(ISsdBuilder baseBuilder)
+    public ISsdBuilder Direct(ISsdBuilder baseBuilder)
     {
-        Builder = baseBuilder;
-    }
-
-    public void BuildFrom(Ssd baseComponent)
-    {
-        Builder.SetName(baseComponent.Name)
-            .SetPower(baseComponent.PowerUsage)
-            .SetMemoryCapacity(baseComponent.Capacity)
-            .SetSpeed(baseComponent.Speed)
-            .SetConnectionType(baseComponent.ConnectionType);
-    }
-
-    public Ssd GetComponent()
-    {
-        return Builder.Build();
+        baseBuilder.SetName(_ssd.Name)
+            .SetPower(_ssd.PowerUsage)
+            .SetMemoryCapacity(_ssd.Capacity)
+            .SetSpeed(_ssd.Speed)
+            .SetConnectionType(_ssd.ConnectionType);
+        return baseBuilder;
     }
 }

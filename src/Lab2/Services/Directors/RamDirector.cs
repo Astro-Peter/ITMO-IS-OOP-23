@@ -3,33 +3,23 @@ using Itmo.ObjectOrientedProgramming.Lab2.Services.RamBuilder;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
-public class RamDirector : IBaseDirector<RandomAccessMemory, IRamBuilder>
+public class RamDirector : IBaseDirector<IRamBuilder>
 {
-    public RamDirector(IRamBuilder builder)
+    private RandomAccessMemory _ram;
+    public RamDirector(RandomAccessMemory ram)
     {
-        Builder = builder;
+        _ram = ram;
     }
 
-    public IRamBuilder Builder { get; private set; }
-
-    public void BuildWith(IRamBuilder baseBuilder)
+    public IRamBuilder Direct(IRamBuilder baseBuilder)
     {
-        Builder = baseBuilder;
-    }
-
-    public void BuildFrom(RandomAccessMemory baseComponent)
-    {
-        Builder.SetJedec(baseComponent.Jedec)
-            .SetName(baseComponent.Name)
-            .SetPower(baseComponent.PowerUsage)
-            .SetDdrVersion(baseComponent.DdrVersion)
-            .SetMemoryCapacity(baseComponent.MemoryAmount)
-            .SetXmpProfiles(baseComponent.AvailableProfiles)
-            .SetRamFormFactor(baseComponent.RamFormFactor);
-    }
-
-    public RandomAccessMemory GetComponent()
-    {
-        return Builder.Build();
+        baseBuilder.SetJedec(_ram.Jedec)
+            .SetName(_ram.Name)
+            .SetPower(_ram.PowerUsage)
+            .SetDdrVersion(_ram.DdrVersion)
+            .SetMemoryCapacity(_ram.MemoryAmount)
+            .SetXmpProfiles(_ram.AvailableProfiles)
+            .SetRamFormFactor(_ram.RamFormFactor);
+        return baseBuilder;
     }
 }

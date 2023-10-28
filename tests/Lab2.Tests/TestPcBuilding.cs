@@ -6,7 +6,7 @@ using Itmo.ObjectOrientedProgramming.Lab2.Models;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.BiosBuilder;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.ChipsetBuilder;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
-using Itmo.ObjectOrientedProgramming.Lab2.Services.MotherBoardBuilder;
+using Itmo.ObjectOrientedProgramming.Lab2.Services.MotherboardBuilder;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.PcBuilder;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.RamBuilder;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.Repositories;
@@ -59,14 +59,14 @@ public class TestPcBuilding
 
     public TestPcBuilding()
     {
-        var xmpDirector = new XmpDirector(new XmpBuilder());
-        xmpDirector.Builder.SetFrequency(20)
+        var xmpBuilder = new XmpBuilder();
+        xmpBuilder.SetFrequency(20)
             .SetName("xmp1")
             .SetTimings("10-20-20-30")
             .SetVoltage(1.4);
 
-        var ramDirector = new RamDirector(new RamBuilder());
-        ramDirector.Builder.SetName("ram1")
+        var ramBuilder = new RamBuilder();
+        ramBuilder.SetName("ram1")
             .SetJedec("10-20-30-30")
             .SetDdrVersion("ddr4")
             .SetPower(30)
@@ -74,12 +74,12 @@ public class TestPcBuilding
             .SetRamFormFactor("smth")
             .SetXmpProfiles(new List<XmpProfile>()
             {
-                xmpDirector.GetComponent(),
+                xmpBuilder.Build(),
             });
-        _repos.RamSticks.Add(ramDirector.GetComponent());
+        _repos.RamSticks.Add(ramBuilder.Build());
 
-        var biosDirector = new BiosDirector(new BiosBuilder());
-        biosDirector.Builder.SetBiosType("amibios")
+        var biosBuilder = new BiosBuilder();
+        biosBuilder.SetBiosType("amibios")
             .SetBiosVersion("2200")
             .SetCompatibleCpus(new List<string>()
             {
@@ -87,19 +87,19 @@ public class TestPcBuilding
                 "cpu2",
             });
 
-        var chipsetDirector = new ChipsetDirector(new ChipsetBuilder());
-        chipsetDirector.Builder.SetName("x220")
+        var chipsetBuilder = new ChipsetBuilder();
+        chipsetBuilder.SetName("x220")
             .SetXmpSupport(true)
             .SetAvailableMemoryFrequencies(new List<double>()
             {
                 20,
             });
 
-        var motherboardDirector = new MotherboardDirector(new MotherBoardBuilder());
-        motherboardDirector.Builder.SetName("skiddly-doo")
+        var motherboardBuilder = new MotherBoardBuilder();
+        motherboardBuilder.SetName("skiddly-doo")
             .SetDdrVersion("ddr4")
-            .SetBios(biosDirector.GetComponent())
-            .SetChipset(chipsetDirector.GetComponent())
+            .SetBios(biosBuilder.Build())
+            .SetChipset(chipsetBuilder.Build())
             .SetSocket("plcc")
             .SetRamSlots(2)
             .SetMotherboardFormFactor(MotherBoardFormFactor.Atx)
@@ -107,18 +107,14 @@ public class TestPcBuilding
             .SetPciEx4LanesNumber(2)
             .SetPciEx16LanesNumber(1)
             .SetSataPortsNumber(1);
-        _repos.Motherboards.Add(motherboardDirector.GetComponent());
+        _repos.Motherboards.Add(motherboardBuilder.Build());
     }
 
     [Fact]
     public void CorrectPcConfiguration()
     {
-        var pcDirector = new PcDirector(
-            new PcBuilder(),
-            new PartsCompatibilityValidator(),
-            new CheckGuaranteeVoided(),
-            new PowerSupplyValidator());
-        pcDirector.Builder.AddSsd(_repos.Ssds.First())
+        var builder = new PcBuilder();
+        builder.AddSsd(_repos.Ssds.First())
             .AddRamStick(_repos.RamSticks.First())
             .SetCpu(_repos.Cpus.First())
             .SetGpu(_repos.Gpus.First())
@@ -126,20 +122,16 @@ public class TestPcBuilding
             .SetCoolingSystem(_repos.CoolingSystems.First())
             .SetPcCase(_repos.PcCases.First())
             .SetPowerSupply(_repos.PowerSupplies.First());
-        ComputerStatus result = pcDirector.AttemptBuild();
-        Assert.Empty(result.Message);
-        Assert.Equal(PowerConsumptionStatus.EnoughPower, result.Status);
+        PcBuildResult result = builder.Build();
+        Assert.Empty(result.Status.Message);
+        Assert.Equal(PowerConsumptionStatus.EnoughPower, result.Status.Status);
     }
 
     [Fact]
     public void PowerConsumptionMoreThanRecommended()
     {
-        var pcDirector = new PcDirector(
-            new PcBuilder(),
-            new PartsCompatibilityValidator(),
-            new CheckGuaranteeVoided(),
-            new PowerSupplyValidator());
-        pcDirector.Builder.AddSsd(_repos.Ssds.First())
+        var builder = new PcBuilder();
+        builder.AddSsd(_repos.Ssds.First())
             .AddRamStick(_repos.RamSticks.First())
             .SetCpu(_repos.Cpus.First())
             .SetGpu(_repos.Gpus.First())
@@ -147,20 +139,16 @@ public class TestPcBuilding
             .SetCoolingSystem(_repos.CoolingSystems.First())
             .SetPcCase(_repos.PcCases.First())
             .SetPowerSupply(_repos.PowerSupplies.First(supply => supply.Name == "power2"));
-        ComputerStatus result = pcDirector.AttemptBuild();
-        Assert.Empty(result.Message);
-        Assert.Equal(PowerConsumptionStatus.RiskZone, result.Status);
+        PcBuildResult result = builder.Build();
+        Assert.Empty(result.Status.Message);
+        Assert.Equal(PowerConsumptionStatus.RiskZone, result.Status.Status);
     }
 
     [Fact]
     public void GuaranteeVoidedBecauseOfBadCooler()
     {
-        var pcDirector = new PcDirector(
-            new PcBuilder(),
-            new PartsCompatibilityValidator(),
-            new CheckGuaranteeVoided(),
-            new PowerSupplyValidator());
-        pcDirector.Builder.AddSsd(_repos.Ssds.First())
+        var builder = new PcBuilder();
+        builder.AddSsd(_repos.Ssds.First())
             .AddRamStick(_repos.RamSticks.First())
             .SetCpu(_repos.Cpus.First())
             .SetGpu(_repos.Gpus.First())
@@ -168,20 +156,16 @@ public class TestPcBuilding
             .SetCoolingSystem(_repos.CoolingSystems.First(system => system.Tdp == 10))
             .SetPcCase(_repos.PcCases.First())
             .SetPowerSupply(_repos.PowerSupplies.First());
-        ComputerStatus result = pcDirector.AttemptBuild();
-        Assert.Empty(result.Message);
-        Assert.False(result.Guarantee);
+        PcBuildResult result = builder.Build();
+        Assert.Empty(result.Status.Message);
+        Assert.False(result.Status.Guarantee);
     }
 
     [Fact]
     public void FailureToBuild()
     {
-        var pcDirector = new PcDirector(
-            new PcBuilder(),
-            new PartsCompatibilityValidator(),
-            new CheckGuaranteeVoided(),
-            new PowerSupplyValidator());
-        pcDirector.Builder.AddSsd(_repos.Ssds.First())
+        var builder = new PcBuilder();
+        builder.AddSsd(_repos.Ssds.First())
             .AddSsd(_repos.Ssds.First())
             .AddSsd(_repos.Ssds.First())
             .AddSsd(_repos.Ssds.First())
@@ -196,9 +180,9 @@ public class TestPcBuilding
             .SetCoolingSystem(_repos.CoolingSystems.First())
             .SetPcCase(_repos.PcCases.First())
             .SetPowerSupply(_repos.PowerSupplies.First());
-        ComputerStatus result = pcDirector.AttemptBuild();
-        Assert.Equal(2, result.Message.Count);
-        Assert.Contains("not enough sata ports", result.Message);
-        Assert.Contains("not enough ram slots", result.Message);
+        PcBuildResult result = builder.Build();
+        Assert.Equal(2, result.Status.Message.Count);
+        Assert.Contains("not enough sata ports", result.Status.Message);
+        Assert.Contains("not enough ram slots", result.Status.Message);
     }
 }

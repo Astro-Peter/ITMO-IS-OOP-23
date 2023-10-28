@@ -3,28 +3,18 @@ using Itmo.ObjectOrientedProgramming.Lab2.Services.BuiltInGpuBuilder;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
-public class BuiltInGpuDirector : IBaseDirector<BuiltInGpu, IBuiltInGpuBuilder>
+public class BuiltInGpuDirector : IBaseDirector<IBuiltInGpuBuilder>
 {
-    public BuiltInGpuDirector(IBuiltInGpuBuilder builder)
+    private BuiltInGpu _gpu;
+    public BuiltInGpuDirector(BuiltInGpu gpu)
     {
-        Builder = builder;
+        _gpu = gpu;
     }
 
-    public IBuiltInGpuBuilder Builder { get; set; }
-
-    public void BuildWith(IBuiltInGpuBuilder baseBuilder)
+    public IBuiltInGpuBuilder Direct(IBuiltInGpuBuilder baseBuilder)
     {
-        Builder = baseBuilder;
-    }
-
-    public void BuildFrom(BuiltInGpu baseComponent)
-    {
-        Builder.SetFrequency(baseComponent.Frequency)
-            .SetName(baseComponent.Name);
-    }
-
-    public BuiltInGpu GetComponent()
-    {
-        return Builder.Build();
+        baseBuilder.SetFrequency(_gpu.Frequency)
+            .SetName(_gpu.Name);
+        return baseBuilder;
     }
 }

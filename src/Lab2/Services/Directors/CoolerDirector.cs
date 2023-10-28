@@ -3,30 +3,20 @@ using Itmo.ObjectOrientedProgramming.Lab2.Services.CoolerBuilder;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
-public class CoolerDirector : IBaseDirector<CoolingSystem, ICoolerBuilder>
+public class CoolerDirector : IBaseDirector<ICoolerBuilder>
 {
-    public CoolerDirector(ICoolerBuilder builder)
+    private CoolingSystem _cooler;
+    public CoolerDirector(CoolingSystem cooler)
     {
-        Builder = builder;
+        _cooler = cooler;
     }
 
-    public ICoolerBuilder Builder { get; private set; }
-
-    public void BuildWith(ICoolerBuilder baseBuilder)
+    public ICoolerBuilder Direct(ICoolerBuilder baseBuilder)
     {
-        Builder = baseBuilder;
-    }
-
-    public void BuildFrom(CoolingSystem baseComponent)
-    {
-        Builder.SetName(baseComponent.Name)
-            .SetTdp(baseComponent.Tdp)
-            .SetDimensions(baseComponent.Dimensions)
-            .SetCompatibleSockets(baseComponent.CompatibleSockets);
-    }
-
-    public CoolingSystem GetComponent()
-    {
-        return Builder.Build();
+        baseBuilder.SetName(_cooler.Name)
+            .SetTdp(_cooler.Tdp)
+            .SetDimensions(_cooler.Dimensions)
+            .SetCompatibleSockets(_cooler.CompatibleSockets);
+        return baseBuilder;
     }
 }

@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab2.Entities;
+using Itmo.ObjectOrientedProgramming.Lab2.Models;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.BuilderInterfaces;
+using Itmo.ObjectOrientedProgramming.Lab2.Services.Validators;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.PcBuilder;
 
-public interface IPcBuilder : IBaseBuilder<PersonalComputerParts>
+public interface IPcBuilder : IBaseBuilder<PcBuildResult>
 {
+    public IPcBuilder WithValidator(IValidator validator);
     public IPcBuilder SetMotherBoard(Motherboard motherboard);
     public IPcBuilder SetCpu(Cpu cpu);
     public IPcBuilder SetGpu(Gpu? gpu);

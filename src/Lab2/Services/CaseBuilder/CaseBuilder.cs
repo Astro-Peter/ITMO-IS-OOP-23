@@ -6,41 +6,41 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.CaseBuilder;
 
 public class CaseBuilder : ICaseBuilder
 {
-    private string? Name { get; set; }
-    private Dimensions? Dimensions { get; set; }
-    private Dimensions? MaximumGpuDimensions { get; set; }
-    private MotherBoardFormFactor? MotherBoardFormFactor { get; set; }
+    private string _name = "empty";
+    private Dimensions _dimensions = new Dimensions(0, 0, 0);
+    private Dimensions _maximumGpuDimensions = new Dimensions(0, 0, 0);
+    private MotherBoardFormFactor _motherBoardFormFactor = MotherBoardFormFactor.None;
 
     public PcCase Build()
     {
         return new PcCase(
-            Dimensions ?? throw new UndefinedParameterException(nameof(Dimensions)),
-            MotherBoardFormFactor ?? throw new UndefinedParameterException(nameof(MotherBoardFormFactor)),
-            MaximumGpuDimensions ?? throw new UndefinedParameterException(nameof(MaximumGpuDimensions)),
-            Name ?? throw new UndefinedParameterException(nameof(Name)));
+            _dimensions,
+            _motherBoardFormFactor,
+            _maximumGpuDimensions,
+            _name);
     }
 
     public ICaseBuilder SetDimensions(Dimensions dimensions)
     {
-        Dimensions = dimensions;
+        _dimensions = dimensions;
         return this;
     }
 
     public ICaseBuilder SetMaximumGpuDimensions(Dimensions dimensions)
     {
-        MaximumGpuDimensions = dimensions;
+        _maximumGpuDimensions = dimensions;
         return this;
     }
 
     public ICaseBuilder SetMotherboardFormFactor(MotherBoardFormFactor formFactor)
     {
-        MotherBoardFormFactor = formFactor;
+        _motherBoardFormFactor = formFactor;
         return this;
     }
 
     public ICaseBuilder SetName(string name)
     {
-        Name = name;
+        _name = name;
         return this;
     }
 }

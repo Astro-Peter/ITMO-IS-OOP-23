@@ -3,29 +3,19 @@ using Itmo.ObjectOrientedProgramming.Lab2.Services.ChipsetBuilder;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
-public class ChipsetDirector : IBaseDirector<Chipset, IChipsetBuilder>
+public class ChipsetDirector : IBaseDirector<IChipsetBuilder>
 {
-    public ChipsetDirector(IChipsetBuilder builder)
+    private Chipset _chipset;
+    public ChipsetDirector(Chipset chipset)
     {
-        Builder = builder;
+        _chipset = chipset;
     }
 
-    public IChipsetBuilder Builder { get; private set; }
-
-    public void BuildWith(IChipsetBuilder baseBuilder)
+    public IChipsetBuilder Direct(IChipsetBuilder baseBuilder)
     {
-        Builder = baseBuilder;
-    }
-
-    public void BuildFrom(Chipset baseComponent)
-    {
-        Builder.SetName(baseComponent.Name)
-            .SetXmpSupport(baseComponent.XmpSupport)
-            .SetAvailableMemoryFrequencies(baseComponent.AvailableMemoryFrequencies);
-    }
-
-    public Chipset GetComponent()
-    {
-        return Builder.Build();
+        baseBuilder.SetName(_chipset.Name)
+            .SetXmpSupport(_chipset.XmpSupport)
+            .SetAvailableMemoryFrequencies(_chipset.AvailableMemoryFrequencies);
+        return baseBuilder;
     }
 }

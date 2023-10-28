@@ -3,34 +3,24 @@ using Itmo.ObjectOrientedProgramming.Lab2.Services.CpuBuilder;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
-public class CpuDirector : IBaseDirector<Cpu, ICpuBuilder>
+public class CpuDirector : IBaseDirector<ICpuBuilder>
 {
-    public CpuDirector(ICpuBuilder builder)
+    private Cpu _cpu;
+    public CpuDirector(Cpu cpu)
     {
-        Builder = builder;
+        _cpu = cpu;
     }
 
-    public ICpuBuilder Builder { get; private set; }
-
-    public void BuildWith(ICpuBuilder baseBuilder)
+    public ICpuBuilder Direct(ICpuBuilder baseBuilder)
     {
-        Builder = baseBuilder;
-    }
-
-    public void BuildFrom(Cpu baseComponent)
-    {
-        Builder.SetName(baseComponent.Name)
-            .SetSocket(baseComponent.Socket)
-            .SetFrequency(baseComponent.Frequency)
-            .SetTdp(baseComponent.Tdp)
-            .SetPower(baseComponent.PowerConsumption)
-            .SetCoreNumber(baseComponent.CoreNumber)
-            .SetMaxRamFrequency(baseComponent.MaxRamFrequency)
-            .SetBuiltInGpu(baseComponent.BuiltInGpu);
-    }
-
-    public Cpu GetComponent()
-    {
-        return Builder.Build();
+        baseBuilder.SetName(_cpu.Name)
+            .SetSocket(_cpu.Socket)
+            .SetFrequency(_cpu.Frequency)
+            .SetTdp(_cpu.Tdp)
+            .SetPower(_cpu.PowerConsumption)
+            .SetCoreNumber(_cpu.CoreNumber)
+            .SetMaxRamFrequency(_cpu.MaxRamFrequency)
+            .SetBuiltInGpu(_cpu.BuiltInGpu);
+        return baseBuilder;
     }
 }

@@ -5,72 +5,72 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.CpuBuilder;
 
 public class CpuBuilder : ICpuBuilder
 {
-    private string? Name { get; set; }
-    private double? Frequency { get; set; }
-    private int? CoreNumber { get; set; }
-    private string? Socket { get; set; }
-    private BuiltInGpu? Gpu { get; set; }
-    private double? MaxRamFrequency { get; set; }
-    private int? Tdp { get; set; }
-    private int? Power { get; set; }
+    private string _name = "empty";
+    private double _frequency;
+    private int _coreNumber;
+    private string _socket = "none";
+    private BuiltInGpu? _gpu;
+    private double _maxRamFrequency;
+    private int _tdp;
+    private int _power;
     public Cpu Build()
     {
         return new Cpu(
-            Name ?? throw new UndefinedParameterException(nameof(Name)),
-            Frequency ?? throw new UndefinedParameterException(nameof(Frequency)),
-            CoreNumber ?? throw new UndefinedParameterException(nameof(CoreNumber)),
-            Socket ?? throw new UndefinedParameterException(nameof(Socket)),
-            Gpu,
-            MaxRamFrequency ?? throw new UndefinedParameterException(nameof(MaxRamFrequency)),
-            Tdp ?? throw new UndefinedParameterException(nameof(Tdp)),
-            Power ?? throw new UndefinedParameterException(nameof(Power)));
+            _name,
+            _frequency,
+            _coreNumber,
+            _socket,
+            _gpu,
+            _maxRamFrequency,
+            _tdp,
+            _power);
     }
 
     public ICpuBuilder SetName(string name)
     {
-        Name = name;
+        _name = name;
         return this;
     }
 
     public ICpuBuilder SetFrequency(double frequency)
     {
-        Frequency = frequency;
+        _frequency = frequency;
         return this;
     }
 
     public ICpuBuilder SetCoreNumber(int coreNumber)
     {
-        CoreNumber = coreNumber;
+        _coreNumber = coreNumber;
         return this;
     }
 
     public ICpuBuilder SetSocket(string socket)
     {
-        Socket = socket;
+        _socket = socket;
         return this;
     }
 
     public ICpuBuilder SetBuiltInGpu(BuiltInGpu? gpu)
     {
-        Gpu = gpu;
+        _gpu = gpu;
         return this;
     }
 
     public ICpuBuilder SetMaxRamFrequency(double maxRamFrequency)
     {
-        MaxRamFrequency = maxRamFrequency;
+        _maxRamFrequency = maxRamFrequency;
         return this;
     }
 
     public ICpuBuilder SetTdp(int tdp)
     {
-        Tdp = tdp;
+        _tdp = tdp;
         return this;
     }
 
     public ICpuBuilder SetPower(int powerUsage)
     {
-        Power = powerUsage;
+        _power = powerUsage;
         return this;
     }
 }

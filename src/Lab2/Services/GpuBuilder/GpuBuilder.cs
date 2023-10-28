@@ -6,56 +6,56 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.GpuBuilder;
 
 public class GpuBuilder : IGpuBuilder
 {
-    private string? Name { get; set; }
-    private int? MemoryCapacity { get; set; }
-    private string? PciEVersion { get; set; }
-    private double? Frequency { get; set; }
-    private int? Power { get; set; }
-    private Dimensions? Dimensions { get; set; }
+    private string _name = "none";
+    private int _memoryCapacity;
+    private string _pciEVersion = "none";
+    private double _frequency;
+    private int _power;
+    private Dimensions _dimensions = new Dimensions(0, 0, 0);
     public Gpu Build()
     {
         return new Gpu(
-            Name ?? throw new UndefinedParameterException(nameof(Name)),
-            Dimensions ?? throw new UndefinedParameterException(nameof(Dimensions)),
-            MemoryCapacity ?? throw new UndefinedParameterException(nameof(MemoryCapacity)),
-            PciEVersion ?? throw new UndefinedParameterException(nameof(PciEVersion)),
-            Frequency ?? throw new UndefinedParameterException(nameof(Frequency)),
-            Power ?? throw new UndefinedParameterException(nameof(Power)));
+            _name,
+            _dimensions,
+            _memoryCapacity,
+            _pciEVersion,
+            _frequency,
+            _power);
     }
 
     public IGpuBuilder SetName(string name)
     {
-        Name = name;
+        _name = name;
         return this;
     }
 
     public IGpuBuilder SetMemoryCapacity(int memoryCapacity)
     {
-        MemoryCapacity = memoryCapacity;
+        _memoryCapacity = memoryCapacity;
         return this;
     }
 
     public IGpuBuilder SetPciEVersion(string pciEVersion)
     {
-        PciEVersion = pciEVersion;
+        _pciEVersion = pciEVersion;
         return this;
     }
 
     public IGpuBuilder SetFrequency(double frequency)
     {
-        Frequency = frequency;
+        _frequency = frequency;
         return this;
     }
 
     public IGpuBuilder SetPower(int powerUsage)
     {
-        Power = powerUsage;
+        _power = powerUsage;
         return this;
     }
 
     public IGpuBuilder SetDimensions(Dimensions dimensions)
     {
-        Dimensions = dimensions;
+        _dimensions = dimensions;
         return this;
     }
 }

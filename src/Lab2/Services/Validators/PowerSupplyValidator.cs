@@ -1,12 +1,21 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab2.Entities;
 using Itmo.ObjectOrientedProgramming.Lab2.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Validators;
 
-public class PowerSupplyValidator : IPowerSupplyValidator
+public class PowerSupplyValidator : IValidator
 {
-    public PowerConsumptionStatus CheckEnoughPower(PersonalComputerParts parts)
+    public ComputerStatus ValidateBuild(PersonalComputerParts parts)
+    {
+        return new ComputerStatus(
+            false,
+            CheckEnoughPower(parts),
+            new List<string>());
+    }
+
+    private static PowerConsumptionStatus CheckEnoughPower(PersonalComputerParts parts)
     {
         int totalPowerConsumption = parts.Cpu.PowerConsumption +
                                     parts.Ram.Sum(ramStick => ramStick.PowerUsage);

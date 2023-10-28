@@ -3,29 +3,20 @@ using Itmo.ObjectOrientedProgramming.Lab2.Services.BiosBuilder;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
-public class BiosDirector : IBaseDirector<Bios, IBiosBuilder>
+public class BiosDirector : IBaseDirector<IBiosBuilder>
 {
-    public BiosDirector(IBiosBuilder builder)
+    private Bios _bios;
+
+    public BiosDirector(Bios bios)
     {
-        Builder = builder;
+        _bios = bios;
     }
 
-    public IBiosBuilder Builder { get; private set; }
-
-    public void BuildWith(IBiosBuilder baseBuilder)
+    public IBiosBuilder Direct(IBiosBuilder baseBuilder)
     {
-        Builder = baseBuilder;
-    }
-
-    public void BuildFrom(Bios baseComponent)
-    {
-        Builder.SetBiosType(baseComponent.Type)
-            .SetBiosVersion(baseComponent.Version)
-            .SetCompatibleCpus(baseComponent.CompatibleCpus);
-    }
-
-    public Bios GetComponent()
-    {
-        return Builder.Build();
+        baseBuilder.SetBiosType(_bios.Type)
+            .SetBiosVersion(_bios.Version)
+            .SetCompatibleCpus(_bios.CompatibleCpus);
+        return baseBuilder;
     }
 }

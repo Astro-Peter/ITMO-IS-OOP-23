@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab2.Entities;
+using Itmo.ObjectOrientedProgramming.Lab2.Models;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.Comparators;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Validators;
 
-public class PartsCompatibilityValidator : IPartsCompatibilityValidator
+public class PartsCompatibilityValidator : IValidator
 {
-    public IList<string> Validate(PersonalComputerParts parts)
+    public ComputerStatus ValidateBuild(PersonalComputerParts parts)
     {
         var issues = new List<string?>
         {
@@ -36,7 +37,10 @@ public class PartsCompatibilityValidator : IPartsCompatibilityValidator
             }
         }
 
-        return realIssues;
+        return new ComputerStatus(
+            false,
+            PowerConsumptionStatus.None,
+            realIssues);
     }
 
     private static string? ValidateBiosCompatibility(Cpu cpu, Bios bios)

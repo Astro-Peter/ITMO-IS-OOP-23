@@ -1,45 +1,44 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab2.Entities;
-using Itmo.ObjectOrientedProgramming.Lab2.Tools;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.HddBuilder;
 
 public class HddBuilder : IHddBuilder
 {
-    private int? MemoryCapacity { get; set; }
-    private int? Power { get; set; }
-    private string? Name { get; set; }
-    private int? Rpm { get; set; }
+    private int _memoryCapacity;
+    private int _power;
+    private string _name = "none";
+    private int _rpm;
 
     public Hdd Build()
     {
         return new Hdd(
-            MemoryCapacity ?? throw new UndefinedParameterException(nameof(MemoryCapacity)),
-            Rpm ?? throw new UndefinedParameterException(nameof(Rpm)),
-            Power ?? throw new UndefinedParameterException(nameof(Power)),
-            Name ?? throw new UndefinedParameterException(nameof(Name)));
+            _memoryCapacity,
+            _rpm,
+            _power,
+            _name);
     }
 
     public IHddBuilder SetMemoryCapacity(int memoryCapacity)
     {
-        MemoryCapacity = memoryCapacity;
+        _memoryCapacity = memoryCapacity;
         return this;
     }
 
     public IHddBuilder SetPower(int powerUsage)
     {
-        Power = powerUsage;
+        _power = powerUsage;
         return this;
     }
 
     public IHddBuilder SetName(string name)
     {
-        Name = name;
+        _name = name;
         return this;
     }
 
     public IHddBuilder SetRpm(int rpm)
     {
-        Rpm = rpm;
+        _rpm = rpm;
         return this;
     }
 }

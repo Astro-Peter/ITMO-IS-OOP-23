@@ -3,30 +3,20 @@ using Itmo.ObjectOrientedProgramming.Lab2.Services.CaseBuilder;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
-public class CaseDirector : IBaseDirector<PcCase, ICaseBuilder>
+public class CaseDirector : IBaseDirector<ICaseBuilder>
 {
-    public CaseDirector(ICaseBuilder builder)
+    private PcCase _pcCase;
+    public CaseDirector(PcCase pcCase)
     {
-        Builder = builder;
+        _pcCase = pcCase;
     }
 
-    public ICaseBuilder Builder { get; private set; }
-
-    public void BuildWith(ICaseBuilder baseBuilder)
+    public ICaseBuilder Direct(ICaseBuilder baseBuilder)
     {
-        Builder = baseBuilder;
-    }
-
-    public void BuildFrom(PcCase baseComponent)
-    {
-        Builder.SetName(baseComponent.Name)
-            .SetDimensions(baseComponent.Dimensions)
-            .SetMaximumGpuDimensions(baseComponent.GpuDimensions)
-            .SetMotherboardFormFactor(baseComponent.FormFactor);
-    }
-
-    public PcCase GetComponent()
-    {
-        return Builder.Build();
+        baseBuilder.SetName(_pcCase.Name)
+            .SetDimensions(_pcCase.Dimensions)
+            .SetMaximumGpuDimensions(_pcCase.GpuDimensions)
+            .SetMotherboardFormFactor(_pcCase.FormFactor);
+        return baseBuilder;
     }
 }

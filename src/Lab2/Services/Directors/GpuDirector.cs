@@ -3,32 +3,22 @@ using Itmo.ObjectOrientedProgramming.Lab2.Services.GpuBuilder;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
-public class GpuDirector : IBaseDirector<Gpu, IGpuBuilder>
+public class GpuDirector : IBaseDirector<IGpuBuilder>
 {
-    public GpuDirector(IGpuBuilder builder)
+    private Gpu _gpu;
+    public GpuDirector(Gpu gpu)
     {
-        Builder = builder;
+        _gpu = gpu;
     }
 
-    public IGpuBuilder Builder { get; private set; }
-
-    public void BuildWith(IGpuBuilder baseBuilder)
+    public IGpuBuilder Direct(IGpuBuilder baseBuilder)
     {
-        Builder = baseBuilder;
-    }
-
-    public void BuildFrom(Gpu baseComponent)
-    {
-        Builder.SetFrequency(baseComponent.Frequency)
-            .SetName(baseComponent.Name)
-            .SetPower(baseComponent.PowerUsage)
-            .SetDimensions(baseComponent.Dimensions)
-            .SetMemoryCapacity(baseComponent.MemoryCapacity)
-            .SetPciEVersion(baseComponent.PciEVersion);
-    }
-
-    public Gpu GetComponent()
-    {
-        return Builder.Build();
+        baseBuilder.SetFrequency(this._gpu.Frequency)
+            .SetName(this._gpu.Name)
+            .SetPower(this._gpu.PowerUsage)
+            .SetDimensions(this._gpu.Dimensions)
+            .SetMemoryCapacity(this._gpu.MemoryCapacity)
+            .SetPciEVersion(this._gpu.PciEVersion);
+        return baseBuilder;
     }
 }

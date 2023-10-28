@@ -5,25 +5,25 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.PowerSupplyBuilder;
 
 public class PowerSupplyBuilder : IPowerSupplyBuilder
 {
-    private int? Power { get; set; }
-    private string? Name { get; set; }
+    private int _power = -100;
+    private string _name = "none";
 
     public PowerSupply Build()
     {
         return new PowerSupply(
-            Power ?? throw new UndefinedParameterException(nameof(Power)),
-            Name ?? throw new UndefinedParameterException(nameof(Name)));
+            _power,
+            _name);
     }
 
     public IPowerSupplyBuilder SetPower(int powerUsage)
     {
-        Power = powerUsage;
+        _power = powerUsage;
         return this;
     }
 
     public IPowerSupplyBuilder SetName(string name)
     {
-        Name = name;
+        _name = name;
         return this;
     }
 }

@@ -1,52 +1,51 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab2.Entities;
-using Itmo.ObjectOrientedProgramming.Lab2.Tools;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.WifiAdapterBuilder;
 
 public class WifiAdapterBuilder : IWifiAdapterBuilder
 {
-    private bool? Bluetooth { get; set; }
-    private string? PciEVersion { get; set; }
-    private int? Power { get; set; }
-    private string? Name { get; set; }
-    private string? WifiStandard { get; set; }
+    private bool _bluetooth;
+    private string _pciEVersion = "none";
+    private int _power;
+    private string _name = "none";
+    private string _wifiStandard = "none";
     public WifiAdapter Build()
     {
         return new WifiAdapter(
-            Name ?? throw new UndefinedParameterException(nameof(Name)),
-            WifiStandard ?? throw new UndefinedParameterException(nameof(WifiStandard)),
-            Bluetooth ?? throw new UndefinedParameterException(nameof(Bluetooth)),
-            PciEVersion ?? throw new UndefinedParameterException(nameof(PciEVersion)),
-            Power ?? throw new UndefinedParameterException(nameof(Power)));
+            _name,
+            _wifiStandard,
+            _bluetooth,
+            _pciEVersion,
+            _power);
     }
 
     public IWifiAdapterBuilder SetBluetooth(bool bluetooth)
     {
-        Bluetooth = bluetooth;
+        _bluetooth = bluetooth;
         return this;
     }
 
     public IWifiAdapterBuilder SetPciEVersion(string pciEVersion)
     {
-        PciEVersion = pciEVersion;
+        _pciEVersion = pciEVersion;
         return this;
     }
 
     public IWifiAdapterBuilder SetPower(int powerUsage)
     {
-        Power = powerUsage;
+        _power = powerUsage;
         return this;
     }
 
     public IWifiAdapterBuilder SetName(string name)
     {
-        Name = name;
+        _name = name;
         return this;
     }
 
     public IWifiAdapterBuilder SetWifiStandard(string wifiStandard)
     {
-        WifiStandard = wifiStandard;
+        _wifiStandard = wifiStandard;
         return this;
     }
 }

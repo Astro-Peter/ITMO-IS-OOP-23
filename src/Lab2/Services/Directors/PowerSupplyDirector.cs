@@ -3,28 +3,19 @@ using Itmo.ObjectOrientedProgramming.Lab2.Services.PowerSupplyBuilder;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
-public class PowerSupplyDirector : IBaseDirector<PowerSupply, IPowerSupplyBuilder>
+public class PowerSupplyDirector : IBaseDirector<IPowerSupplyBuilder>
 {
-    public PowerSupplyDirector(IPowerSupplyBuilder builder)
+    private PowerSupply _powerSupply;
+
+    public PowerSupplyDirector(PowerSupply powerSupply)
     {
-        Builder = builder;
+        _powerSupply = powerSupply;
     }
 
-    public IPowerSupplyBuilder Builder { get; private set; }
-
-    public void BuildWith(IPowerSupplyBuilder baseBuilder)
+    public IPowerSupplyBuilder Direct(IPowerSupplyBuilder baseBuilder)
     {
-        Builder = baseBuilder;
-    }
-
-    public void BuildFrom(PowerSupply baseComponent)
-    {
-        Builder.SetName(baseComponent.Name)
-            .SetPower(baseComponent.Power);
-    }
-
-    public PowerSupply GetComponent()
-    {
-        return Builder.Build();
+        baseBuilder.SetName(_powerSupply.Name)
+            .SetPower(_powerSupply.Power);
+        return baseBuilder;
     }
 }

@@ -1,39 +1,30 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab2.Entities;
-using Itmo.ObjectOrientedProgramming.Lab2.Services.MotherBoardBuilder;
+using Itmo.ObjectOrientedProgramming.Lab2.Services.MotherboardBuilder;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
-public class MotherboardDirector : IBaseDirector<Motherboard, IMotherboardBuilder>
+public class MotherboardDirector : IBaseDirector<IMotherboardBuilder>
 {
-    public MotherboardDirector(IMotherboardBuilder builder)
+    private Motherboard _motherboard;
+
+    public MotherboardDirector(Motherboard motherboard)
     {
-        Builder = builder;
+        _motherboard = motherboard;
     }
 
-    public IMotherboardBuilder Builder { get; private set; }
-
-    public void BuildWith(IMotherboardBuilder baseBuilder)
+    public IMotherboardBuilder Direct(IMotherboardBuilder baseBuilder)
     {
-        Builder = baseBuilder;
-    }
-
-    public void BuildFrom(Motherboard baseComponent)
-    {
-        Builder.SetBios(baseComponent.Bios)
-            .SetDdrVersion(baseComponent.DdrStandard)
-            .SetChipset(baseComponent.Chipset)
-            .SetName(baseComponent.Name)
-            .SetSocket(baseComponent.Socket)
-            .SetMotherboardFormFactor(baseComponent.FormFactor)
-            .SetRamSlots(baseComponent.RamSlots)
-            .SetSataPortsNumber(baseComponent.SataPorts)
-            .SetPciEx1LanesNumber(baseComponent.PciEx1Lanes)
-            .SetPciEx4LanesNumber(baseComponent.PciEx4Lanes)
-            .SetPciEx16LanesNumber(baseComponent.PciEx16Lanes);
-    }
-
-    public Motherboard GetComponent()
-    {
-        return Builder.Build();
+        baseBuilder.SetBios(_motherboard.Bios)
+            .SetDdrVersion(_motherboard.DdrStandard)
+            .SetChipset(_motherboard.Chipset)
+            .SetName(_motherboard.Name)
+            .SetSocket(_motherboard.Socket)
+            .SetMotherboardFormFactor(_motherboard.FormFactor)
+            .SetRamSlots(_motherboard.RamSlots)
+            .SetSataPortsNumber(_motherboard.SataPorts)
+            .SetPciEx1LanesNumber(_motherboard.PciEx1Lanes)
+            .SetPciEx4LanesNumber(_motherboard.PciEx4Lanes)
+            .SetPciEx16LanesNumber(_motherboard.PciEx16Lanes);
+        return baseBuilder;
     }
 }

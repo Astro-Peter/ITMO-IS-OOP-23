@@ -3,31 +3,22 @@ using Itmo.ObjectOrientedProgramming.Lab2.Services.WifiAdapterBuilder;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
-public class WifiAdapterDirector : IBaseDirector<WifiAdapter, IWifiAdapterBuilder>
+public class WifiAdapterDirector : IBaseDirector<IWifiAdapterBuilder>
 {
-    public WifiAdapterDirector(IWifiAdapterBuilder builder)
+    private WifiAdapter _wifiAdapter;
+
+    public WifiAdapterDirector(WifiAdapter wifiAdapter)
     {
-        Builder = builder;
+        _wifiAdapter = wifiAdapter;
     }
 
-    public IWifiAdapterBuilder Builder { get; private set; }
-
-    public void BuildWith(IWifiAdapterBuilder baseBuilder)
+    public IWifiAdapterBuilder Direct(IWifiAdapterBuilder baseBuilder)
     {
-        Builder = baseBuilder;
-    }
-
-    public void BuildFrom(WifiAdapter baseComponent)
-    {
-        Builder.SetBluetooth(baseComponent.Bluetooth)
-            .SetName(baseComponent.Name)
-            .SetPower(baseComponent.PowerUsage)
-            .SetPciEVersion(baseComponent.PciEVersion)
-            .SetWifiStandard(baseComponent.WifiStandard);
-    }
-
-    public WifiAdapter GetComponent()
-    {
-        return Builder.Build();
+        baseBuilder.SetBluetooth(_wifiAdapter.Bluetooth)
+            .SetName(_wifiAdapter.Name)
+            .SetPower(_wifiAdapter.PowerUsage)
+            .SetPciEVersion(_wifiAdapter.PciEVersion)
+            .SetWifiStandard(_wifiAdapter.WifiStandard);
+        return baseBuilder;
     }
 }

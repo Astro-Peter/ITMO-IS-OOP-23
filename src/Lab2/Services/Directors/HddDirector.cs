@@ -3,30 +3,21 @@ using Itmo.ObjectOrientedProgramming.Lab2.Services.HddBuilder;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
-public class HddDirector : IBaseDirector<Hdd, IHddBuilder>
+public class HddDirector : IBaseDirector<IHddBuilder>
 {
-    public HddDirector(IHddBuilder builder)
+    private Hdd _baseHdd;
+
+    public HddDirector(Hdd hdd)
     {
-        Builder = builder;
+        _baseHdd = hdd;
     }
 
-    public IHddBuilder Builder { get; set; }
-
-    public void BuildWith(IHddBuilder baseBuilder)
+    public IHddBuilder Direct(IHddBuilder baseBuilder)
     {
-        Builder = baseBuilder;
-    }
-
-    public void BuildFrom(Hdd baseComponent)
-    {
-        Builder.SetPower(baseComponent.PowerUsage)
-            .SetName(baseComponent.Name)
-            .SetMemoryCapacity(baseComponent.Capacity)
-            .SetRpm(baseComponent.Rpm);
-    }
-
-    public Hdd GetComponent()
-    {
-        return Builder.Build();
+        baseBuilder.SetPower(_baseHdd.PowerUsage)
+            .SetName(_baseHdd.Name)
+            .SetMemoryCapacity(_baseHdd.Capacity)
+            .SetRpm(_baseHdd.Rpm);
+        return baseBuilder;
     }
 }

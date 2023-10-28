@@ -2,7 +2,7 @@
 using Itmo.ObjectOrientedProgramming.Lab2.Models;
 using Itmo.ObjectOrientedProgramming.Lab2.Services.BuilderInterfaces;
 
-namespace Itmo.ObjectOrientedProgramming.Lab2.Services.MotherBoardBuilder;
+namespace Itmo.ObjectOrientedProgramming.Lab2.Services.MotherboardBuilder;
 
 public interface IMotherboardBuilder : IBaseBuilder<Motherboard>
 {

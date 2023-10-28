@@ -3,7 +3,7 @@ using Itmo.ObjectOrientedProgramming.Lab2.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Validators;
 
-public interface IPowerSupplyValidator
+public interface IValidator
 {
-    public PowerConsumptionStatus CheckEnoughPower(PersonalComputerParts parts);
+    public ComputerStatus ValidateBuild(PersonalComputerParts parts);
 }

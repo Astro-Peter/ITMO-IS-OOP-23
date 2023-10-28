@@ -6,32 +6,32 @@ namespace Itmo.ObjectOrientedProgramming.Lab2.Services.ChipsetBuilder;
 
 public class ChipsetBuilder : IChipsetBuilder
 {
-    private string? Name { get; set; }
-    private IList<double>? MemoryFrequencies { get; set; }
-    private bool? XmpSupport { get; set; }
+    private string _name = "empty";
+    private IList<double> _memoryFrequencies = new List<double>();
+    private bool _xmpSupport;
     public Chipset Build()
     {
         return new Chipset(
-            Name ?? throw new UndefinedParameterException(nameof(Name)),
-            MemoryFrequencies ?? throw new UndefinedParameterException(nameof(MemoryFrequencies)),
-            XmpSupport ?? throw new UndefinedParameterException(nameof(XmpSupport)));
+            _name,
+            _memoryFrequencies,
+            _xmpSupport);
     }
 
     public IChipsetBuilder SetAvailableMemoryFrequencies(IList<double> memoryFrequencies)
     {
-        MemoryFrequencies = memoryFrequencies;
+        _memoryFrequencies = memoryFrequencies;
         return this;
     }
 
     public IChipsetBuilder SetXmpSupport(bool support)
     {
-        XmpSupport = support;
+        _xmpSupport = support;
         return this;
     }
 
     public IChipsetBuilder SetName(string name)
     {
-        Name = name;
+        _name = name;
         return this;
     }
 }

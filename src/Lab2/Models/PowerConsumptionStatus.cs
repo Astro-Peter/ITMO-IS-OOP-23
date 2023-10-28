@@ -2,6 +2,7 @@
 
 public enum PowerConsumptionStatus
 {
+    None,
     EnoughPower,
     RiskZone,
     NotEnoughPower,

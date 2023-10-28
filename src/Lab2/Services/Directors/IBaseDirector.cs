@@ -2,11 +2,7 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.Directors;
 
-public interface IBaseDirector<T, TB>
-    where TB
-    : IBaseBuilder<T>
+public interface IBaseDirector<TB>
 {
-    public void BuildWith(TB baseBuilder);
-    public void BuildFrom(T baseComponent);
-    public T GetComponent();
+    public TB Direct(TB baseBuilder);
 }

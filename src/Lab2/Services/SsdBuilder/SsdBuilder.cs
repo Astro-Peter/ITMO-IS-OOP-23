@@ -1,52 +1,51 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab2.Entities;
-using Itmo.ObjectOrientedProgramming.Lab2.Tools;
 
 namespace Itmo.ObjectOrientedProgramming.Lab2.Services.SsdBuilder;
 
 public class SsdBuilder : ISsdBuilder
 {
-    private string? Name { get; set; }
-    private string? ConnectionType { get; set; }
-    private int? MemoryCapacity { get; set; }
-    private int? Speed { get; set; }
-    private int? Power { get; set; }
+    private string _name = "none";
+    private string _connectionType = "none";
+    private int _memoryCapacity;
+    private int _speed;
+    private int _power;
     public Ssd Build()
     {
         return new Ssd(
-            ConnectionType ?? throw new UndefinedParameterException(nameof(ConnectionType)),
-            MemoryCapacity ?? throw new UndefinedParameterException(nameof(MemoryCapacity)),
-            Speed ?? throw new UndefinedParameterException(nameof(Speed)),
-            Power ?? throw new UndefinedParameterException(nameof(Power)),
-            Name ?? throw new UndefinedParameterException(nameof(Name)));
+            _connectionType,
+            _memoryCapacity,
+            _speed,
+            _power,
+            _name);
     }
 
     public ISsdBuilder SetName(string name)
     {
-        Name = name;
+        _name = name;
         return this;
     }
 
     public ISsdBuilder SetConnectionType(string connectionType)
     {
-        ConnectionType = connectionType;
+        _connectionType = connectionType;
         return this;
     }
 
     public ISsdBuilder SetMemoryCapacity(int memoryCapacity)
     {
-        MemoryCapacity = memoryCapacity;
+        _memoryCapacity = memoryCapacity;
         return this;
     }
 
     public ISsdBuilder SetSpeed(int speed)
     {
-        Speed = speed;
+        _speed = speed;
         return this;
     }
 
     public ISsdBuilder SetPower(int powerUsage)
     {
-        Power = powerUsage;
+        _power = powerUsage;
         return this;
     }
 }
