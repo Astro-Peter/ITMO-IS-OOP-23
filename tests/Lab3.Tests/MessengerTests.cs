@@ -1,5 +1,6 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab3.Entities.Addressee;
 using Itmo.ObjectOrientedProgramming.Lab3.Entities.Loggers;
+using Itmo.ObjectOrientedProgramming.Lab3.Entities.Messenger;
 using Itmo.ObjectOrientedProgramming.Lab3.Models;
 using Xunit;
 
@@ -54,16 +55,17 @@ public class MessengerTests
     [Fact]
     public void TestMessenger_MessengerWritesMessage_MessageReceived()
     {
-        var addressee = new MockMessenger();
+        var messenger = new MockMessenger();
+        var addressee = new MessengerForward(messenger);
         addressee.ReceiveMessage(new Message("one", "two", 3));
-        Assert.Equal("Messenger:\none\ntwo", addressee.Output);
+        Assert.Equal("Messenger:\none\ntwo", messenger.Output);
     }
 
-    private class MockMessenger : IAddressee
+    private class MockMessenger : IMessenger
     {
         public string Output { get; set; } = string.Empty;
 
-        public void ReceiveMessage(Message message)
+        public void ShowMessage(Message message)
         {
             Output += "Messenger:\n";
             Output += message.Header + '\n' + message.Body;
