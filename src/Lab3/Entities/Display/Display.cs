@@ -2,7 +2,7 @@
 using Itmo.ObjectOrientedProgramming.Lab3.Entities.DisplayDriver;
 using Itmo.ObjectOrientedProgramming.Lab3.Models;
 
-namespace Itmo.ObjectOrientedProgramming.Lab3.Entities.Addressee;
+namespace Itmo.ObjectOrientedProgramming.Lab3.Entities.Display;
 
 public class Display : IDisplay
 {
@@ -13,7 +13,7 @@ public class Display : IDisplay
         _displayDriver = driver;
     }
 
-    public void ReceiveMessage(Message message)
+    public void ShowMessage(Message message)
     {
         _displayDriver.Clear();
         string output = message.Header + '\n' + message.Body;
