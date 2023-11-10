@@ -8,7 +8,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Tests;
 public class MessengerTests
 {
     [Fact]
-    public void TestMessageSentToUserSavedUnread()
+    public void SentMessageToUser_MessageUnread_DidntRead()
     {
         var user = new UserAddressee();
         user.ReceiveMessage(new Message("one", "two", 3));
@@ -16,7 +16,7 @@ public class MessengerTests
     }
 
     [Fact]
-    public void TestMessageStatusChangedWhenRequested()
+    public void SetMessageRead_MessageWasRead_MessageReadFirstTime()
     {
         var user = new UserAddressee();
         user.ReceiveMessage(new Message("one", "two", 3));
@@ -25,7 +25,7 @@ public class MessengerTests
     }
 
     [Fact]
-    public void TestExceptionThrownWhenChangeStatusFromReadToRead()
+    public void SetMessageRead_ReceiveError_MessageReadSecondTime()
     {
         var user = new UserAddressee();
         user.ReceiveMessage(new Message("one", "two", 3));
@@ -34,16 +34,16 @@ public class MessengerTests
     }
 
     [Fact]
-    public void TestMockProxyWorks()
+    public void TestPriorityFilterWorks_NoMessageReceived_MessagePriorityLowerThanRequired()
     {
         var logger = new MockLogger();
-        var addressee = new AddresseeProxy(new AddresseeWithLogger(new UserAddressee(), logger), 4);
+        var addressee = new MessagePriorityFilter(new AddresseeWithLogger(new UserAddressee(), logger), 4);
         addressee.ReceiveMessage(new Message("one", "two", 3));
         Assert.Equal(0, logger.Cnt);
     }
 
     [Fact]
-    public void TestMockLogWorks()
+    public void TestLoggerIsCalled_LoggerIsCalledOnce_OneMessageReceived()
     {
         var logger = new MockLogger();
         var addressee = new AddresseeWithLogger(new UserAddressee(), logger);
@@ -52,7 +52,7 @@ public class MessengerTests
     }
 
     [Fact]
-    public void TestMockMessengerWorks()
+    public void TestMessenger_MessengerWritesMessage_MessageReceived()
     {
         var addressee = new MockMessenger();
         addressee.ReceiveMessage(new Message("one", "two", 3));

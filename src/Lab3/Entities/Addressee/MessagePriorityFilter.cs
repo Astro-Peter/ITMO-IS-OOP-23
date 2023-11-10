@@ -2,12 +2,12 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Entities.Addressee;
 
-public class AddresseeProxy : IAddressee
+public class MessagePriorityFilter : IAddressee
 {
     private readonly IAddressee _addressee;
     private readonly int _priorityLevel;
 
-    public AddresseeProxy(IAddressee addressee, int priorityLevel)
+    public MessagePriorityFilter(IAddressee addressee, int priorityLevel)
     {
         _addressee = addressee;
         _priorityLevel = priorityLevel;
