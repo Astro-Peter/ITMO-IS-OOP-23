@@ -6,5 +6,5 @@ public interface IMessageAdapter
 {
     public Message GetContents();
     public bool GetIsRead();
-    public void SetStatusRead();
+    public MessageStatusChange SetStatusRead();
 }

@@ -1,5 +1,4 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab3.Models;
-using Itmo.ObjectOrientedProgramming.Lab3.Tools;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Entities.MessageAdapter;
 
@@ -18,8 +17,14 @@ public class MessageAdapter : IMessageAdapter
     public Message GetContents() => Message;
     public bool GetIsRead() => Read;
 
-    public void SetStatusRead()
+    public MessageStatusChange SetStatusRead()
     {
-        Read = Read ? throw new ReadMessageException() : true;
+        if (Read)
+        {
+            return new MessageStatusChange(false, "Message was already read");
+        }
+
+        Read = true;
+        return new MessageStatusChange(true);
     }
 }

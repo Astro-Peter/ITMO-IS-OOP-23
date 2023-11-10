@@ -1,7 +1,6 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab3.Entities.Addressee;
 using Itmo.ObjectOrientedProgramming.Lab3.Entities.Loggers;
 using Itmo.ObjectOrientedProgramming.Lab3.Models;
-using Itmo.ObjectOrientedProgramming.Lab3.Tools;
 using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Tests;
@@ -31,7 +30,7 @@ public class MessengerTests
         var user = new UserAddressee();
         user.ReceiveMessage(new Message("one", "two", 3));
         user.Messages[0].SetStatusRead();
-        Assert.Throws<ReadMessageException>(() => user.Messages[0].SetStatusRead());
+        Assert.False(user.Messages[0].SetStatusRead().Ok);
     }
 
     [Fact]
