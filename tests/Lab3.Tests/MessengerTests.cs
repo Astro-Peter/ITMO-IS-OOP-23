@@ -1,6 +1,8 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab3.Entities.Addressee;
+﻿using System.Linq;
+using Itmo.ObjectOrientedProgramming.Lab3.Entities.Addressee;
 using Itmo.ObjectOrientedProgramming.Lab3.Entities.Loggers;
 using Itmo.ObjectOrientedProgramming.Lab3.Entities.Messenger;
+using Itmo.ObjectOrientedProgramming.Lab3.Entities.Printer;
 using Itmo.ObjectOrientedProgramming.Lab3.Entities.User;
 using Itmo.ObjectOrientedProgramming.Lab3.Models;
 using Xunit;
@@ -10,36 +12,36 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Tests;
 public class MessengerTests
 {
     [Fact]
-    public void SentMessageToUser_MessageUnread_DidntRead()
+    public void UserMessageReceive_MessageReadIsFalse_MessageWasntRead()
     {
         var user = new User();
         var userAddressee = new UserAddressee(user);
         userAddressee.ReceiveMessage(new Message("one", "two", 3));
-        Assert.False(user.Messages[0].Read);
+        Assert.False(user.Messages.First().Read);
     }
 
     [Fact]
-    public void SetMessageRead_MessageWasRead_MessageReadFirstTime()
+    public void UserMessageReceive_MessageReadIsTrue_MessageWasRead()
     {
         var user = new User();
         var userAddressee = new UserAddressee(user);
         userAddressee.ReceiveMessage(new Message("one", "two", 3));
-        user.Messages[0].SetStatusRead();
-        Assert.True(user.Messages[0].Read);
+        user.Messages.First().SetStatusRead();
+        Assert.True(user.Messages.First().Read);
     }
 
     [Fact]
-    public void SetMessageRead_ReceiveFailure_MessageReadSecondTime()
+    public void UserMessageReceive_GetError_MessageReadTwoTimes()
     {
         var user = new User();
         var userAddressee = new UserAddressee(user);
         userAddressee.ReceiveMessage(new Message("one", "two", 3));
-        user.Messages[0].SetStatusRead();
-        Assert.IsType<MessageStatusChange.Failure>(user.Messages[0].SetStatusRead());
+        user.Messages.First().SetStatusRead();
+        Assert.IsType<MessageStatusChange.Failure>(user.Messages.First().SetStatusRead());
     }
 
     [Fact]
-    public void TestPriorityFilterWorks_NoMessageReceived_MessagePriorityLowerThanRequired()
+    public void ReceiveMessage_NoMessageReceived_MessagePriorityLow()
     {
         var logger = new MockLogger();
         var addressee = new MessagePriorityFilter(new AddresseeWithLogger(new UserAddressee(new User()), logger), 4);
@@ -48,7 +50,7 @@ public class MessengerTests
     }
 
     [Fact]
-    public void TestLoggerIsCalled_LoggerIsCalledOnce_OneMessageReceived()
+    public void MessageReceive_LoggerIsCalledOnce_OneMessageReceived()
     {
         var logger = new MockLogger();
         var addressee = new AddresseeWithLogger(new UserAddressee(new User()), logger);
@@ -58,22 +60,21 @@ public class MessengerTests
     }
 
     [Fact]
-    public void TestMessenger_MessengerWritesMessage_MessageReceived()
+    public void ShowMessage_MessengerWritesMessage_MessageReceived()
     {
-        var messenger = new MockMessenger();
-        var addressee = new MessengerForward(messenger);
+        var printer = new MockPrinter();
+        var addressee = new MessengerAddressee(new Messenger(printer));
         addressee.ReceiveMessage(new Message("one", "two", 3));
-        Assert.Equal("Messenger:\none\ntwo", messenger.Output);
+        Assert.Equal("Messenger:\none\ntwo", printer.Output);
     }
 
-    private class MockMessenger : IMessenger
+    private class MockPrinter : IPrinter
     {
         public string Output { get; private set; } = string.Empty;
 
         public void ShowMessage(string message)
         {
-            Output += "Messenger:\n";
-            Output += message;
+            Output = message;
         }
     }
 

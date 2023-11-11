@@ -2,7 +2,7 @@
 
 public record Message(string Header, string Body, int PriorityLevel)
 {
-    public string StringConvert()
+    public override string ToString()
     {
         return Header + '\n' + Body;
     }

@@ -3,16 +3,16 @@ using Itmo.ObjectOrientedProgramming.Lab3.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Entities.Addressee;
 
-public class MessengerForward : IAddressee
+public class MessengerAddressee : IAddressee
 {
     private readonly IMessenger _messenger;
-    public MessengerForward(IMessenger messenger)
+    public MessengerAddressee(IMessenger messenger)
     {
         _messenger = messenger;
     }
 
     public void ReceiveMessage(Message message)
     {
-        _messenger.ShowMessage(message.StringConvert());
+        _messenger.ShowMessage(message.ToString());
     }
 }

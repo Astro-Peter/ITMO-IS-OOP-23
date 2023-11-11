@@ -5,9 +5,12 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Entities.User;
 
 public class User : IUser
 {
-    public IList<MessageAdapter.MessageAdapter> Messages { get; } = new List<MessageAdapter.MessageAdapter>();
+    private readonly List<MessageAdapter.MessageAdapter> _messages = new();
+
+    public IReadOnlyCollection<MessageAdapter.MessageAdapter> Messages => _messages;
+
     public void ReceiveMessage(Message message)
     {
-        Messages.Add(new MessageAdapter.MessageAdapter(message));
+        _messages.Add(new MessageAdapter.MessageAdapter(message));
     }
 }
