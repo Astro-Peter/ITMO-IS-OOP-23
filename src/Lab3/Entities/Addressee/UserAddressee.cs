@@ -1,15 +1,18 @@
-﻿using System.Collections.Generic;
-using Itmo.ObjectOrientedProgramming.Lab3.Entities.MessageAdapter;
+﻿using Itmo.ObjectOrientedProgramming.Lab3.Entities.User;
 using Itmo.ObjectOrientedProgramming.Lab3.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Entities.Addressee;
 
 public class UserAddressee : IAddressee
 {
-    public IList<IMessageAdapter> Messages { get; } = new List<IMessageAdapter>();
+    private readonly IUser _user;
+    public UserAddressee(IUser user)
+    {
+        _user = user;
+    }
 
     public void ReceiveMessage(Message message)
     {
-        Messages.Add(new MessageAdapter.MessageAdapter(message));
+        _user.ReceiveMessage(message);
     }
 }
