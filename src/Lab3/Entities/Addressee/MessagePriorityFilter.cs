@@ -15,6 +15,9 @@ public class MessagePriorityFilter : IAddressee
 
     public void ReceiveMessage(Message message)
     {
-        if (message.PriorityLevel >= _priorityLevel) _addressee.ReceiveMessage(message);
+        if (message.PriorityLevel >= _priorityLevel)
+        {
+            _addressee.ReceiveMessage(message);
+        }
     }
 }
