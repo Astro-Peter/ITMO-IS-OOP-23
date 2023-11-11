@@ -66,6 +66,7 @@ dotnet_style_qualification_for_field = false:warning
 dotnet_style_qualification_for_property = false:warning
 dotnet_style_qualification_for_method = false:warning
 dotnet_style_qualification_for_event = false:warning
+dotnet_diagnostic.CA1034.severity = none
 dotnet_diagnostic.CA1050.severity = warning
 dotnet_diagnostic.CA1061.severity = warning
 dotnet_diagnostic.CA1069.severity = warning

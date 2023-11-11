@@ -2,7 +2,7 @@
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Entities.MessageAdapter;
 
-public class MessageAdapter : IMessageAdapter
+public class MessageAdapter
 {
     public MessageAdapter(Message message)
     {
@@ -10,21 +10,18 @@ public class MessageAdapter : IMessageAdapter
         Read = false;
     }
 
-    private bool Read { get; set; }
+    public bool Read { get; private set; }
 
-    private Message Message { get; }
-
-    public Message GetContents() => Message;
-    public bool GetIsRead() => Read;
+    public Message Message { get; }
 
     public MessageStatusChange SetStatusRead()
     {
         if (Read)
         {
-            return new MessageStatusChange(false, "Message was already read");
+            return new MessageStatusChange.Failure("Message was already read");
         }
 
         Read = true;
-        return new MessageStatusChange(true);
+        return new MessageStatusChange.Success();
     }
 }
