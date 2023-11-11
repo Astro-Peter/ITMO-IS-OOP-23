@@ -1,3 +1,9 @@
 ﻿namespace Itmo.ObjectOrientedProgramming.Lab3.Models;
 
-public record Message(string Header, string Body, int PriorityLevel);
+public record Message(string Header, string Body, int PriorityLevel)
+{
+    public string StringConvert()
+    {
+        return Header + '\n' + Body;
+    }
+}

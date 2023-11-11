@@ -13,6 +13,6 @@ public class MessengerForward : IAddressee
 
     public void ReceiveMessage(Message message)
     {
-        _messenger.ShowMessage(message);
+        _messenger.ShowMessage(message.StringConvert());
     }
 }

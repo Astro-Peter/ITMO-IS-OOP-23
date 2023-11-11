@@ -1,8 +1,6 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab3.Models;
-
-namespace Itmo.ObjectOrientedProgramming.Lab3.Entities.Messenger;
+﻿namespace Itmo.ObjectOrientedProgramming.Lab3.Entities.Messenger;
 
 public interface IMessenger
 {
-    public void ShowMessage(Message message);
+    public void ShowMessage(string message);
 }

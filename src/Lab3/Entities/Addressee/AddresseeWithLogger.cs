@@ -17,7 +17,7 @@ public class AddresseeWithLogger : IAddressee
 
     public void ReceiveMessage(Message message)
     {
-        _logger.LogMessage(message);
+        _logger.LogMessage(message.StringConvert());
         _addressee.ReceiveMessage(message);
     }
 }

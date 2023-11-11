@@ -13,6 +13,6 @@ public class DisplayAddressee : IAddressee
 
     public void ReceiveMessage(Message message)
     {
-        _display.ShowMessage(message);
+        _display.ShowMessage(message.StringConvert());
     }
 }
