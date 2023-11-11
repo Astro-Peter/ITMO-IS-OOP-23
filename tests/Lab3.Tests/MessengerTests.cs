@@ -53,6 +53,7 @@ public class MessengerTests
         var logger = new MockLogger();
         var addressee = new AddresseeWithLogger(new UserAddressee(new User()), logger);
         addressee.ReceiveMessage(new Message("one", "two", 3));
+        Assert.Equal("one\ntwo", logger.LastMessage);
         Assert.Equal(1, logger.Count);
     }
 
@@ -67,7 +68,7 @@ public class MessengerTests
 
     private class MockMessenger : IMessenger
     {
-        public string Output { get; set; } = string.Empty;
+        public string Output { get; private set; } = string.Empty;
 
         public void ShowMessage(string message)
         {
@@ -78,11 +79,13 @@ public class MessengerTests
 
     private class MockLogger : ILogger
     {
-        public int Count { get; set; }
+        public int Count { get; private set; }
+        public string LastMessage { get; private set; } = string.Empty;
 
         public void LogMessage(string message)
         {
             Count++;
+            LastMessage = message;
         }
     }
 }
