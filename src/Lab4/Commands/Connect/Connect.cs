@@ -2,7 +2,7 @@
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.FileSystem;
 using Itmo.ObjectOrientedProgramming.Lab4.Model;
 
-namespace Itmo.ObjectOrientedProgramming.Lab4.Commands;
+namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.Connect;
 
 public class Connect : IFileSystemCommand
 {

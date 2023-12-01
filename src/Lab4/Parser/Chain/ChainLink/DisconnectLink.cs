@@ -1,4 +1,4 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab4.Commands.CommandBuilder;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.Commands.Disconnect;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.RequestIterator;
 using Itmo.ObjectOrientedProgramming.Lab4.Model;
 

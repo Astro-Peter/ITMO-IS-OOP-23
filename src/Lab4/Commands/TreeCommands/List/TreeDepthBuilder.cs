@@ -1,8 +1,9 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab4.Entities.Printers;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.Commands.CommandBuilder;
+using Itmo.ObjectOrientedProgramming.Lab4.Entities.Printers;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.TreePrinter;
 using Itmo.ObjectOrientedProgramming.Lab4.Model;
 
-namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.CommandBuilder;
+namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands.List;
 
 public class TreeDepthBuilder : ICommandWithDepthBuilder
 {

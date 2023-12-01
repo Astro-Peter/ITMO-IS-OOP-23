@@ -1,6 +1,7 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab4.Model;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.Commands.CommandBuilder;
+using Itmo.ObjectOrientedProgramming.Lab4.Model;
 
-namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.CommandBuilder;
+namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.Rename;
 
 public class RenameFileBuilder : ICommandWithTwoPathsBuilder
 {

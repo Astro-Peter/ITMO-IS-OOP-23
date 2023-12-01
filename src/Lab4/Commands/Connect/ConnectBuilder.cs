@@ -1,6 +1,7 @@
-﻿using Itmo.ObjectOrientedProgramming.Lab4.Model;
+﻿using Itmo.ObjectOrientedProgramming.Lab4.Commands.CommandBuilder;
+using Itmo.ObjectOrientedProgramming.Lab4.Model;
 
-namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.CommandBuilder;
+namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.Connect;
 
 public class ConnectBuilder : ICommandWithPathBuilder, ICommandWithModeBuilder
 {
@@ -29,6 +30,6 @@ public class ConnectBuilder : ICommandWithPathBuilder, ICommandWithModeBuilder
             return new BuildResult.BuildFailure("Mode was not given");
         }
 
-        return new BuildResult.BuildSuccess(new Connect(_name, _mode));
+        return new BuildResult.BuildSuccess(new Commands.Connect.Connect(_name, _mode));
     }
 }

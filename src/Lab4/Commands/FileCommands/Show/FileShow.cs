@@ -2,7 +2,7 @@
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.Printers;
 using Itmo.ObjectOrientedProgramming.Lab4.Model;
 
-namespace Itmo.ObjectOrientedProgramming.Lab4.Commands;
+namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.Show;
 
 public class FileShow : IFileSystemCommand
 {

@@ -1,7 +1,7 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab4.Entities.Context;
 using Itmo.ObjectOrientedProgramming.Lab4.Model;
 
-namespace Itmo.ObjectOrientedProgramming.Lab4.Commands;
+namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.Disconnect;
 
 public class Disconnect : IFileSystemCommand
 {

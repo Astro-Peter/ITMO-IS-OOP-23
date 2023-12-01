@@ -1,5 +1,12 @@
 ﻿using System.Collections.Generic;
-using Itmo.ObjectOrientedProgramming.Lab4.Commands.CommandBuilder;
+using Itmo.ObjectOrientedProgramming.Lab4.Commands.Connect;
+using Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.Copy;
+using Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.Delete;
+using Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.Move;
+using Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.Rename;
+using Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.Show;
+using Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands.List;
+using Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands.TreeGoTo;
 using Itmo.ObjectOrientedProgramming.Lab4.Parser.Chain.ChainLink;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.Chain;

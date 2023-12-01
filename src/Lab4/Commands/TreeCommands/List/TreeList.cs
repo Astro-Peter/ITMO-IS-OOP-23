@@ -2,7 +2,7 @@
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.TreePrinter;
 using Itmo.ObjectOrientedProgramming.Lab4.Model;
 
-namespace Itmo.ObjectOrientedProgramming.Lab4.Commands;
+namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands.List;
 
 public class TreeList : IFileSystemCommand
 {

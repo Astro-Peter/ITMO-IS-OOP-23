@@ -1,22 +1,22 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab4.Entities.Context;
 using Itmo.ObjectOrientedProgramming.Lab4.Model;
 
-namespace Itmo.ObjectOrientedProgramming.Lab4.Commands;
+namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.Copy;
 
-public class FileRename : IFileSystemCommand
+public class CopyFile : IFileSystemCommand
 {
     private string _filePath;
-    private string _newName;
+    private string _newPath;
 
-    public FileRename(string filePath, string newName)
+    public CopyFile(string filePath, string newPath)
     {
         _filePath = filePath;
-        _newName = newName;
+        _newPath = newPath;
     }
 
     public CommandResult Execute(IContext context)
     {
-        FileSystemResult result = context.FileSystem.RenameFile(_filePath, _newName);
+        FileSystemResult result = context.FileSystem.CopyFile(_filePath, _newPath);
         if (result is FileSystemResult.Failure failure)
         {
             return new CommandResult.Failure(failure.Issue);
