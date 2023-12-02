@@ -9,6 +9,8 @@ using Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.Rename;
 using Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.Show;
 using Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands.List;
 using Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands.TreeGoTo;
+using Itmo.ObjectOrientedProgramming.Lab4.Entities.FileSystem;
+using Itmo.ObjectOrientedProgramming.Lab4.Entities.Printers;
 using Itmo.ObjectOrientedProgramming.Lab4.Model;
 using Itmo.ObjectOrientedProgramming.Lab4.Parser.Chain;
 using Itmo.ObjectOrientedProgramming.Lab4.Parser.Chain.ChainLink;
@@ -49,10 +51,10 @@ public class ParserTests
         if (mockResult is ParsingResult.Success { Builder: MockBuilder builder })
         {
             Assert.NotNull(builder.Path1);
-            Assert.NotNull(builder.Mode);
+            Assert.NotNull(builder.FileSystem);
 
             Assert.Equal(@"C:\", builder.Path1);
-            Assert.Equal(@"local", builder.Mode);
+            Assert.IsType<LocalFileSystem>(builder.FileSystem);
         }
     }
 
@@ -119,10 +121,10 @@ public class ParserTests
         if (mockResult is ParsingResult.Success { Builder: MockBuilder builder })
         {
             Assert.NotNull(builder.Path1);
-            Assert.NotNull(builder.Mode);
+            Assert.NotNull(builder.Printer);
 
             Assert.Equal(@"test.txt", builder.Path1);
-            Assert.Equal(@"console", builder.Mode);
+            Assert.IsType<ConsolePrinter>(builder.Printer);
         }
     }
 
@@ -230,7 +232,7 @@ public class ParserTests
 
         var connect = new CommandNameLink("connect", new List<ILink>());
         var connectPath = new GetPathLink(builder);
-        var modeLink = new SetModeLink(builder);
+        var modeLink = new SetConnectionModeLink(builder);
         connectPath.AddLink(modeLink);
         connect.AddLink(connectPath);
 
@@ -265,7 +267,7 @@ public class ParserTests
 
         var showFile = new CommandNameLink("show", new List<ILink>());
         var pathShow = new GetPathLink(builder);
-        var modeShow = new SetModeLink(builder);
+        var modeShow = new SetPrinterLink(builder);
         pathShow.AddLink(modeShow);
         showFile.AddLink(pathShow);
         fileLinks.AddLink(showFile);
@@ -291,16 +293,28 @@ public class ParserTests
         return startLink;
     }
 
-    private class MockBuilder : ICommandWithModeBuilder, ICommandWithTwoPathsBuilder, ICommandWithDepthBuilder
+    private class MockBuilder : ICommandWithFileSystemBuilder, ICommandWithPrinterBuilder, ICommandWithTwoPathsBuilder, ICommandWithDepthBuilder
     {
         public string? Path1 { get; private set; }
         public string? Path2 { get; private set; }
         public int? Depth { get; private set; }
         public string? Mode { get; private set; }
+        public IPrinter? Printer { get; private set; }
+        public IFileSystem? FileSystem { get; private set; }
 
         public BuildResult Build()
         {
             throw new System.NotImplementedException();
+        }
+
+        public void SetPrinter(IPrinter printer)
+        {
+            Printer = printer;
+        }
+
+        public void SetFileSystem(IFileSystem fileSystem)
+        {
+            FileSystem = fileSystem;
         }
 
         public void SetDepth(int depth)
