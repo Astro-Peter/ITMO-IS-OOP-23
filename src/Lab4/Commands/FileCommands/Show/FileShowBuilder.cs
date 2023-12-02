@@ -1,28 +1,29 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab4.Commands.CommandBuilder;
+using Itmo.ObjectOrientedProgramming.Lab4.Entities.Printers;
 using Itmo.ObjectOrientedProgramming.Lab4.Model;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.Show;
 
-public class FileShowBuilder : ICommandWithPathBuilder, ICommandWithModeBuilder
+public class FileShowBuilder : ICommandWithPathBuilder, ICommandWithPrinterBuilder
 {
     private string? _name;
-    private string? _mode;
+    private IPrinter? _printer;
 
     public void SetPath(string path)
     {
         _name = path;
     }
 
-    public void SetMode(string mode)
+    public void SetPrinter(IPrinter printer)
     {
-        _mode = mode;
+        _printer = printer;
     }
 
     public BuildResult Build()
     {
-        if (_mode is null)
+        if (_printer is null)
         {
-            return new BuildResult.BuildFailure("Mode not defined");
+            return new BuildResult.BuildFailure("Printer not defined");
         }
 
         if (_name is null)
@@ -30,6 +31,6 @@ public class FileShowBuilder : ICommandWithPathBuilder, ICommandWithModeBuilder
             return new BuildResult.BuildFailure("File name not defined");
         }
 
-        return new BuildResult.BuildSuccess(new FileShow(_name, _mode));
+        return new BuildResult.BuildSuccess(new FileShow(_name, _printer));
     }
 }

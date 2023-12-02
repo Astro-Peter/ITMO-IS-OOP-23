@@ -5,7 +5,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.Delete;
 
 public class Delete : IFileSystemCommand
 {
-    private string _fileName;
+    private readonly string _fileName;
 
     public Delete(string fileName)
     {

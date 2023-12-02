@@ -10,6 +10,11 @@ public class TreeDepthBuilder : ICommandWithDepthBuilder
     private int? _depth;
     private ITreeFormatter _treeFormatter = new TreeFormatter(new ConsolePrinter());
 
+    public void SetTreeFormatter(ITreeFormatter treeFormatter)
+    {
+        _treeFormatter = treeFormatter;
+    }
+
     public void SetDepth(int depth)
     {
         _depth = depth;

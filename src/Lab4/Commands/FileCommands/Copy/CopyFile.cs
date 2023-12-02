@@ -5,8 +5,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.Copy;
 
 public class CopyFile : IFileSystemCommand
 {
-    private string _filePath;
-    private string _newPath;
+    private readonly string _filePath;
+    private readonly string _newPath;
 
     public CopyFile(string filePath, string newPath)
     {

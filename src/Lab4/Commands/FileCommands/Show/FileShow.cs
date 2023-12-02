@@ -6,27 +6,17 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.Show;
 
 public class FileShow : IFileSystemCommand
 {
-    private string _fileName;
-    private string _mode;
-    private IPrinter? _printer;
+    private readonly string _fileName;
+    private readonly IPrinter? _printer;
 
-    public FileShow(string fileName, string mode)
+    public FileShow(string fileName, IPrinter printer)
     {
         _fileName = fileName;
-        _mode = mode;
+        _printer = printer;
     }
 
     public CommandResult Execute(IContext context)
     {
-        switch (_mode)
-        {
-            case "console":
-                _printer = new ConsolePrinter();
-                break;
-            default:
-                return new CommandResult.Failure("unknown mode");
-        }
-
         FileSystemResult result = context.FileSystem.ReadFile(_fileName);
 
         if (result is FileSystemResult.Failure failure)

@@ -5,8 +5,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.Rename;
 
 public class FileRename : IFileSystemCommand
 {
-    private string _filePath;
-    private string _newName;
+    private readonly string _filePath;
+    private readonly string _newName;
 
     public FileRename(string filePath, string newName)
     {

@@ -5,8 +5,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.Move;
 
 public class MoveFile : IFileSystemCommand
 {
-    private string _filePath;
-    private string _newPath;
+    private readonly string _filePath;
+    private readonly string _newPath;
 
     public MoveFile(string filePath, string newPath)
     {

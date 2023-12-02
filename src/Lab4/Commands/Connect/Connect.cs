@@ -7,29 +7,23 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.Connect;
 public class Connect : IFileSystemCommand
 {
     private readonly string _address;
-    private readonly string _mode;
+    private readonly IFileSystem _fileSystem;
 
-    public Connect(string address, string mode)
+    public Connect(string address, IFileSystem fileSystem)
     {
         _address = address;
-        _mode = mode;
+        _fileSystem = fileSystem;
     }
 
     public CommandResult Execute(IContext context)
     {
-        if (_mode != "local")
-        {
-            return new CommandResult.Failure("unknown mode");
-        }
-
-        var fileSystem = new LocalFileSystem();
-        FileSystemResult result = fileSystem.SetPath(_address);
+        FileSystemResult result = _fileSystem.SetPath(_address);
         if (result is FileSystemResult.Failure failure)
         {
             return new CommandResult.Failure(failure.Issue);
         }
 
-        context.Connect(fileSystem);
+        context.Connect(_fileSystem);
         return new CommandResult.Success();
     }
 }

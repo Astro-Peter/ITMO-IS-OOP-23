@@ -5,7 +5,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.TreeCommands.TreeGoTo;
 
 public class TreeGoTo : IFileSystemCommand
 {
-    private string _newPath;
+    private readonly string _newPath;
 
     public TreeGoTo(string newPath)
     {
