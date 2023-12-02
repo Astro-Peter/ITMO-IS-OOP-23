@@ -7,7 +7,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Commands.FileCommands.Show;
 public class FileShow : IFileSystemCommand
 {
     private readonly string _fileName;
-    private readonly IPrinter? _printer;
+    private readonly IPrinter _printer;
 
     public FileShow(string fileName, IPrinter printer)
     {

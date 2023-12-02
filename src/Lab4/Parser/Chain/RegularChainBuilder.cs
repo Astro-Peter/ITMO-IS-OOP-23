@@ -20,7 +20,7 @@ public static class RegularChainBuilder
         var connect = new CommandNameLink("connect", new List<ILink>());
         var connectBuilder = new ConnectBuilder();
         var connectPath = new GetPathLink(connectBuilder);
-        var modeLink = new SetModeLink(connectBuilder);
+        var modeLink = new SetConnectionModeLink(connectBuilder);
         connectPath.AddLink(modeLink);
         connect.AddLink(connectPath);
 
@@ -58,7 +58,7 @@ public static class RegularChainBuilder
         var showFile = new CommandNameLink("show", new List<ILink>());
         var showBuilder = new FileShowBuilder();
         var pathShow = new GetPathLink(showBuilder);
-        var modeShow = new SetModeLink(showBuilder);
+        var modeShow = new SetPrinterLink(showBuilder);
         pathShow.AddLink(modeShow);
         showFile.AddLink(pathShow);
         fileLinks.AddLink(showFile);

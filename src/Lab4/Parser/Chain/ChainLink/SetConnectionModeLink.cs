@@ -1,13 +1,14 @@
 ﻿using Itmo.ObjectOrientedProgramming.Lab4.Commands.CommandBuilder;
+using Itmo.ObjectOrientedProgramming.Lab4.Entities.FileSystem;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.RequestIterator;
 using Itmo.ObjectOrientedProgramming.Lab4.Model;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Parser.Chain.ChainLink;
 
-public class SetModeLink : BaseLink
+public class SetConnectionModeLink : BaseLink
 {
-    private readonly ICommandWithModeBuilder _builder;
-    public SetModeLink(ICommandWithModeBuilder builder)
+    private readonly ICommandWithFileSystemBuilder _builder;
+    public SetConnectionModeLink(ICommandWithFileSystemBuilder builder)
     {
         _builder = builder;
     }
@@ -17,7 +18,14 @@ public class SetModeLink : BaseLink
         if (request.GetCurrentObject() == "-m")
         {
             request.Advance();
-            _builder.SetMode(request.GetCurrentObject());
+            if (request.GetCurrentObject() == "local")
+            {
+                _builder.SetFileSystem(new LocalFileSystem());
+            }
+            else
+            {
+                return new ParsingResult.Failure("Unknown connection mode");
+            }
         }
 
         return NextLink?.Handle(request) ?? new ParsingResult.Success(_builder);
