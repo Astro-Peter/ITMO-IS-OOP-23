@@ -1,0 +1,12 @@
+version: '1.0'
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: "lab5"
+      POSTGRES_PASSWORD: "lab5"
+      POSTGRES_DB: "postgres"
+    ports:
+      - "6432:5432"
+    restart: unless-stopped
