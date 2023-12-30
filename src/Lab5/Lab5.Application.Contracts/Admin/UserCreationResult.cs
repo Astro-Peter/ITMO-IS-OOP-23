@@ -2,7 +2,7 @@
 
 public abstract record UserCreationResult
 {
-    public record Success(string AccountId) : UserCreationResult;
+    public record Success : UserCreationResult;
 
     public record Failure(string Message) : UserCreationResult;
 }
