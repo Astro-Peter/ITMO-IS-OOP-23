@@ -1,7 +1,6 @@
 ﻿using Lab5.Presentation.Console.Scenarios;
-using Lab5.Presentation.Console.Scenarios.AdminScenarios;
-using Lab5.Presentation.Console.Scenarios.UserScenarios;
-using Lab5.Presentation.Console.Scenarios.UserScenarios.OperationScenarios;
+using Lab5.Presentation.Console.Scenarios.AdminScenarios.AdminScenariosProvider;
+using Lab5.Presentation.Console.Scenarios.UserScenarios.UserScenariosProvider;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Lab5.Presentation.Console.Extensions;
@@ -12,18 +11,13 @@ public static class ServiceCollectionExtensions
     {
         collection.AddScoped<ScenarioRunner>();
 
-        collection.AddScoped<UserLoginScenario>();
+        collection.AddScoped<IStartScenarioProvider, StartScenarioProvider>();
 
-        collection.AddScoped<ActionSelectionScenario>();
+        collection.AddScoped<IActionSelectionScenario, ActionSelectionScenario>();
 
-        collection.AddScoped<RetrieveMoneyScenario>();
-        collection.AddScoped<AddMoneyScenario>();
-        collection.AddScoped<GetOperationsScenario>();
-        collection.AddScoped<GetBalanceScenario>();
+        collection.AddScoped<IAdminScenarioProvider, AdminScenarioProvider>();
 
-        collection.AddScoped<AdminLoginScenario>();
-
-        collection.AddScoped<UserCreateScenario>();
+        collection.AddScoped<IUserScenarioProvider, UserScenarioProvider>();
 
         return collection;
     }

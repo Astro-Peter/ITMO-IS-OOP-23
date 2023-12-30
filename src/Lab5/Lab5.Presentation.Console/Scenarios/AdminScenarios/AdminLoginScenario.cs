@@ -1,17 +1,20 @@
 ﻿using Lab5.Application.Contracts.Admin;
+using Lab5.Presentation.Console.Scenarios.AdminScenarios.AdminScenariosProvider;
 using Spectre.Console;
 
 namespace Lab5.Presentation.Console.Scenarios.AdminScenarios;
 
 public class AdminLoginScenario : IScenario
 {
+    private readonly IActionSelectionScenario _selectionScenario;
+    private readonly IAdminScenarioProvider _scenarioProvider;
     private readonly IAdminLoginService _loginService;
-    private readonly UserCreateScenario _userCreateScenario;
 
-    public AdminLoginScenario(IAdminLoginService loginService, UserCreateScenario userCreateScenario)
+    public AdminLoginScenario(IAdminLoginService loginService, IAdminScenarioProvider scenarioProvider, IActionSelectionScenario selectionScenario)
     {
         _loginService = loginService;
-        _userCreateScenario = userCreateScenario;
+        _scenarioProvider = scenarioProvider;
+        _selectionScenario = selectionScenario;
     }
 
     public string Name => "Admin Login";
@@ -29,7 +32,8 @@ public class AdminLoginScenario : IScenario
 
         if (loginResult is AdminLoginResult.Success)
         {
-            _userCreateScenario.Run();
+            _selectionScenario.SetScenarioProvider(_scenarioProvider);
+            _selectionScenario.Run();
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Lab5.Application.Contracts.User;
-using Lab5.Presentation.Console.Scenarios.UserScenarios.OperationScenarios;
+using Lab5.Presentation.Console.Scenarios.UserScenarios.UserScenariosProvider;
 using Spectre.Console;
 
 namespace Lab5.Presentation.Console.Scenarios.UserScenarios;
@@ -7,12 +7,14 @@ namespace Lab5.Presentation.Console.Scenarios.UserScenarios;
 public class UserLoginScenario : IScenario
 {
     private readonly IUserLoginService _loginService;
-    private readonly ActionSelectionScenario _selectionScenario;
+    private readonly IUserScenarioProvider _scenarioProvider;
+    private readonly IActionSelectionScenario _selectionScenario;
 
-    public UserLoginScenario(IUserLoginService loginService, ActionSelectionScenario selectionScenario)
+    public UserLoginScenario(IUserLoginService loginService, IActionSelectionScenario selectionScenario, IUserScenarioProvider scenarioProvider)
     {
         _loginService = loginService;
         _selectionScenario = selectionScenario;
+        _scenarioProvider = scenarioProvider;
     }
 
     public string Name => "User Login";
@@ -30,6 +32,7 @@ public class UserLoginScenario : IScenario
 
         if (loginResult is UserLoginResult.Success)
         {
+            _selectionScenario.SetScenarioProvider(_scenarioProvider);
             _selectionScenario.Run();
         }
     }

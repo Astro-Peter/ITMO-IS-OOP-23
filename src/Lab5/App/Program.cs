@@ -1,7 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using FluentMigrator.Runner;
-using Itmo.Dev.Platform.Postgres.Models;
+﻿using Itmo.Dev.Platform.Postgres.Models;
 using Lab5.Application.Extensions;
 using Lab5.Infrastructure.PostgreSQLDataAccess.Extensions;
 using Lab5.Presentation.Console.Extensions;
@@ -37,16 +34,12 @@ public static class Program
                     connectionConfiguration.Password = "postgres";
                     connectionConfiguration.Database = "postgres";
                     connectionConfiguration.SslMode = "Prefer";
-                },
-                configuration.ToConnectionString())
+                })
             .AddPresentationConsole();
 
         ServiceProvider provider = collection.BuildServiceProvider();
 
         using IServiceScope scope = provider.CreateScope();
-
-        IMigrationRunner runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
-        runner.MigrateUp();
 
         scope.UseInfrastructureDataAccess();
         ScenarioRunner scenarioRunner = scope.ServiceProvider

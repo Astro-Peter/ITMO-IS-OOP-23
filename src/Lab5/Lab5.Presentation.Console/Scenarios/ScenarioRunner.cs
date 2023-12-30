@@ -1,33 +1,19 @@
-﻿using Lab5.Presentation.Console.Scenarios.AdminScenarios;
-using Lab5.Presentation.Console.Scenarios.UserScenarios;
-using Spectre.Console;
-
-namespace Lab5.Presentation.Console.Scenarios;
+﻿namespace Lab5.Presentation.Console.Scenarios;
 
 public class ScenarioRunner
 {
-    private readonly UserLoginScenario _userLoginScenario;
-    private readonly AdminLoginScenario _adminLoginScenario;
+    private readonly IStartScenarioProvider _scenarioProvider;
+    private readonly IActionSelectionScenario _selectionScenario;
 
-    public ScenarioRunner(UserLoginScenario userLoginScenario, AdminLoginScenario adminLoginScenario)
+    public ScenarioRunner(IStartScenarioProvider scenarioProvider, IActionSelectionScenario selectionScenario)
     {
-        _userLoginScenario = userLoginScenario;
-        _adminLoginScenario = adminLoginScenario;
+        _scenarioProvider = scenarioProvider;
+        _selectionScenario = selectionScenario;
     }
 
     public void Run()
     {
-        SelectionPrompt<IScenario> selection = new SelectionPrompt<IScenario>()
-            .Title("Select Mode")
-            .AddChoices(
-                new List<IScenario>
-                {
-                    _adminLoginScenario,
-                    _userLoginScenario,
-                })
-            .UseConverter(x => x.Name);
-        IScenario scenario = AnsiConsole.Prompt(selection);
-        AnsiConsole.Clear();
-        scenario.Run();
+        _selectionScenario.SetScenarioProvider(_scenarioProvider);
+        _selectionScenario.Run();
     }
 }
