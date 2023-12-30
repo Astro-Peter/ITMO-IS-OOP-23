@@ -1,13 +1,30 @@
 ﻿using FluentMigrator;
-using Itmo.Dev.Platform.Postgres.Migrations;
 
 namespace Lab5.Infrastructure.PostgreSQLDataAccess.Migrations;
 
-[Migration(1, "Initial")]
-
-public class Initial : SqlMigration
+[Migration(2)]
+public class Initial : Migration
 {
-    protected override string GetUpSql(IServiceProvider serviceProvider) =>
+    public override void Up()
+    {
+        Create.Table("users").WithColumn("accountid").AsInt32().PrimaryKey().Identity()
+            .WithColumn("pincode").AsString(4).NotNullable()
+            .WithColumn("moneyamount").AsFloat().WithDefault(0.0);
+
+        Create.Table("operations")
+            .WithColumn("operationid").AsInt64().PrimaryKey().Identity()
+            .WithColumn("accountid").AsInt32().ForeignKey().ReferencedBy("users", "accountid")
+            .WithColumn("startmoney").AsFloat().NotNullable()
+            .WithColumn("moneydiff").AsFloat().NotNullable();
+    }
+
+    public override void Down()
+    {
+        Delete.Table("users");
+        Delete.Table("operations");
+    }
+
+    protected static string GetUpSql(IServiceProvider serviceProvider) =>
         """
         CREATE TABLE users
         (
@@ -25,9 +42,9 @@ public class Initial : SqlMigration
         );
         """;
 
-    protected override string GetDownSql(IServiceProvider serviceProvider) =>
-    """
-        DROP TABLE users CASCADE;
-        DROP TABLE operations CASCADE;
-    """;
+    protected static string GetDownSql(IServiceProvider serviceProvider) =>
+        """
+            DROP TABLE users CASCADE;
+            DROP TABLE operations CASCADE;
+        """;
 }
