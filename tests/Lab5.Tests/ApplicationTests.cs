@@ -58,12 +58,11 @@ public class ApplicationTests
     {
         public void AddUser(string pinCode)
         {
-            throw new System.NotImplementedException();
         }
 
         public User? GetUser(int accountId, string pinCode)
         {
-            throw new System.NotImplementedException();
+            return null;
         }
 
         public DbUserOperationResult ChangeUserMoney(User user, float amount)
