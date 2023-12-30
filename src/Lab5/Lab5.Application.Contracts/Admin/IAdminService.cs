@@ -2,5 +2,5 @@
 
 public interface IAdminService
 {
-    void CreateUser(string pinCode);
+    UserCreationResult CreateUser(string pinCode);
 }

@@ -2,7 +2,7 @@
 
 public abstract record UserLoginResult
 {
-    public record Success(IUserService User) : UserLoginResult;
+    public record Success : UserLoginResult;
 
     public record Failure(string Message) : UserLoginResult;
 }

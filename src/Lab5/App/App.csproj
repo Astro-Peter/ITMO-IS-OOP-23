@@ -1,10 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <OutputType>Exe</OutputType>
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <OutputType>Exe</OutputType>
     </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Lab5.Application\Lab5.Application.csproj" />
+      <ProjectReference Include="..\Lab5.Infrastructure.PostgreSQLDataAccess\Lab5.Infrastructure.PostgreSQLDataAccess.csproj" />
+      <ProjectReference Include="..\Lab5.Presentation.Console\Lab5.Presentation.Console.csproj" />
+    </ItemGroup>
+
+
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0"/>
+    </ItemGroup>
 
 </Project>

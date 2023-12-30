@@ -61,10 +61,10 @@ public class UserRepository : IUserRepository
             return null;
         }
 
-        return new User(accountId, pinCode, reader.GetFloat(0));
+        return new User(accountId, pinCode, reader.GetDouble(0));
     }
 
-    public UserOperationResult ChangeUserMoney(User user, float amount)
+    public DbUserOperationResult ChangeUserMoney(User user, float amount)
     {
         const string sql =
             """
@@ -86,13 +86,13 @@ public class UserRepository : IUserRepository
         using NpgsqlDataReader reader = command.ExecuteReader();
         if (reader.Read() == false)
         {
-            return new UserOperationResult.Failure("Account details incorrect");
+            return new DbUserOperationResult.Failure("Account details incorrect");
         }
 
-        float money = reader.GetFloat(0);
+        double money = reader.GetDouble(0);
         if (money + amount < 0)
         {
-            return new UserOperationResult.InsufficientFunds(new User(user.UserId, user.PinCode, money));
+            return new DbUserOperationResult.InsufficientFunds(new User(user.UserId, user.PinCode, money));
         }
 
         reader.Dispose();
@@ -121,10 +121,10 @@ public class UserRepository : IUserRepository
             """;
 
         using var command3 = new NpgsqlCommand(sql3, connection);
-        command3.AddParameter("money", money - amount)
+        command3.AddParameter("money", money + amount)
             .AddParameter("accountId", user.UserId);
         command3.ExecuteNonQuery();
 
-        return new UserOperationResult.Success(new User(user.UserId, user.PinCode, money - amount));
+        return new DbUserOperationResult.Success(new User(user.UserId, user.PinCode, money - amount));
     }
 }

@@ -2,7 +2,7 @@
 
 public abstract record AdminLoginResult
 {
-    public record Success(IAdminService AdminService) : AdminLoginResult;
+    public record Success : AdminLoginResult;
 
     public record Failure(string Message) : AdminLoginResult;
 }

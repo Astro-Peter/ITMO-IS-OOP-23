@@ -39,8 +39,8 @@ public class OperationRepository : IOperationRepository
         while (reader.Read())
         {
             yield return new Operation(
-                reader.GetFloat(0),
-                reader.GetFloat(1),
+                reader.GetDouble(0),
+                reader.GetDouble(1),
                 reader.GetInt64(2));
         }
     }

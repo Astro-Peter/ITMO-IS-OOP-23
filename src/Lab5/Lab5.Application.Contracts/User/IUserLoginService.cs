@@ -2,5 +2,5 @@
 
 public interface IUserLoginService
 {
-    UserLoginResult Login(string accountId, string pinCode);
+    UserLoginResult Login(int accountId, string pinCode);
 }
